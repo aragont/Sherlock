@@ -65,10 +65,10 @@ draw_field = function(){
 				$('#s'+i+j).append(table);
 			}	 else  {
 				//$('#s'+i+j+">div").remove();
-
+				//console.log(i,j);
 				$('#s'+i+j+'>table').remove();
 //console.log("correct"+i+j);
-		 	$('#s'+i+j+'>div').css('background', 'url(BasicBig.bmp) -'+FField[i][j].CorrectValue*60+ 'px 0px' );}
+		 	$('#s'+i+j+'>div').css('background', 'url(BasicBig.bmp) -'+FField[i][j].UserValue*60+ 'px 0px' );}
 }
 }
 start_new_game = function(level) {

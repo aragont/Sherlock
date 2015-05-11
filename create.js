@@ -22,39 +22,37 @@ function choose_big(col,row,card) {
   FField[col][row].UserValue = card+6*row;
   FField[col][row].Initial = true;
   for (var i=0; i<6; i++) {
-    //if (col!==i) 
-     delete_variants(i,row,card);
+    delete_variants(i,row,card);
   }
-  for (var i=0; i<FField[col][row].Variants.length; i++) {
-    delete_variants(col, row, FField[col][row].Variants[i]);
-  }
-  count_big_card++;
-  if (count_big_card==36) {
-    var done=true;
-    for (var i=0; i<6;i++)
-      for (var j=0; j<6; j++)
-        if (FField[i][j].UserValue!==FField[i][j].CorrectValue) done=false;
-      if (done) console.log("WIN");
-  }
+  // for (var i=0; i<FField[col][row].Variants.length; i++) {
+  //   delete_variants(col, row, FField[col][row].Variants[i]);
+  // }
+
+  // count_big_card++;
+  // if (count_big_card==36) {
+  //   var done=true;
+  //   for (var i=0; i<6;i++)
+  //     for (var j=0; j<6; j++)
+  //       if (FField[i][j].UserValue!==FField[i][j].CorrectValue) done=false;
+  //     if (done) console.log("WIN");
+  // }
 }
+
 function add_step(data){
   var was=[];
+  var val = [];
   if (data.type=='big') {
     val = FField[data.col][data.row].Variants;  
     for (var i=0; i<6;i++) {
-      //Sconsole.log(FField[i][data.row].Variants, data.card, FField[i][data.row].Variants.indexOf(data.card.number));
-      if (FField[i][data.row].Variants.indexOf(data.card)>=0) was.push(i);
+      if (FField[i][data.row].Variants.indexOf(data.card)>=0){ was.push(i);}
     }
-    //console.log(data.card+data.row*6,FField[data.col][data.row].CorrectValue);
-     if (data.card+data.row*6!==FField[data.col][data.row].CorrectValue) {error_flag = false;} 
+    if (data.card+data.row*6!==FField[data.col][data.row].CorrectValue) {error_flag = false;} 
   } else {
-    val=[]; 
-    //console.log(FField[data.col][data.row], data);
-   if (data.card+data.row*6===FField[data.col][data.row].CorrectValue) {error_flag=false;}
+    if (data.card+data.row*6===FField[data.col][data.row].CorrectValue) {error_flag=false;}
   }
-  //console.log("was", was);
- // if (data.card.number+row*6!==FField[col][row].CorrectValue) error_flag = false;
-  steps_history.push({
+ 
+  var obj = {
+    'var': val,
     'col':data.col,
     'row':data.row,
     'was':was,
@@ -63,46 +61,51 @@ function add_step(data){
       'type':data.type,
       'action':data.act,
       'number':data.card,
-      'Variants': val
+      '0': val[0],
+      '1': val[1],
+      '2': val[2],
+      '3': val[3],
+      '4': val[4],
+      '5': val[5]
     }
-
-  })
+  }
+  console.log(obj);
+  steps_history.push(obj);
   count_step++;
 }
+function remove_many() {
+  var c=1;
+  for (var i=steps_history.length-1; i>=0; i--)
+    if (!steps_history[i].right) c++;
+  console.log(c);
+  for (var i=0; i<c; i++)
+    remove_step();
+}
 
-
-function remove_steps(count) {
+function remove_step() {
   //var step = count_step-1;
-  if (!count) count = steps_history.length;
- // count++;
- //count--;
-  console.log(count);
-  //console.log(steps_history[count].right);
+  //if (!count) count = steps_history.length;
+  //console.log(count);
  var h = steps_history.pop();
- //console.log("hghhhhh", h);
+var count=1;
   while ( count && !h.right) {
-     console.log(h);
+    console.log(h);
     if (h.card.type==='small') {
-      //console.log(steps_history[count]);
+      console.log(h.row*100+h.col*10+h.card.number);
       td_right_click((h.row*100+h.col*10+h.card.number).toString());
       steps_history.pop();
-    } else {console.log('big');
-      //draw_variants(h.col,h.row, h.card.Variants);
-
-      FField[h.col][h.row].Initial=false;
-      //add_variants( steps_history[step].col,  steps_history[step].row, )
-      //console.log(steps_history[step].was.length);
-      for (var i=0; i<h.was.length;i++)
-       // td_right_click((steps_history[step].row*100+steps_history[step].was[i]*10+steps_history[step].card.number).toString());
-        add_variants(h.was[i],h.row,h.card.number);
+    } else {
+        //console.log('big',h);
+        FField[h.col][h.row].Initial=false;
+        for (var i=0; i<h.was.length;i++)
+          add_variants(h.was[i],h.row,h.card.number);
       }
-      h = steps_history.pop();
-    //step--;
-    count--;
-    //console.log(step, steps_history[step].right, count, step>-1 && !steps_history[step].right && count);
-  }
- draw_field();
-  //count_step=step+1;
+      count--;
+      if (count) h = steps_history.pop();
+    
+    console.log(count, h, "sqwqwqw wq");
+    }
+  draw_field();
   error_flag=true;
 }
 function InitLevel(level) {
@@ -431,8 +434,85 @@ function CreateLevelMap() {
 	   }
 	}
   function next_tips(){
-    alert(1);
     var i=0;
+        while (i<24) {
+         
+         var card1 = FMainHClues[i].Card1 % 6;
+        var card2 = FMainHClues[i].Card2 % 6;
+        var card3 = FMainHClues[i].Card3 % 6;
+        var row1 = div(FMainHClues[i].Card1, 6);
+       // row1--;row2--;
+        var row2 = div(FMainHClues[i].Card2, 6);
+        var row3 = div(FMainHClues[i].Card3, 6);
+        //console.log(row1,row2,row3,card1,card2,card3);
+        //hcNone,hcNextTo,hcNotNextTo,hcTriple,hcNotTriple,hcOrder
+          if (FMainHClues[i].ClueType=='hcNotNextTo'){
+            console.log(row1,row2,row3);
+            for (var j=0; j<6; j++) {
+              //console.log(FField[j][row1].Initial,j,row1, "cikl for 1");
+              if (FField[j][row1].Initial) {
+                //console.log(FField[j][row1].UserValue, card1, FField[j][row1].UserValue===card1,"sda");
+                if (FField[j][row1].UserValue===FMainHClues[i].Card1) {
+                  for (var k=0; k<6; k++) {
+                    //console.log(k,(Math.abs(k-j)>1) || (k===j && row1==row2),(k===j));
+                    if (((Math.abs(k-j)>1) || (k===j)) && FField[k][row2].Variants.indexOf(card2)>=0) {
+                      alert("Поле " + j+ ', '+ row1 + " инициализировано, поэтому карта " + card2+ " не должна быть на месте "+k+ ", "+row2 + ' 1 H');
+                  //    console.log(FField[k][row2].Variants.indexOf(card2)>=0, k, j, (Math.abs(k-j)>1) || (k===j && row1==row2) ) ;
+                      return
+                    } 
+                  }
+                }
+              }  else {
+                //console.log(FField[1][row1].Variants.indexOf(card1)<0 && FField[0][row2].Variants.indexOf(card2)>=0, row1, row2,card2,card1, i, "dwqewqe", FField[1][row1].Variants.indexOf(card1)<0);
+                if (FField[1][row1].Variants.indexOf(card1)<0 && FField[0][row2].Variants.indexOf(card2)>=0 && !FField[1][row1].Initial && !FField[0][row2].Initial) {
+                    alert ("Карта " + card2 + " не может быть на месте 0" +", "+row2+ "так как " + card1 + " нет в вариантах 1"+", "+row1 + " 3 H");
+                    return
+               
+                }
+                if (FField[4][row1].Variants.indexOf(card1)<0 && FField[5][row2].Variants.indexOf(card2)>=0 && !FField[4][row1].Initial && !FField[5][row2].Initial) {
+                    alert ("Карта " + card2 + " не может быть на месте 5" +", "+row2+ "так как " + card1 + " нет в вариантах 4"+", "+row1 + " 4 H");
+                    return
+                }
+                for (var k=1; k<5; k++) {
+                  console.log(k,FField[k-1][row1].Variants.indexOf(card1)<0 && FField[k][row2].Variants.indexOf(card2)>=0 && FField[k+1][row1].Variants.indexOf(card1)<0);
+                  if (FField[k-1][row1].Variants.indexOf(card1)<0 && FField[k][row2].Variants.indexOf(card2)>=0 && FField[k+1][row1].Variants.indexOf(card1)<0 && !FField[k-1][row1].Initial && !FField[k][row2].Initial && !FField[k+1][row3].Initial) {
+                    var q=k-1; var qq = k+1;
+                    alert ("Карта " + card2 + " не может быть на месте "+ k  + ", "+row2+ "так как " + card1 + " нет в вариантах "+ q+", "+row1 + " и в вариантах " + qq+", "+row1 +"4 H");
+                    return
+               
+                  }
+                }
+              }
+              if (FField[j][row2].Initial) {
+                if (FField[j][row2].UserValue===FMainHClues[i].Card2) {
+                  //console.log(FField[j][row2].UserValue, j, row2, 'wewqewq');
+                  for (var k=0; k<6; k++) {
+                    if ((Math.abs(k-j)>1 || k===j) && FField[k][row1].Variants.indexOf(card1)>=0) {
+                      alert("Поле " + j+ ', '+ row2 + " инициализировано, поэтому карта " + card1 + " не должна быть на месте "+k+ ", "+row1 + ' 2 H');
+                      return
+                    } 
+                  }
+                }
+              } else {
+                  if (FField[0][row2].Variants.indexOf(card2)<0 && FField[1][row1].Variants.indexOf(card1)>=0 && !FField[1][row1].Initial && !FField[0][row2].Initial) {
+                     alert ("Карта " + card1 + " не может быть на месте 1" +", "+row1+ "так как " + card2 + " нет в вариантах 0"+", "+row2 + " 5 H");
+                      return
+                  }
+                   if (FField[4][row1].Variants.indexOf(card1)>=0 && FField[5][row2].Variants.indexOf(card2)<0 && !FField[4][row1].Initial && !FField[5][row2].Initial) {
+                    alert ("Карта " + card1 + " не может быть на месте 4" +", "+row1+ "так как " + card2 + " нет в вариантах 5"+", "+row2 + " 6 H");
+                    return
+                }
+              }
+            } 
+          } else {
+            if (FMainHClues[i].ClueType=='hcNextTo') {
+
+            }
+
+          }
+          i++;
+       }
+      i=21;
     while(i<20) {
       console.log(i);
       if (FMainVClues[i].ClueType!=='vcNoClues') {
@@ -443,47 +523,47 @@ function CreateLevelMap() {
         var row2 = div(FMainVClues[i].Card2, 6);
         //console.log(row1, row2, card1,card2);
         for (var j=0; j<6; j++) {
-          if (FField[j][row1].Initial || FField[j][row2].Initial) {
-              console.log(card1,card2, row1,row2, j);
-            //console.log(row1, i);
-            console.log(FField[j][row1].UserValue, FMainVClues[i].Card1, FField[j][row2].Variants.indexOf(card2),FField[j][row1].Initial,FField[j][row1].UserValue!== FMainVClues[i].Card1 && FField[j][row2].Variants.indexOf(card2)>=0 && FField[j][row1].Initial);
-           // console.log (FField[j][row1].UserValue, FField[row1][j].UserValue, FField[j][row2].UserValue, FField[row2][j].UserValue, FMainVClues[i].Card1, FMainVClues[i].Card2 , FField[j][row2].Variants.indexOf(card2));
-            if (FField[j][row1].UserValue!== FMainVClues[i].Card1 && FField[j][row2].Variants.indexOf(card2)>=0 && FField[j][row1].Initial) {
+          if (FField[j][row1].Initial) {
+             if (FField[j][row1].UserValue!== FMainVClues[i].Card1 && FField[j][row2].Variants.indexOf(card2)>=0 && FField[j][row1].Initial) {
               alert("Поле " + j+ ', '+ row1 + " инициализировано, поэтому карта " + FMainVClues[i].Card2 %6+ " не должна быть на месте "+j+ ", "+row2 + ' 1');
             //  alert('card ' + card2 + ' not to be in ' + row2 + ',' + j + 'because Initial');
            i=21;break;} 
-            if (FField[j][row2].UserValue!== FMainVClues[i].Card2 && FField[j][row1].Variants.indexOf(card1)>=0 && FField[j][row2].Initial) {
-                 alert("Поле " + j + ', '+ row2 + " инициализировано, поэтому карта " + FMainVClues[i].Card1 % 6+ " не должна быть на месте "+j+ ", "+row1 + " 2");
-           
-              //alert('card ' + card1 + ' not to be in ' + row1 + ',' + j + 'because Initial');
-            i=21;break;}
-            if (FField[j][row1].UserValue=== FMainVClues[i].Card1 && FField[j][row2].Variants.indexOf(card2)>=0 && FField[j][row1].Initial) {//+++++++++++++
+            if (FField[j][row1].UserValue === FMainVClues[i].Card1 && (FField[j][row2].Variants.indexOf(card2)>=0) && FField[j][row1].Initial) {//+++++++++++++
                  alert("Поле " + j + ', '+ row1 + " инициализировано, поэтому карта " + card2 + " должна быть на месте "+j+ ", "+row1 + " 3");
            
               //alert('card ' + card2 + ' must be in ' + row2 + ',' + j + 'because Initial');
             i=21;break;} 
-            if (FField[j][row2].UserValue=== FMainVClues[i].Card2 && FField[j][row2].Variants.indexOf(card1)>=0 && FField[j][row2].Initial) {
-                 alert("Поле " + j + ', '+ row2 + " инициализировано, поэтому карта " + card1 + " не должна быть на месте "+j+", "+row2 + " 4");
+          } else {
+            if (FField[j][row2].Initial) {
+              if (FField[j][row2].UserValue!== FMainVClues[i].Card2 && FField[j][row1].Variants.indexOf(card1)>=0 && FField[j][row2].Initial) {
+                 alert("Поле " + j + ', '+ row2 + " инициализировано, поэтому карта " + FMainVClues[i].Card1 % 6+ " не должна быть на месте "+j+ ", "+row1 + " 2");
+           
+              //alert('card ' + card1 + ' not to be in ' + row1 + ',' + j + 'because Initial');
+            i=21;break;}
+             if (FField[j][row2].UserValue === FMainVClues[i].Card2 && (FField[j][row1].Variants.indexOf(card1)>=0) && FField[j][row2].Initial) {
+                 alert("Поле " + j + ', '+ row2 + " инициализировано, поэтому карта " + card1 + "  должна быть на месте "+j+", "+row1 + " 4");
            
               //alert('card ' + card1 + ' must be in ' + row1 + ',' + j + 'because Initial');
-            i=21;break;}
-          } else {
-          //   if (FField[j][row1].Variants.indexOf(card1)>=0)
-          //     if (FField[j][row2].Variants.indexOf(card2)<0) alert ("Card "+card2 + " not in variants in 1");
-          //   if (FField[j][row1].Variants.indexOf(card1)<0)
-          //     if (FField[j][row2].Variants.indexOf(card2)>=0) alert ("Card "+card1 + " not in variants in 2");
+            i=21;break;} 
+            }else {
+          } 
+              if (FField[j][row1].Variants.indexOf(card1)>=0)
+                if (FField[j][row2].Variants.indexOf(card2)<0) {
+                  alert ("Карта " + card2 + " не может быть на месте " +j+", "+row1+ "так как " + card1 + " нет в вариантах "+j+", "+row2);
+                  i=21;
+                }
+              if (FField[j][row1].Variants.indexOf(card1)<0)
+                if (FField[j][row2].Variants.indexOf(card2)>=0) alert ("Карта " + card1 + " не может быть на месте " +j+", "+row2 + "так как " + card2 + " нет в вариантах "+j+", "+row1);
            }//++++++++++++++++++
         }
-         i++;  
-        console.log('we2e23', i);
+        
+       // console.log('we2e23', i);
         //i++;      
-       } else {console.log('www');i=21;}
+       }
+        i++;  
      }
        i=0;
-       while (i<24) {
-          i=25;
-       }
-      
+
     
     console.log('end');
   }
