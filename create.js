@@ -103,14 +103,14 @@ var count=1;
       count--;
       if (count) h = steps_history.pop();
     
-    console.log(count, h, "sqwqwqw wq");
+    //console.log(count, h, "sqwqwqw wq");
     }
   draw_field();
   error_flag=true;
 }
 function InitLevel(level) {
   console.log(level);
-level=0;
+  level=0;
   var Col,Row,Card,I,Cnt,P, Variants = [], CType;
      var Found = [];
   //count_big_card=0;
@@ -125,7 +125,19 @@ level=0;
       FField[Col][Row].UserValue=36,
       FField[Col][Row].Variants=[]
     }
+    for (var i=P; i<P+6; i++) {
+      var q = FBLevels[i];
+      var n = decto6(q);
+    for (var j=0; j<6; j++) {
+    if (n.indexOf(j)<0) n.push(j);
+     FField[j][i].CorrectValue = n[j]+6*(i);
+  }
+    console.log(n);
+
+    }
+    P+=6;
     var count = P;
+
     //console.log("dsdwq", FBLevels[count], count);
    for (var i=0; i<FBLevels[count]; i++) {//?????????????/
     //begin
@@ -171,9 +183,9 @@ level=0;
         case 0:
         case 2:
              if (CType=0) 
-              FMainHClues[I].ClueType='hcNextTo';
-             else
               FMainHClues[I].ClueType='hcNotNextTo';
+             else
+              FMainHClues[I].ClueType='hcNextTo';
              P++;
              FMainHClues[I].Card2=FBLevels[P];
              FMainHClues[I].Card3=FMainHClues[I].Card1;
@@ -212,11 +224,11 @@ level=0;
       //console.dir(I);
       FMainVClues[I]={};
        if ((FBLevels[P] && 128)>=0){   //  console.log(I, P, FBLevels[P], FBLevels[P] && 128);
-            FMainVClues[I].ClueType='vcNotTogether';}
+            FMainVClues[I].ClueType='vcTogether';}
        else
         {
           //console.log(I, P, FBLevels[P], FBLevels[P]&& 128);
-        FMainVClues[I].ClueType='vcTogether';}
+        FMainVClues[I].ClueType='vcNotTogether';}
       // console.log(FBLevels[P]);
       // var q = FBLevels[P] && 127;
       // console.log(q);
@@ -277,54 +289,31 @@ level=0;
    // Hint.Free
    //until Hint=nil;
   
-   for (var Col=0; Col<6; Col++)
-    for (var Row=0; Row<6; Row++)
-     {
-      //if (FField[Col,Row].UserValue=36) then
-      // {
-       // Application.MessageBox('Óðîâåíü íå èìååò ðåøåíèÿ. Îáðàòèòåñü ê ðàçðàáîò÷èêó','Îøèáêà',MB_OK or MB_IconStop);
-        //exit
-     //  }
-      if (!FField[Col][Row].Initial)
-       {
-        FField[Col][Row].CorrectValue=FField[Col][Row].UserValue;
-        FField[Col][Row].UserValue=36;
-       // FField[Col][Row].Variants=FieldCopy[Col][Row].Variants
-       }
-     }
-      //console.log(FField);
-   //FCompleted:=True;
-   //FMoveStack.InitStack(FAllowCluesUndo)
+   // for (var Col=0; Col<6; Col++)
+   //  for (var Row=0; Row<6; Row++)
+   //   {
+   //    //if (FField[Col,Row].UserValue=36) then
+   //    // {
+   //     // Application.MessageBox('Óðîâåíü íå èìååò ðåøåíèÿ. Îáðàòèòåñü ê ðàçðàáîò÷èêó','Îøèáêà',MB_OK or MB_IconStop);
+   //      //exit
+   //   //  }
+   //    if (!FField[Col][Row].Initial)
+   //     {
+   //      FField[Col][Row].CorrectValue=FField[Col][Row].UserValue;
+   //      FField[Col][Row].UserValue=36;
+   //     // FField[Col][Row].Variants=FieldCopy[Col][Row].Variants
+   //     }
+   //   }
+     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // var cor = []; 
+    // switch (level){
+    //   case 0: cor=level0; break;
+    // }
+    // for (var i=0; i<36; i++) {
+    //   FField[i%6][div(i,6)].CorrectValue = cor[i]+6*div(i,6);
+    // }
   }
-   // end;
-   // FPMainHClues:=@FMainHClues;
-   // FPAlternateHClues:=@FAlternateHClues;
-   // FPMainVClues:=@FMainVClues;
-   // FPAlternateVClues:=@FAlternateVClues;
-   // FMoveStack.InitStack(FAllowCluesUndo);
-   // FieldCopy:=FField;
-   // repeat
-   //  Hint:=FindHint;
-   //  Hint.Free
-   // until Hint=nil;
-   // for Col:=0 to 5 do
-   //  for Row:=0 to 5 do
-   //   begin
-   //    if FField[Col,Row].UserValue=36 then
-   //     begin
-   //      Application.MessageBox('Óðîâåíü íå èìååò ðåøåíèÿ. Îáðàòèòåñü ê ðàçðàáîò÷èêó','Îøèáêà',MB_OK or MB_IconStop);
-   //      Exit
-   //     end;
-   //    if not FField[Col,Row].Initial then
-   //     begin
-   //      FField[Col,Row].CorrectValue:=FField[Col,Row].UserValue;
-   //      FField[Col,Row].UserValue:=36;
-   //      FField[Col,Row].Variants:=FieldCopy[Col,Row].Variants
-   //     end
-   //   end;
-   // FCompleted:=True;
-   // FMoveStack.InitStack(FAllowCluesUndo)
- //}
+  
 
 function CheckPossibility(Col,Card){
 
@@ -348,6 +337,7 @@ function CheckPossibility(Col,Card){
       else
        Result='cpCannotBe'
     }
+    return Result
   }
 
 function CheckCorrectness() {
@@ -412,6 +402,7 @@ function CreateLevelMap() {
  var i=0,current=0,cnt=0,ctype=0;
    for (i=0; i<65535; i++) {
      FLevelMap[i]=current;
+     current+=6
      current = current+1+FBLevels[current];
      cnt = FBLevels[current];
     current++;
@@ -447,7 +438,8 @@ function CreateLevelMap() {
         //console.log(row1,row2,row3,card1,card2,card3);
         //hcNone,hcNextTo,hcNotNextTo,hcTriple,hcNotTriple,hcOrder
           if (FMainHClues[i].ClueType=='hcNotNextTo'){
-            console.log(row1,row2,row3);
+            console.log(i);
+           // console.log(row1,row2,row3);
             for (var j=0; j<6; j++) {
               //console.log(FField[j][row1].Initial,j,row1, "cikl for 1");
               if (FField[j][row1].Initial) {
@@ -463,7 +455,7 @@ function CreateLevelMap() {
                   }
                 }
               }  else {
-                //console.log(FField[1][row1].Variants.indexOf(card1)<0 && FField[0][row2].Variants.indexOf(card2)>=0, row1, row2,card2,card1, i, "dwqewqe", FField[1][row1].Variants.indexOf(card1)<0);
+                console.log(FField[1][row1].Variants.indexOf(card1)<0 && FField[0][row2].Variants.indexOf(card2)>=0, row1, row2,card2,card1, i, "dwqewqe", FField[1][row1].Variants.indexOf(card1)<0);
                 if (FField[1][row1].Variants.indexOf(card1)<0 && FField[0][row2].Variants.indexOf(card2)>=0 && !FField[1][row1].Initial && !FField[0][row2].Initial) {
                     alert ("Карта " + card2 + " не может быть на месте 0" +", "+row2+ "так как " + card1 + " нет в вариантах 1"+", "+row1 + " 3 H");
                     return
@@ -474,7 +466,7 @@ function CreateLevelMap() {
                     return
                 }
                 for (var k=1; k<5; k++) {
-                  console.log(k,FField[k-1][row1].Variants.indexOf(card1)<0 && FField[k][row2].Variants.indexOf(card2)>=0 && FField[k+1][row1].Variants.indexOf(card1)<0);
+                  //console.log(k,FField[k-1][row1].Variants.indexOf(card1)<0 && FField[k][row2].Variants.indexOf(card2)>=0 && FField[k+1][row1].Variants.indexOf(card1)<0);
                   if (FField[k-1][row1].Variants.indexOf(card1)<0 && FField[k][row2].Variants.indexOf(card2)>=0 && FField[k+1][row1].Variants.indexOf(card1)<0 && !FField[k-1][row1].Initial && !FField[k][row2].Initial && !FField[k+1][row3].Initial) {
                     var q=k-1; var qq = k+1;
                     alert ("Карта " + card2 + " не может быть на месте "+ k  + ", "+row2+ "так как " + card1 + " нет в вариантах "+ q+", "+row1 + " и в вариантах " + qq+", "+row1 +"4 H");
@@ -494,22 +486,207 @@ function CreateLevelMap() {
                   }
                 }
               } else {
-                  if (FField[0][row2].Variants.indexOf(card2)<0 && FField[1][row1].Variants.indexOf(card1)>=0 && !FField[1][row1].Initial && !FField[0][row2].Initial) {
-                     alert ("Карта " + card1 + " не может быть на месте 1" +", "+row1+ "так как " + card2 + " нет в вариантах 0"+", "+row2 + " 5 H");
+                  if (FField[1][row2].Variants.indexOf(card2)<0 && FField[0][row1].Variants.indexOf(card1)>=0 && !FField[0][row1].Initial && !FField[1][row2].Initial) {
+                     alert ("Карта " + card1 + " не может быть на месте 0" +", "+row1+ "так как " + card2 + " нет в вариантах 1"+", "+row2 + " 5 H");
                       return
                   }
-                   if (FField[4][row1].Variants.indexOf(card1)>=0 && FField[5][row2].Variants.indexOf(card2)<0 && !FField[4][row1].Initial && !FField[5][row2].Initial) {
-                    alert ("Карта " + card1 + " не может быть на месте 4" +", "+row1+ "так как " + card2 + " нет в вариантах 5"+", "+row2 + " 6 H");
+                   if (FField[5][row1].Variants.indexOf(card1)>=0 && FField[4][row2].Variants.indexOf(card2)<0 && !FField[5][row1].Initial && !FField[4][row2].Initial) {
+                    alert ("Карта " + card1 + " не может быть на месте 5" +", "+row1+ "так как " + card2 + " нет в вариантах 4"+", "+row2 + " 6 H");
                     return
-                }
+                  }
+                  for (var k=1; k<5; k++)
+                     if (FField[k-1][row2].Variants.indexOf(card2)<0 && FField[k][row1].Variants.indexOf(card1)>=0 && FField[k+1][row2].Variants.indexOf(card2)<0 && !FField[k-1][row2].Initial && !FField[k][row1].Initial && !FField[k+1][row2].Initial) {
+                        var q=k-1; var qq = k+1;
+                        alert ("Карта " + card1 + " не может быть на месте "+ k  + ", "+row1+ "так как " + card2 + " нет в вариантах "+ q+", "+row2+ " и в вариантах " + qq+", "+row1 +"4 H");
+                        return
+               }
               }
             } 
-          } else {
-            if (FMainHClues[i].ClueType=='hcNextTo') {
+          } 
+          if (FMainHClues[i].ClueType=='hcNextTo') {
+
+          }
+          if (FMainHClues[i].ClueType=='hcTriple') {
+            console.log(i, 'hcTriple');
+
+
+
+
+            for (var j=0; j<6; j++) {
+              if (FField[j][row2].Initial){ 
+                if (FField[j][row2].UserValue===FMainHClues[i].Card2){
+                for (var k=0; k<6; k++){
+                  if (!Math.abs(k-j)===1) {
+                    if (FField[k][row1].Variants.indexOf(card1)>=0) {
+                      alert("Карта " + card1 + "не должна быть на месте "+ к + " , "+row1 + "так как поле "+j +" , " +row2 +" инициализировано Tripple 3H 7");
+                      return
+                    }
+                    if (FField[k][row3].Variants.indexOf(card3)>=0) {
+                      alert("Карта " + card3 + "не должна быть на месте "+ к + " , "+row3 + "так как поле "+j +" , " +row2 +" инициализировано Tripple 3H 7");
+                      return
+                      }
+                    }
+                  }
+                } 
+              }else {
+                      if (FField[1][row1].Variants.indexOf(card1)<0 && FField[0][row2].Variants.indexOf(card2)>=0 && !FField[1][row1].Initial && !FField[0][row2].Initial) {
+                    alert ("Карта " + card2 + " не может быть на месте 0" +", "+row2+ "так как " + card1 + " нет в вариантах 1"+", "+row1 + " 3 H");
+                    return
+               
+                }
+                if (FField[4][row1].Variants.indexOf(card1)<0 && FField[5][row2].Variants.indexOf(card2)>=0 && !FField[4][row1].Initial && !FField[5][row2].Initial) {
+                    alert ("Карта " + card2 + " не может быть на месте 5" +", "+row2+ "так как " + card1 + " нет в вариантах 4"+", "+row1 + " 4 H");
+                    return
+                }
+                for (var k=1; k<5; k++) {
+                  //console.log(k,FField[k-1][row1].Variants.indexOf(card1)<0 && FField[k][row2].Variants.indexOf(card2)>=0 && FField[k+1][row1].Variants.indexOf(card1)<0);
+                  if (FField[k-1][row1].Variants.indexOf(card1)<0 && FField[k][row2].Variants.indexOf(card2)>=0 && FField[k+1][row1].Variants.indexOf(card1)<0 && !FField[k-1][row1].Initial && !FField[k][row2].Initial && !FField[k+1][row3].Initial) {
+                    var q=k-1; var qq = k+1;
+                    alert ("Карта " + card2 + " не может быть на месте "+ k  + ", "+row2+ "так как " + card1 + " нет в вариантах "+ q+", "+row1 + " и в вариантах " + qq+", "+row1 +"4 H");
+                    return
+               
+                  }
+                }
+              }
+
+
+              if (FField[j][row1].Initial) {
+                if (FField[j][row1].UserValue===FMainHClues[i].Card1) { 
+                  if (j!=0 && FField[j-1][row2].Initial){
+                    if (FField[j-1][row2].UserValue===FMainHClues[i].Card2) {
+                      var q = j-2;
+                      if (q>=0 && !FField[q][row3].Initial) {alert("Карта " + card3 + " должна быть на месте "+ q + " , "+row3 + "так как поле "+j +" , " +row1 +" инициализировано Tripple 3H 7");
+                      return
+                    }
+                    } else {
+                      var q = j-2;
+                      if (q>=0 && !FField[q][row3].Initial && FField[q][row3].Variants.indexOf(card3)>=0) {alert("Карта " + card3 + " не может быть на месте "+ q + " , "+row3 + "так как поле "+j +" , " +row1 +" инициализировано Tripple 3H 8");
+                      return
+                    }
+                    }
+                  }
+
+                    if (j!=5 && FField[j+1][row2].Initial ){
+                    if (FField[j+1][row2].UserValue===FMainHClues[i].Card2) {
+                      var q = j+2;
+                      if (q<6 && !FField[q][row3].Initial) {alert("Карта " + card3 + " должна быть на месте "+ q + " , "+row3 + "так как поле "+j +" , " +row1 +" инициализировано Tripple 3H 1");
+                      return
+                    }
+                    } else {
+                      var q = j+2;
+                      if (q<6 && !FField[q][row3].Initial && FField[q][row3].Variants.indexOf(card3)>=0) {alert("Карта " + card3 + " не может быть на месте "+ q + " , "+row3 + "так как поле "+j +" , " +row1 +" инициализировано Tripple 3H 2");
+                      return
+                    }
+                    }
+                  }
+
+                     if (j>2 && FField[j-2][row3].Initial && !FField[j-1][row2].Initial){
+                    if (FField[j-2][row3].UserValue===FMainHClues[i].Card3) {
+                      var q = j-1;
+                      alert("Карта " + card2 + " должна быть на месте "+ q + " , "+row2 + "так как поле "+j +" , " +row1 +" инициализировано Tripple 3H 3");
+                      return
+                    
+                    } else {
+                      var q = j-1;
+                      if (FField[q][row2].Variants.indexOf(card2)>=0 ) {
+                      alert("Карта " + card2 + " не может быть на месте "+ q + " , "+row2 + "так как поле "+j +" , " +row1 +" инициализировано Tripple 3H 4");
+                      return
+                    }
+                    }
+                  }
+                  console.log(j<4 && FField[j+2][row3].Initial, j,FField[j+1][row2].Initial );
+                     if (j<4 && FField[j+2][row3].Initial && !FField[j+1][row2].Initial){
+                      if (FField[j+2][row3].UserValue===FMainHClues[i].Card3) {
+                      var q = j+1;
+                      alert("Карта " + card2 + " должна быть на месте "+ q + " , "+row2 + "так как поле "+j +" , " +row1 +" инициализировано Tripple 3H 5");
+                      return
+                    
+                    } else {
+                      var q = j+1;
+                      if (FField[q][row2].Variants.indexOf(card2)>=0 ) {
+                      alert("Карта " + card2 + " не может быть на месте "+ q + " , "+row2 + "так как поле "+j +" , " +row1 +" инициализировано Tripple 3H 6");
+                      return
+                    }
+                    }
+                  }
+                   
+                  for (var k=0; k<6; k++) {
+                    if (!(Math.abs(k-j)==1) && FField[k][row2].Variants.indexOf(card2)>=0) {
+                       alert("Поле " + j+ ', '+ row1 + " инициализировано, поэтому карта " + card2+ " не должна быть на месте "+k+ ", "+row2 + '1 Tripple H ' + i);
+                      return
+                   }
+                    if (!(Math.abs(k-j)==2) && FField[k][row3].Variants.indexOf(card3)>=0){
+                       alert("Поле " + j+ ', '+ row1 + " инициализировано, поэтому карта " + card3+ " не должна быть на месте "+k+ ", "+row3 + '2 Tripple H ' + i);
+                      return
+                   }
+
+                  }
+                }
+              } else  {
+                 //console.log(FField[1][row1].Variants.indexOf(card1)<0 && FField[0][row2].Variants.indexOf(card2)>=0, row1, row2,card2,card1, i, "dwqewqe", FField[1][row1].Variants.indexOf(card1)<0);
+                if (FField[1][row1].Variants.indexOf(card1)<0 && FField[0][row2].Variants.indexOf(card2)>=0 && !FField[1][row1].Initial && !FField[0][row2].Initial) {
+                    alert ("Карта " + card2 + " не может быть на месте 0" +", "+row2+ "так как " + card1 + " нет в вариантах 1"+", "+row1 + " 3 H 1");
+                    return
+               
+                }
+                if (FField[4][row1].Variants.indexOf(card1)<0 && FField[5][row2].Variants.indexOf(card2)>=0 && !FField[4][row1].Initial && !FField[5][row2].Initial) {
+                    alert ("Карта " + card2 + " не может быть на месте 5" +", "+row2+ "так как " + card1 + " нет в вариантах 4"+", "+row1 + " 4 H 1");
+                    return
+                }
+                 //console.log(FField[1][row1].Variants.indexOf(card1)<0 && FField[0][row2].Variants.indexOf(card2)>=0, row1, row2,card2,card1, i, "dwqewqe", FField[1][row1].Variants.indexOf(card1)<0);
+                if (FField[2][row1].Variants.indexOf(card1)<0 && FField[0][row3].Variants.indexOf(card3)>=0 && !FField[2][row1].Initial && !FField[0][row3].Initial) {
+                    alert ("Карта " + card3 + " не может быть на месте 0" +", "+row3+ "так как " + card1 + " нет в вариантах 2"+", "+row1 + " 3 H 2");
+                    return
+               
+                }
+                if (FField[3][row1].Variants.indexOf(card1)<0 && FField[5][row3].Variants.indexOf(card3)>=0 && !FField[3][row1].Initial && !FField[5][row3].Initial) {
+                    alert ("Карта " + card3 + " не может быть на месте 5" +", "+row3+ "так как " + card1 + " нет в вариантах 3"+", "+row1 + " 4 H 2");
+                    return
+                }
+                if (FField[3][row1].Variants.indexOf(card1)<0 && FField[1][row3].Variants.indexOf(card3)>=0 && !FField[3][row1].Initial && !FField[1][row3].Initial) {
+                    alert ("Карта " + card3 + " не может быть на месте 1" +", "+row3+ "так как " + card1 + " нет в вариантах 3"+", "+row1 + " 3 H 5");
+                    return
+               
+                }
+                if (FField[2][row1].Variants.indexOf(card1)<0 && FField[4][row3].Variants.indexOf(card3)>=0 && !FField[2][row1].Initial && !FField[4][row3].Initial) {
+                    alert ("Карта " + card3 + " не может быть на месте 4" +", "+row3+ "так как " + card1 + " нет в вариантах 2"+", "+row1 + " 4 H 5");
+                    return
+                }
+                for (var k=1; k<5; k++) {
+                  //console.log(k,FField[k-1][row1].Variants.indexOf(card1)<0 && FField[k][row2].Variants.indexOf(card2)>=0 && FField[k+1][row1].Variants.indexOf(card1)<0);
+                  if (FField[k-1][row1].Variants.indexOf(card1)<0 && FField[k][row2].Variants.indexOf(card2)>=0 && FField[k+1][row1].Variants.indexOf(card1)<0 && !FField[k-1][row1].Initial && !FField[k][row2].Initial && !FField[k+1][row1].Initial) {
+                    var q=k-1; var qq = k+1;
+                    alert ("Карта " + card2 + " не может быть на месте "+ k  + ", "+row2+ "так как " + card1 + " нет в вариантах "+ q+", "+row1 + " и в вариантах " + qq+", "+row1 +"4 H 3");
+                    return
+                  }
+                 
+                }
+                 for (var k=2; k<4; k++) {
+                  //console.log(k,FField[k-1][row1].Variants.indexOf(card1)<0 && FField[k][row2].Variants.indexOf(card2)>=0 && FField[k+1][row1].Variants.indexOf(card1)<0);
+                  if (FField[k-2][row1].Variants.indexOf(card1)<0 && FField[k][row3].Variants.indexOf(card3)>=0 && FField[k+2][row1].Variants.indexOf(card1)<0 && !FField[k-2][row1].Initial && !FField[k][row3].Initial && !FField[k+2][row1].Initial) {
+                    var q=k-2; var qq = k+2;
+                    alert ("Карта " + card3 + " не может быть на месте "+ k  + ", "+row3+ "так как " + card1 + " нет в вариантах "+ q+", "+row1 + " и в вариантах " + qq+", "+row3 +"4 H 33");
+                    return
+                  }
+                 
+                }
+
+              }
+
+
+
+
+
 
             }
 
           }
+          if (FMainHClues[i].ClueType =='hcNotTriple') {
+
+          }
+          if (FMainHClues[i].ClueType=='hcOrder'){
+            }
+          //}
           i++;
        }
       i=21;
@@ -570,26 +747,28 @@ function CreateLevelMap() {
 //CreateLevelMap();
 function decto6(number){
   var q = number;
+  var arr = [];
+  var rev = [];
   str='';
   while (q>0) {
     t = q%6;
     str = t+''+str;
     q = div(q,6);
-    console.log(t,str,q);
+    //console.log(t,str,q);
+    arr.push(t);
   }
-  console.log(str);
+  for (var i=0; i<arr.length; i++)
+    rev[i] = arr[arr.length-1-i];
+return rev
 }
 
 CreateLevelMap();
 CreateFField();
 FirstInitField();
-var level0 = [5,3,0,1,2,4,4,5,1,0,3,2,5,0,3,2,1,4,3,2,4,1,5,0,2,1,0,3,4,5,3,4,5,1,0,2]
-//InitLevel();
-for (var i=0; i<36; i++) {
-  FField[i%6][div(i,6)].CorrectValue = level0[i]+6*div(i,6);
-}
+// var level0 = [5,3,0,1,2,4,4,5,1,0,3,2,5,0,3,2,1,4,3,2,4,1,5,0,2,1,0,3,4,5,3,4,5,1,0,2]
+// var q = 7136;
+// var n = decto6(q);
+// for (var i=0; i<6; i++)
+// if (n.indexOf(i)<0) n.push(i);
+// console.log(n);
 
-//for (var i=0; i<30; i++) {console.log(FBLevels[i]);}
-
-//console.log(CheckCorrectness());
-//DrawLevel();

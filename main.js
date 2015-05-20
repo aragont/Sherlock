@@ -15,6 +15,7 @@ click_img = function(data) {
 	//console.log(data.parentNode);
 } 
 draw_big = function(col,row,card) {
+	choose_big(col, row, card);
 	$('#s'+col+row).append(' <div class="sherlock_pict"> </div>');
 	add_step({
 		'col':col,'row':row, 'card':card,'type':'big','act':'add'
@@ -160,5 +161,47 @@ td_click = function (data) {
 	data = (data%10)*10+div(data,10);
 	if (data<10) data='0'+data;
 	draw_big(div(data,10), data%10, k);
-	choose_big(div(data,10), data%10, k);
+	
+}
+
+
+next_hint = function() {
+ 	var Hint='';
+ 	var I;
+ 	//CheckHClueError(1);
+ 
+
+    //if FCompleted and not CheckCorrectness then
+      //begin
+       	Hint=CheckPresence(); // check that every field has variants
+       	I=0;
+       	while (!Hint && I<24) {
+       		//console.log('1');
+            Hint=CheckHClueError(I); 
+        	I++;
+       }
+       I=0;
+       while (!Hint && I<20)  {
+       
+         Hint=CheckVClueError(I);
+         I++;
+       }
+       //if (!Hint) Hint= CheckCorrect();
+       console.log(Hint);
+       if (!Hint) Hint=FindHint();
+   //    Hint:=FindHint;
+   //   if Hint=nil then
+   //    Hint:=TNoCluesHint.Create(Self);
+   //   AddPenalty(30);
+   //   GameHint:=Hint
+   //  end
+   // else
+   //  begin
+   //   with TAboutDlg.Create(Self) do
+   //    try
+   //     ShowModal
+   //    finally
+   //     Free
+   //    end*/
+    
 }

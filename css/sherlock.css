@@ -1,0 +1,206 @@
+/* Sherlock CSS */
+ .Sherlock_game_main {
+ 	background-color: aqua;
+ 	float: left;
+ 	width:1350px;
+ 	height:900px;
+ 	position: absolute;	
+ }
+ .main_window {
+   background-color: green;
+  width: 760px;
+  height: 70%;
+  float: left;
+  position: absolute;
+} 
+.window_buttons  #button_new,
+.window_buttons  #button_restart,
+.window_buttons  #button_remove,
+.window_buttons  #button_wrong,
+.window_buttons  #button_hint,
+.window_buttons.Sherlock_state_game  #button_start{
+  display: none;
+}
+.window_buttons.Sherlock_state_game  #button_new,
+.window_buttons.Sherlock_state_game  #button_restart,
+.window_buttons.Sherlock_state_game  #button_remove,
+.window_buttons.Sherlock_state_game  #button_hint,
+.window_buttons.Sherlock_state_game  #button_wrong{
+  display: block;
+  position: relative;
+  float: left;
+}
+
+ .game_field {
+ 	background-color: yellow;
+ 	width: 80%;
+ 	height:80%;
+ 	float: left;
+ 	position: absolute;
+
+ }
+ .sherlock_field{
+ 	width:85%;
+ 	height:78%;
+ }
+ .window_buttons{
+   background-color: red;
+  width: 75%;
+  height: 100px;
+  float: left;
+  position: absolute;
+  top: 620px;
+}
+ .window_buttons > button > img{
+ 	margin-top: -2px;
+	margin-left: -6px;
+  	width: 114%;
+  	height: 112%;
+
+ }
+ .window_info{
+ 	background-color: blue;
+  width: 25%;
+  height: 100px;
+  float: left;
+  position: absolute;
+  left: 75%;
+ 	text-align:center;
+  top:620px;
+ }
+ .left_tips {
+   background-color: silver;
+  width: 577px;
+  height: 720px;
+  float: right;
+  position: absolute;
+  left: 764px;
+ }
+ .down_tips{
+ 	background-color: aqua;
+ /* float: center;*/
+  position: absolute;
+  width: 100%;
+  margin-bottom: 3px;
+  height: 173px;
+  top: 725px;
+ }
+ .down_tips_number {
+ 	width: 4.4%;
+  margin-left: 2px;
+  background-color: aquamarine;
+  height: 95%;
+  float: left;
+  margin-top: 2px;
+    border:1px solid black;
+ }
+ .left_tips_number {
+   width: 186px;
+  background-color: aquamarine;
+  height: 83px;
+  float: left;
+  margin: 2px;
+  border: 1px solid black;
+  }
+ .buttons_sherlock {
+ 	  width: 28%;
+  float: initial;
+  margin: auto;
+  position: relative;
+  /* top: 2px; */
+  /* bottom: 10%; */
+  height: 27px;
+  left: 28px;
+  right: 4%;
+  margin: 2px;
+  cursor: pointer;
+ }
+ .window_info_name{
+text-align: center;
+  font-size: 1.2em;
+  top: -15px;
+  /* padding: 0px; */
+  /* margin: 0px; */
+  position: relative;
+  /* margin-bottom: -25px; */
+}
+ .window_info_name >p{
+ 	color:red;
+ 	margin-bottom: auto;
+
+ }
+ .sherlock_name{color:green;}
+ .window_info_level {
+float: left;
+  position: relative;
+  width: 100%;
+  margin-bottom: 3px;
+  font-size: 1.3em;
+  color: turquoise;
+  top: -40px;
+ }
+ .sherlock_timer {
+	  float: left;
+  position: relative;
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 1.5em;
+  top: -40px;
+  color: chartreuse;
+ }
+ .sherlock_background > table{
+  position: relative;
+  top: 3px;
+  left: -12px;
+ }
+ .sherlock_field_main {
+ 	height: 590px;
+  width: 100px;
+  margin: 1px;
+  float: left;
+  border: 3px solid black;
+  position: relative;
+  left: 2%;
+  top: 1%;
+
+  background-color: wheat;
+}
+.sherlock_background{
+    background-color: silver;
+  margin-left: 14px;
+  margin-right: 14px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  height: 93px;
+}
+ .sherlock_pict {
+   height: 83px;
+  width: 60px;
+  /* background-color: azure; */
+  margin: 4px;
+  /* background: url(BasicBig.bmp) -60px 0px; */
+  top: 5px;
+  left: 2px;
+  position: relative;
+ }
+  .sherlock_pict >img {
+  	position: relative;
+  	width: 90%;
+  	height: 90%;
+ 	left: 5%;
+  	top: 5%;
+ }
+
+
+td.small span{
+   height: 40px;
+  width: 30px;
+  display: block;
+}
+td.down-tip span{
+    
+    height:80px;
+    width:60px;
+    display: block;
+    margin-left: -2px;
+}
