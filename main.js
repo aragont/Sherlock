@@ -11,12 +11,32 @@ for (var i=0; i<6; i++)
 	}
 	//start_new_game();
 }
+send_level = function() {
+	$('.window_info_level')[0].innerHTML = 'Уровень: ' + $('.number_level >input')[0].value;
+	$('.input ').css('display','none');
+}
+change_level = function(){
+	$('.number_level').css('display','block')
+}
+send_name = function() {
+	$('.sherlock_name')[0].innerHTML = $('.set_name >input')[0].value+'<p></p>';
+	$('.input ').css('display','none');
+}
+show_set_name = function(){
+	$('.set_name').css('display','block')
+}
 click_img = function(data) {
 	//console.log(data.parentNode);
 } 
 draw_big = function(col,row,card) {
-	choose_big(col, row, card);
-	$('#s'+col+row).append(' <div class="sherlock_pict"> </div>');
+	if(choose_big(col, row, card)) {	
+		$('#s'+col+row).append(' <div class="sherlock_pict"> </div>');
+		var was = [];
+		//for (var i=0; i<6;i++) {
+     // console.log(FField[i][data.row].Variants);
+      
+      //if (FField[i][row].Variants.indexOf(data.card)>=0){ was.push(i);console.log(i);}
+    //}
 	add_step({
 		'col':col,'row':row, 'card':card,'type':'big','act':'add'
 	})
@@ -26,8 +46,9 @@ draw_big = function(col,row,card) {
 	$('#s'+col+row+'>div').css('background', 'url(BasicBig.bmp) -'+w+ 'px 0px' );
 	for (var  r=0; r<6; r++){
 		$('#'+row+r+card+'> span').css('background','none');
-		delete_variants(r,row,card);
+		
 	}	
+}
 	
 }
 draw_variants = function(i,j,Variants) {
@@ -122,46 +143,37 @@ $('#left_tip_'+i).append(tips);
 td_right_click = function (data) {
 	
 	while (data.length<3) data='0'+data;
-	//console.log(data );
 	if ($('#'+data+'> span').css('background-image')!=='none') {
-		
-		
 		$('#'+data+'> span').css('background','none'); 
-		//alert(data);
 		var col = div(data,10)%10;
 		var row = div(data,100)
 		add_step({
 			'col':col,'row':row, 'card':data%10,'type':'small','act':'del'
 		})
-		//console.log(FField[col][row].Variants);
-		//var Variants = FField[col][row].Variants;
 		delete_variants(col,row,data%10);
-		//console.log( FField[col][row].Variants);
 		if (FField[col][row].Variants.length===1) {
 			draw_big(col,row,FField[col][row].Variants[0]);
-
-			}
-		
+		}
 	} else {
-		
 		var w = (data % 10)*(-30)-div(data, 100)*180;
 		var col = div(data,10)%10;
 		var row = div(data,100);
 		add_step({
 			'col':col,'row':row, 'card':data%10,'type':'small','act':'add'
 		})
-		
 		add_variants(col,row,data%10);
 		$('#'+data+'> span').css('background-image','url(/Sherlock/BasicSmall.bmp)');
-		$('#'+data+'> span').css('background-position',w+'px 0px');}
+		$('#'+data+'> span').css('background-position',w+'px 0px');
 	}
+}
 td_click = function (data) {
-	var k = data%10;
-	data = div(data,10);
-	data = (data%10)*10+div(data,10);
-	if (data<10) data='0'+data;
-	draw_big(div(data,10), data%10, k);
-	
+	if (data) {
+		var k = data%10;
+		data = div(data,10);
+		data = (data%10)*10+div(data,10);
+		if (data<10) data='0'+data;
+		draw_big(div(data,10), data%10, k);
+	}
 }
 
 

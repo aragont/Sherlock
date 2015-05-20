@@ -1,142 +1,150 @@
 <!DOCTYPE html>
 <html>
- <head>
-   <title>!DOCTYPE</title>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="./css/sherlock.css">
-<script src="jquery.js"></script>
-
-    <script type="text/javascript" src = 'main.js'> </script> 
-    <script type="text/javascript" src = 'levels.js'> </script> 
-    <script type="text/javascript" src = 'create.js'> </script> 
-     <script type="text/javascript" src = 'hint.js'> </script> 
- </head>
- <body >
-
-   <div class = "Sherlock_game_main">
-      <div class = "main_window"> 
-            <div class = "sherlock_field">
-               <div class="sherlock_field_main" id="main_1">  
-                 <div class="sherlock_background"  id="s00"> <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background" id="s01"> <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background" id="s02"> <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background" id="s03"> <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background" id="s04"> <div class="sherlock_pict"> </div></div>
-                  <div class="sherlock_background" id="s05"> <div class="sherlock_pict" > </div></div>
-               </div>
-               <div class="sherlock_field_main" id="main_2"> 
-                   <div class="sherlock_background" id="s10">    <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background"id="s11"> <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background"id="s12"> <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background"id="s13"> <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background"id="s14">  <div class="sherlock_pict" > </div></div>
-                 <div class="sherlock_background"id="s15">  <div class="sherlock_pict"> </div></div>
-               </div>
-               <div class="sherlock_field_main" id="main_3"> 
-                   <div class="sherlock_background" id="s20">    <div class="sherlock_pict"> </div></div>
-                 <div class="sherlock_background" id="s21">  <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background" id="s22"> <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background" id="s23"> <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background" id="s24"> <div class="sherlock_pict" > </div></div>
-                  <div class="sherlock_background" id="s25"> <div class="sherlock_pict" > </div></div>
-               </div>
-               <div class="sherlock_field_main" id="main_4"> 
-                 <div class="sherlock_background" id="s30">     <div class="sherlock_pict" > </div></div>
-                 <div class="sherlock_background" id="s31">  <div class="sherlock_pict" > </div></div>
-                 <div class="sherlock_background" id="s32">  <div class="sherlock_pict" > </div></div>
-                 <div class="sherlock_background" id="s33">  <div class="sherlock_pict" > </div></div>
-                 <div class="sherlock_background" id="s34">  <div class="sherlock_pict" > </div></div>
-                <div class="sherlock_background" id="s35">   <div class="sherlock_pict" > </div></div>
-               </div>
-               <div class="sherlock_field_main" id="main_5">
-                  <div class="sherlock_background" id="s40">    <div class="sherlock_pict"> </div></div>
-                 <div class="sherlock_background" id="s41">  <div class="sherlock_pict"> </div></div>
-                 <div class="sherlock_background" id="s42">  <div class="sherlock_pict"> </div></div>
-                  <div class="sherlock_background" id="s43"> <div class="sherlock_pict"> </div></div>
-                  <div class="sherlock_background" id="s44"> <div class="sherlock_pict"> </div></div>
-                  <div class="sherlock_background" id="s45"> <div class="sherlock_pict" > </div></div>
+    <head>
+        <title>SHERLOCK</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="./css/sherlock.css">
+        <script src="jquery.js"></script>
+        <script type="text/javascript" src = 'main.js'> </script> 
+        <script type="text/javascript" src = 'levels.js'> </script> 
+        <script type="text/javascript" src = 'create.js'> </script> 
+        <script type="text/javascript" src = 'hint.js'> </script> 
+    </head>
+    <body >
+        <div class = "Sherlock_game_main">
+            <div class = "main_window"> 
+                <div class = "sherlock_field">
+                    <div class="sherlock_field_main" id="main_1">  
+                        <div class="sherlock_background"  id="s00"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s01"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s02"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s03"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s04"> <div class="sherlock_pict"> </div></div>
+                        <div class="sherlock_background" id="s05"> <div class="sherlock_pict" > </div></div>
+                    </div>
+                    <div class="sherlock_field_main" id="main_2"> 
+                        <div class="sherlock_background" id="s10">    <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background"id="s11"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background"id="s12"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background"id="s13"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background"id="s14">  <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background"id="s15">  <div class="sherlock_pict"> </div></div>
+                    </div>
+                    <div class="sherlock_field_main" id="main_3"> 
+                        <div class="sherlock_background" id="s20">    <div class="sherlock_pict"> </div></div>
+                        <div class="sherlock_background" id="s21">  <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s22"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s23"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s24"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s25"> <div class="sherlock_pict" > </div></div>
+                    </div>
+                    <div class="sherlock_field_main" id="main_4"> 
+                        <div class="sherlock_background" id="s30">     <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s31">  <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s32">  <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s33">  <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s34">  <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s35">   <div class="sherlock_pict" > </div></div>
+                    </div>
+                    <div class="sherlock_field_main" id="main_5">
+                        <div class="sherlock_background" id="s40">    <div class="sherlock_pict"> </div></div>
+                        <div class="sherlock_background" id="s41">  <div class="sherlock_pict"> </div></div>
+                        <div class="sherlock_background" id="s42">  <div class="sherlock_pict"> </div></div>
+                        <div class="sherlock_background" id="s43"> <div class="sherlock_pict"> </div></div>
+                        <div class="sherlock_background" id="s44"> <div class="sherlock_pict"> </div></div>
+                        <div class="sherlock_background" id="s45"> <div class="sherlock_pict" > </div></div>
+                    </div>
+                    <div class="sherlock_field_main" id="main_6">
+                        <div class="sherlock_background" id="s50">       <div class="sherlock_pict"> </div></div>
+                        <div class="sherlock_background" id="s51"> <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s52">  <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s53">  <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s54">  <div class="sherlock_pict" > </div></div>
+                        <div class="sherlock_background" id="s55">  <div class="sherlock_pict" > </div> </div>
+                    </div>
                 </div>
-               <div class="sherlock_field_main" id="main_6">
-                <div class="sherlock_background" id="s50">       <div class="sherlock_pict"> </div></div>
-                  <div class="sherlock_background" id="s51"> <div class="sherlock_pict" > </div></div>
-                 <div class="sherlock_background" id="s52">  <div class="sherlock_pict" > </div></div>
-                 <div class="sherlock_background" id="s53">  <div class="sherlock_pict" > </div></div>
-                 <div class="sherlock_background" id="s54">  <div class="sherlock_pict" > </div></div>
-                 <div class="sherlock_background" id="s55">  <div class="sherlock_pict" > </div> </div>
+                <div class="window_buttons"> 
+                    <button class = "buttons_sherlock" id="button_start" onclick = "start_new_game(0);">Start</button>  
+                    <button class = "buttons_sherlock" id="button_level" onclick = "change_level()">Level</button>
+                  
+                    <button class = "buttons_sherlock" id="button_level" onclick = "  show_set_name()">Name</button>
+                    <button class = "buttons_sherlock" id="button_new" onclick = "start_new_game(1);">New game</button>
+                    <button class = "buttons_sherlock" id="button_restart"onclick = 'start_new_game(0);'>Restart</button>
+                    <button class = "buttons_sherlock" id="button_remove" onclick = "remove_step()">One step</button>
+                    <button class = "buttons_sherlock" id="button_wrong" onclick = "remove_many()">Many steps</button>
+                    <button class = "buttons_sherlock" id="button_hint" onclick = "next_hint()">Hint</button>
                 </div>
-             </div>
-         <div class="window_buttons"> 
-            <button class = "buttons_sherlock" id="button_start"><img src="/Sherlock/Buttons/Start.bmp" alt = "Start" onclick = "start_new_game(0);"/></button>
-            <button class = "buttons_sherlock" id="button_new" onclick = "start_new_game(1);">New game</button>
-            <button class = "buttons_sherlock" id="button_restart"onclick = 'start_new_game(0);'>Restart</button>
-            <button class = "buttons_sherlock" id="button_remove" onclick = "remove_step()">One step</button>
-            <button class = "buttons_sherlock" id="button_wrong" onclick = "remove_many()">Many steps</button>
-            <button class = "buttons_sherlock" id="button_hint" onclick = "next_hint()">Hint</button>
-           </div>
-          <div class="window_info"> 
-            <div class="window_info_name">
-               <p> Имя игрока</p>
-               <div class = "sherlock_name"> Имя </p>
+                <div class="window_info"> 
+                    <div class="window_info_name">
+                        <p> Имя игрока</p>
+                        <div class = "sherlock_name"> Имя </p>
+                        </div>
+                    </div>
+                    <div class = "window_info_level"> 
+                        Уровень: 0  
+                    </div>
+                    <div class="sherlock_timer"> 00:00:00</div>
+                </div>
             </div>
-         </div>
-            <div class = "window_info_level"> 
-               Уровень: 0  </div>
-           <div class="sherlock_timer"> 00:00:00</div>
-         </div>
-      </div>
-      <div class="left_tips"> 
-          <div class="left_tips_number" id="left_tip_0"> </div>
-         <div class="left_tips_number" id="left_tip_1"> </div>
-         <div class="left_tips_number" id="left_tip_2"> </div>
-         <div class="left_tips_number" id="left_tip_3"> </div>
-         <div class="left_tips_number" id="left_tip_4"> </div>
-         <div class="left_tips_number" id="left_tip_5"> </div>
-         <div class="left_tips_number" id="left_tip_6"> </div>
-         <div class="left_tips_number" id="left_tip_7"> </div>
-         <div class="left_tips_number" id="left_tip_8"> </div>
-         <div class="left_tips_number" id="left_tip_9"> </div>
-         <div class="left_tips_number" id="left_tip_10"> </div>
-         <div class="left_tips_number" id="left_tip_11"> </div>
-         <div class="left_tips_number" id="left_tip_12"> </div>
-         <div class="left_tips_number" id="left_tip_13"> </div>
-         <div class="left_tips_number" id="left_tip_14"> </div>
-         <div class="left_tips_number" id="left_tip_15"> </div>
-         <div class="left_tips_number" id="left_tip_16"> </div>
-         <div class="left_tips_number" id="left_tip_17"> </div>
-         <div class="left_tips_number" id="left_tip_18"> </div>
-         <div class="left_tips_number" id="left_tip_19"> </div>
-         <div class="left_tips_number" id="left_tip_20"> </div>
-         <div class="left_tips_number" id="left_tip_21"> </div>
-         <div class="left_tips_number" id="left_tip_22"> </div>
-         <div class="left_tips_number" id="left_tip_23"> </div>
-      </div>
-      <div class="down_tips">
-       <div class = "down_tips_number" id="down_tips_0"></div>
-                
-               <div class = "down_tips_number" id="down_tips_1"></div>
-               <div class = "down_tips_number" id="down_tips_2"></div>
-               <div class = "down_tips_number" id="down_tips_3"></div>
-               <div class = "down_tips_number"  id="down_tips_4"></div>
-               <div class = "down_tips_number"  id="down_tips_5"></div>
-               <div class = "down_tips_number" id="down_tips_6"></div>
-               <div class = "down_tips_number" id="down_tips_7"></div>
-               <div class = "down_tips_number" id="down_tips_8"></div>
-               <div class = "down_tips_number" id="down_tips_9"></div>
-               <div class = "down_tips_number" id="down_tips_10"></div>
-               <div class = "down_tips_number" id="down_tips_11"></div>
-               <div class = "down_tips_number" id="down_tips_12"></div>
-               <div class = "down_tips_number" id="down_tips_13"></div>
-               <div class = "down_tips_number" id="down_tips_14"></div>
-               <div class = "down_tips_number" id="down_tips_15"></div>
-               <div class = "down_tips_number" id="down_tips_16"></div>
-               <div class = "down_tips_number" id="down_tips_17"></div>
-               <div class = "down_tips_number" id="down_tips_18"></div>
-               <div class = "down_tips_number" id="down_tips_19"></div>
-               <div class = "down_tips_number" id="down_tips_20"></div>
-              
-      </div>
-      </div>
-   </div>
- 
- </body> 
+            <div class="left_tips"> 
+                <div class="left_tips_number" id="left_tip_0"> </div>
+                <div class="left_tips_number" id="left_tip_1"> </div>
+                <div class="left_tips_number" id="left_tip_2"> </div>
+                <div class="left_tips_number" id="left_tip_3"> </div>
+                <div class="left_tips_number" id="left_tip_4"> </div>
+                <div class="left_tips_number" id="left_tip_5"> </div>
+                <div class="left_tips_number" id="left_tip_6"> </div>
+                <div class="left_tips_number" id="left_tip_7"> </div>
+                <div class="left_tips_number" id="left_tip_8"> </div>
+                <div class="left_tips_number" id="left_tip_9"> </div>
+                <div class="left_tips_number" id="left_tip_10"> </div>
+                <div class="left_tips_number" id="left_tip_11"> </div>
+                <div class="left_tips_number" id="left_tip_12"> </div>
+                <div class="left_tips_number" id="left_tip_13"> </div>
+                <div class="left_tips_number" id="left_tip_14"> </div>
+                <div class="left_tips_number" id="left_tip_15"> </div>
+                <div class="left_tips_number" id="left_tip_16"> </div>
+                <div class="left_tips_number" id="left_tip_17"> </div>
+                <div class="left_tips_number" id="left_tip_18"> </div>
+                <div class="left_tips_number" id="left_tip_19"> </div>
+                <div class="left_tips_number" id="left_tip_20"> </div>
+                <div class="left_tips_number" id="left_tip_21"> </div>
+                <div class="left_tips_number" id="left_tip_22"> </div>
+                <div class="left_tips_number" id="left_tip_23"> </div>
+            </div>
+            <div class="down_tips">
+                <div class = "down_tips_number" id="down_tips_0"></div>
+                <div class = "down_tips_number" id="down_tips_1"></div>
+                <div class = "down_tips_number" id="down_tips_2"></div>
+                <div class = "down_tips_number" id="down_tips_3"></div>
+                <div class = "down_tips_number"  id="down_tips_4"></div>
+                <div class = "down_tips_number"  id="down_tips_5"></div>
+                <div class = "down_tips_number" id="down_tips_6"></div>
+                <div class = "down_tips_number" id="down_tips_7"></div>
+                <div class = "down_tips_number" id="down_tips_8"></div>
+                <div class = "down_tips_number" id="down_tips_9"></div>
+                <div class = "down_tips_number" id="down_tips_10"></div>
+                <div class = "down_tips_number" id="down_tips_11"></div>
+                <div class = "down_tips_number" id="down_tips_12"></div>
+                <div class = "down_tips_number" id="down_tips_13"></div>
+                <div class = "down_tips_number" id="down_tips_14"></div>
+                <div class = "down_tips_number" id="down_tips_15"></div>
+                <div class = "down_tips_number" id="down_tips_16"></div>
+                <div class = "down_tips_number" id="down_tips_17"></div>
+                <div class = "down_tips_number" id="down_tips_18"></div>
+                <div class = "down_tips_number" id="down_tips_19"></div>
+                <div class = "down_tips_number" id="down_tips_20"></div>
+            </div>
+            <div class = "input number_level">
+                <p>Введите уровень (0-2)</p>
+                <input placeholder='0'></input> 
+                <button onclick="send_level()">Set</button>   
+            </div>
+             <div class = "input set_name">
+                <p>Введите имя</p>
+                <input placeholder='Аноним'></input> 
+                <button onclick="send_name()">Set</button>   
+            </div>
+        </div>
+    </body> 
 </html>

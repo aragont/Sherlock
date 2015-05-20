@@ -190,8 +190,20 @@ float: left;
  	left: 5%;
   	top: 5%;
  }
-
-
+.input {
+  position: absolute;
+  width:500px;
+  height: 70px;
+  background-color: white;
+  top:625px;
+  left:30px;
+  padding: 10px;
+  display: none;
+}
+.input >p{
+  /*background: red;  */
+  margin-top: 5px;
+}
 td.small span{
    height: 40px;
   width: 30px;
