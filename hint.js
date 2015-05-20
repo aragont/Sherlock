@@ -27,8 +27,8 @@ function CheckHClueError(Index) {
 
                 // console.log(Left,Center,Index);
                 if (Math.abs(Left - Center) !== 1 && Left >= 0 && Center >= 0) {
-                    alert('Комбинация противоречит ключу:' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' должны находиться в соседних столбцах');
-                    return 'Комбинация противоречит ключу:' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' должны находиться в соседних столбцах';
+                    alert('Комбинация противоречит ключу: ' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' должны находиться в соседних столбцах');
+                    return 'Комбинация противоречит ключу: ' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' должны находиться в соседних столбцах';
                 }
                 break;
 
@@ -246,10 +246,10 @@ function CheckVClue(Index, Direct) {
 function CheckHClueNextTo(Index, Direct) {
     var Col;
     var PC, PL, PR;
-    var SCard1 = FPMainVClues[Index].Card1 % 6;
-    var SCard2 = FPMainVClues[Index].Card2 % 6;
-    var row1 = div(FPMainVClues[Index].Card1, 6);
-    var row2 = div(FPMainVClues[Index].Card2, 6);
+    var SCard1 = FPMainHClues[Index].Card1 % 6;
+    var SCard2 = FPMainHClues[Index].Card2 % 6;
+    var row1 = div(FPMainHClues[Index].Card1, 6);
+    var row2 = div(FPMainHClues[Index].Card2, 6);
     for (Col = 0; Col < 6; Col++) {
         PC = CheckPossibility(Col, FPMainHClues[Index].Card1);
         PL = CheckPossibility(Col - 1, FPMainHClues[Index].Card2);
@@ -295,10 +295,10 @@ function CheckHClueNextTo(Index, Direct) {
 
 function CheckHClueNotNextTo(Index, Direct) {
     var Col, PC, PL, PR;
-    var SCard1 = FPMainVClues[Index].Card1 % 6;
-    var SCard2 = FPMainVClues[Index].Card2 % 6;
-    var row1 = div(FPMainVClues[Index].Card1, 6);
-    var row2 = div(FPMainVClues[Index].Card2, 6);
+    var SCard1 = FPMainHClues[Index].Card1 % 6;
+    var SCard2 = FPMainHClues[Index].Card2 % 6;
+    var row1 = div(FPMainHClues[Index].Card1, 6);
+    var row2 = div(FPMainHClues[Index].Card2, 6);
     if (Direct) {
         for (Col = 0; Col < 6; Col++) {
             PC = CheckPossibility(Col, FPMainHClues[Index].Card1);
@@ -334,12 +334,12 @@ function CheckHClueNotNextTo(Index, Direct) {
 
 function CheckHClueTriple(Index, Direct) {
     var Col, PC, PL1, PR1, PL2, PR2, PL3, PR3;
-    var SCard1 = FPMainVClues[Index].Card1 % 6;
-    var SCard2 = FPMainVClues[Index].Card2 % 6;
-    var SCard3 = FPMainVClues[Index].Card3 % 6;
-    var row1 = div(FPMainVClues[Index].Card1, 6);
-    var row2 = div(FPMainVClues[Index].Card2, 6);
-    var row3 = div(FPMainVClues[Index].Card3, 6);
+    var SCard1 = FPMainHClues[Index].Card1 % 6;
+    var SCard2 = FPMainHClues[Index].Card2 % 6;
+    var SCard3 = FPMainHClues[Index].Card3 % 6;
+    var row1 = div(FPMainHClues[Index].Card1, 6);
+    var row2 = div(FPMainHClues[Index].Card2, 6);
+    var row3 = div(FPMainHClues[Index].Card3, 6);
     for (Col = 0; Col < 6; Col++) {
         PC = CheckPossibility(Col, FPMainHClues[Index].Card2);
         PL1 = CheckPossibility(Col - 1, FPMainHClues[Index].Card1);
@@ -500,18 +500,153 @@ function CheckHClueTriple(Index, Direct) {
 function CheckHClueNotTriple(Index, Direct) {
     var Col, PC, PL1, PR1, PL2, PR2, PL3, PR3;
 
-    var SCard1 = FPMainVClues[Index].Card1 % 6;
-    var SCard2 = FPMainVClues[Index].Card2 % 6;
-    var SCard3 = FPMainVClues[Index].Card3 % 6;
-    var row1 = div(FPMainVClues[Index].Card1, 6);
-    var row2 = div(FPMainVClues[Index].Card2, 6);
-    var row3 = div(FPMainVClues[Index].Card3, 6);
+    var SCard1 = FPMainHClues[Index].Card1 % 6;
+    var SCard2 = FPMainHClues[Index].Card2 % 6;
+    var SCard3 = FPMainHClues[Index].Card3 % 6;
+    var row1 = div(FPMainHClues[Index].Card1, 6);
+    var row2 = div(FPMainHClues[Index].Card2, 6);
+    var row3 = div(FPMainHClues[Index].Card3, 6);
+    console.error(SCard3,SCard2,SCard1,row1,row2,row3);
+    for (Col=0; Col<6;Col++){
+     PC=CheckPossibility(Col,FPMainHClues[Index].Card1);
+     PL2=CheckPossibility(Col-1,FPMainHClues[Index].Card2);
+     PR2=CheckPossibility(Col+1,FPMainHClues[Index].Card2);
+     PL3=CheckPossibility(Col-2,FPMainHClues[Index].Card3);
+     PR3=CheckPossibility(Col+2,FPMainHClues[Index].Card3);
+     if (!Direct && PC==='cpCanBe'){
+        if (PL3==='cpCannotBe' && PR3==='cpCannotBe'){
+            var q=Col;
+            alert('Карта '+SCard1+' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта '+SCard3);
+            return 'Карта '+SCard1+' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта '+SCard3;
+        }
+        if (PL3==='cpCannotBe' && PR2==='cpIsHere'){
+            var q=Col;
+         alert('Карта '+SCard1+' не может быть в клетке ' + q + ', ' + row1 + ', так как через столбец слева нет '+SCard3+', а в соседнем столбце справа стоит '+SCard2+', и правило'+Index+' не может быть выполнено');
+         return 'Карта '+SCard1+' не может быть в клетке ' + q + ', ' + row1 + ', так как через столбец слева нет '+SCard3+', а в соседнем столбце справа стоит '+SCard2+', и правило'+Index+' не может быть выполнено';
+        }
+        if (PR3==='cpCannotBe' && PL2==='cpIsHere'){
+            var q=Col;
+         alert('Карта '+SCard1+' не может быть в клетке ' + q + ', ' + row1 + ', так как через столбец справа нет '+SCard3+', а в соседнем столбце слева стоит '+SCard2+', и правило'+Index+' не может быть выполнено');
+         return 'Карта '+SCard1+' не может быть в клетке ' + q + ', ' + row1 + ', так как через столбец справа нет '+SCard3+', а в соседнем столбце слева стоит '+SCard2+', и правило'+Index+' не может быть выполнено'
+        }
+    } else if (Direct && PC==='cpIsHere'){
+       if (PL3==='cpCanBe' && PR3==='cpCannotBe'){
+        var q=Col-2;
+         alert('Карта '+SCard3+' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard1+', а справа от '+SCard1+' её быть не может');
+         return 'Карта '+SCard3+' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard1+', а справа от '+SCard1+' её быть не может';
+        }
+       if (PR3==='cpCanBe' && PL3==='cpCannotBe'){
+        var q=Col+2;
+         alert('Карта '+SCard3+' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard1+', а слева от '+SCard1+' её быть не может');
+         return 'Карта '+SCard3+' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard1+', а слева от '+SCard1+' её быть не может';
+        }
+       if (PL2==='cpIsHere' && PR3==='cpCanBe'){
+        var q=Col+2;
+         alert('Карта '+SCard3+' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard1+', а слева от '+SCard1+' её быть не может, иначе между ними окажется '+SCard2);      
+         return 'Карта '+SCard3+' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard1+', а слева от '+SCard1+' её быть не может, иначе между ними окажется '+SCard2;
+        }
+       if (PR2==='cpIsHere' && PL3==='cpCanBe'){
+        var q=Col-2;
+         alert('Карта '+SCard3+' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard1+', а справа от '+SCard1+' её быть не может, иначе между ними окажется '+SCard2);
+         return 'Карта '+SCard3+' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard1+', а справа от '+SCard1+' её быть не может, иначе между ними окажется '+SCard2;
+    }
+    }
+     PC=CheckPossibility(Col,FPMainHClues[Index].Card3);
+     PL3=CheckPossibility(Col-2,FPMainHClues[Index].Card1);
+     PR3=CheckPossibility(Col+2,FPMainHClues[Index].Card1);
+     if (!Direct && PC==='cpCanBe'){
+       if (PL3==='cpCannotBe' && PR3==='cpCannotBe'){
+        var q=Col;
+         alert('Карта '+SCard3+' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта '+SCard1);
+         return 'Карта '+SCard3+' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта '+SCard1;
+        }
+       if (PL3==='cpCannotBe' && PR2==='cpIsHere'){
+        var q=Col;
+         alert('Карта '+SCard3+' не может быть в клетке ' + q + ', ' + row3 + ', так как через столбец слева нет '+SCard1+', а в соседнем столбце справа стоит '+SCard2+', и правило '+Index+' не может быть выполнено');
+         return'Карта '+SCard3+' не может быть в клетке ' + q + ', ' + row3 + ', так как через столбец слева нет '+SCard1+', а в соседнем столбце справа стоит '+SCard2+', и правило '+Index+' не может быть выполнено';
+        }
 
+       if (PR3==='cpCannotBe' && PL2==='cpIsHere'){
+         alert('Карта '+SCard3+' не может быть в клетке ' + q + ', ' + row3 + ', так как через столбец справа нет '+SCard1+', а в соседнем столбце слева стоит '+SCard2+', и указанное правило не может быть выполнено');
+         return 'Карта '+SCard3+' не может быть в клетке ' + q + ', ' + row3 + ', так как через столбец справа нет '+SCard1+', а в соседнем столбце слева стоит '+SCard2+', и указанное правило не может быть выполнено';
+        }
+      } else if (Direct && PC==='cpIsHere'){
+       if (PL3==='cpCanBe' && PR3==='cpCannotBe'){
+        var q=Col-2;
+         alert('Карта '+SCard1+' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard3+', а справа от '+SCard3+' её быть не может');
+         return 'Карта '+SCard1+' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard3+', а справа от '+SCard3+' её быть не может';
+        }
+       if (PR3==='cpCanBe' && PL3==='cpCannotBe'){
+        var q=Col+2;
+         alert('Карта '+SCard1+' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard3+', а слева от '+SCard3+' её быть не может');
+         return'Карта '+SCard1+' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard3+', а слева от '+SCard3+' её быть не может';
+        }
+       if (PL2==='cpIsHere' && PR3==='cpCanBe'){
+        var q=Col+2;
+         alert('Карта '+SCard1+' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard3+', а слева от '+SCard3+' её быть не может, иначе между ними окажется '+SCard2);
+         return 'Карта '+SCard1+' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard3+', а слева от '+SCard3+' её быть не может, иначе между ними окажется '+SCard2;
+        }
+       if (PR2==='cpIsHere' && PL3==='cpCanBe'){
+        var q=Col-2;
+         alert('Карта '+SCard1+' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard3+', а справа от '+SCard3+' её быть не может, иначе между ними окажется '+SCard2);
+         return 'Карта '+SCard1+' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты '+SCard3+', а справа от '+SCard3+' её быть не может, иначе между ними окажется '+SCard2
+        }
+      }
+     PC=CheckPossibility(Col,FPMainHClues[Index].Card2);
+     PL1=CheckPossibility(Col-1,FPMainHClues[Index].Card1);
+     PR1=CheckPossibility(Col+1,FPMainHClues[Index].Card1);
+     PL3=CheckPossibility(Col-1,FPMainHClues[Index].Card3);
+     PR3=CheckPossibility(Col+1,FPMainHClues[Index].Card3);
+     if (!Direct && PC==='cpCanBe'){
+       if (PL1==='cpIsHere' && PR3==='cpIsHere'){
+        var q=Col;
+         alert('Карта '+SCard2+' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' не может находиться между '+SCard1+' и '+SCard3);
+
+         return 'Карта '+SCard2+' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' не может находиться между '+SCard1+' и '+SCard3;
+        }
+       if (PL3==='cpIsHere' && PR1==='cpIsHere'){
+         alert('Карта '+SCard2+' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' не может находиться между '+SCard1+' и '+SCard3);
+
+         return 'Карта '+SCard2+' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' не может находиться между '+SCard1+' и '+SCard3;
+         
+        }
+      }
+    }
     return
 }
 
 function CheckHClueOrder(Index, Direct) {
-
+    var Col,Col2,LeftmostLeft,RightmostRight;
+    var SCard1 = FPMainHClues[Index].Card1 % 6;
+    //var SCard2 = FPMainVClues[Index].Card2 % 6;
+    var SCard3 = FPMainHClues[Index].Card3 % 6;
+    var row1 = div(FPMainHClues[Index].Card1, 6);
+   // var row2 = div(FPMainVClues[Index].Card2, 6);
+    var row3 = div(FPMainHClues[Index].Card3, 6);
+  
+   if (Direct) {
+     LeftmostLeft=0;
+     while (CheckPossibility(LeftmostLeft,FPMainHClues[Index].Card1)==='cpCannotBe') {
+      LeftmostLeft++;
+     for (Col=0;Col<=LeftmostLeft; Col++){
+      if (CheckPossibility(Col,FPMainHClues[Index].Card3)==='cpCanBe') {
+        var q=Col;
+        alert('Карта '+SCard3+' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она должна находиться правее карты '+SCard1);
+        return 'Карта '+SCard3+' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она должна находиться правее карты '+SCard1;
+       }
+    }
+     RightmostRight=5;
+     while (CheckPossibility(RightmostRight,FPMainHClues[Index].Card3)==='cpCannotBe')
+      RightmostRight--;
+     for (Col=RightmostRight; Col<6;Col++)
+      if (CheckPossibility(Col,FPMainHClues[Index].Card1)==='cpCanBe'){
+        var q=Col;
+        alert('Карта '+SCard1+' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она должна находиться левее карты '+SCard3);
+     return 'Карта '+SCard1+' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она должна находиться левее карты '+SCard3;
+          }
+    }
+}
+   return
 }
 
 function CheckHClue(Index, Direct) {
@@ -558,21 +693,19 @@ function FindHint() {
             Index++;
         }
         Index = 0;
-        while (!Result && (Index < 25)) {
+        while (!Result && (Index < 24)) {
             Result = CheckHClue(Index, true);
-            Inc(Index)
-            end;
+            Index++;
+            
         }
-            // Index:=0;
-            // while (Result=nil) and (Index<=High(TVClues)) do
-            //  begin
-            //   Result:=CheckVClue(Index,False);
-            //   Inc(Index)
-            //  end;
-            // Index:=0;
-            // while (Result=nil) and (Index<=High(THClues)) do
-            //  begin
-            //   Result:=CheckHClue(Index,False);
-            //   Inc(Index)
-            //  end
+            Index=0;
+            while (!Result && Index<20) {
+              Result=CheckVClue(Index,false);
+              Index++;
+             }
+            Index=0;
+            while (!Result && Index<=24){
+              Result=CheckHClue(Index,false);
+              Index++;
+             }
         }

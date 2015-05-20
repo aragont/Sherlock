@@ -317,7 +317,7 @@ function InitLevel(level) {
 
 function CheckPossibility(Col,Card){
 
- var Row, Result;
+ var Row, Result='';
   
    if ((Col<0)|| (Col>5))
     Result='cpCannotBe';
