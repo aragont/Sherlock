@@ -6,11 +6,29 @@
         <link rel="stylesheet" type="text/css" href="./css/sherlock.css">
         <script src="jquery.js"></script>
         <script type="text/javascript" src = 'main.js'> </script> 
-        <script type="text/javascript" src = 'levels.js'> </script> 
+        <script type="text/javascript" src = 'level-dec.js'> </script> 
         <script type="text/javascript" src = 'create.js'> </script> 
         <script type="text/javascript" src = 'hint.js'> </script> 
     </head>
     <body >
+       <!--  <table>
+    <tr>
+        <td style="width:80px; height:80px">
+            <span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: 0px 0px; width:60px; height:80px; display:block" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">
+                <span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2340px 0px; width:60px; height:80px;opacity:0.5; display:block" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">
+                </span>
+            </span>
+        </td>
+        <td class="down-tip">
+            <span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+v+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">
+            </span>
+        </td>
+        <td class="down-tip">
+            <span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+e+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">
+            </span>
+        </td>
+    </tr>
+</table>  -->
         <div class = "Sherlock_game_main">
             <div class = "main_window"> 
                 <div class = "sherlock_field">
@@ -67,7 +85,7 @@
                     <button class = "buttons_sherlock" id="button_start" onclick = "start_new_game(0);">Start</button>  
                     <button class = "buttons_sherlock" id="button_level" onclick = "change_level()">Level</button>
                   
-                    <button class = "buttons_sherlock" id="button_level" onclick = "  show_set_name()">Name</button>
+                    <button class = "buttons_sherlock" id="button_name" onclick = "  show_set_name()">Name</button>
                     <button class = "buttons_sherlock" id="button_new" onclick = "start_new_game(1);">New game</button>
                     <button class = "buttons_sherlock" id="button_restart"onclick = 'start_new_game(0);'>Restart</button>
                     <button class = "buttons_sherlock" id="button_remove" onclick = "remove_step()">One step</button>
@@ -146,5 +164,9 @@
                 <button onclick="send_name()">Set</button>   
             </div>
         </div>
+
+
+
+
     </body> 
 </html>

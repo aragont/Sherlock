@@ -76,8 +76,7 @@ draw_field = function(){
 				for (var k=0; k<6;k++) {
 					if (count===3) table+= '</tr><tr>';
 					var w = -k*30-j*180;
-
-     				if (FField[i][j].Variants.indexOf(k)>=0) { table+='<td class = "small" id = '+j+''+i+''+k+'><span style = "background-image:url(/Sherlock/BasicSmall.bmp);background-position:'+w+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span> </td>';}
+					if (FField[i][j].Variants.indexOf(k)>=0) { table+='<td class = "small" id = '+j+''+i+''+k+'><span style = "background-image:url(/Sherlock/BasicSmall.bmp);background-position:'+w+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span> </td>';}
      				else table+='<td class = "small" id = '+j+''+i+''+k+'><span  onclick = "td_click(this.parentNode.id);"></span> </td>';
 				count++;
 				}
@@ -87,17 +86,37 @@ draw_field = function(){
 				$('#s'+i+j).append(table);
 			}	 else  {
 				//$('#s'+i+j+">div").remove();
-				//console.log(i,j);
+				console.log(i,j);
 				$('#s'+i+j+'>table').remove();
 //console.log("correct"+i+j);
+				if (!($('#s'+i+j+'>div').length)) $('#s'+i+j).append('<div class="sherlock_pict" > </div>');
 		 	$('#s'+i+j+'>div').css('background', 'url(BasicBig.bmp) -'+FField[i][j].UserValue*60+ 'px 0px' );}
+	}
 }
+myTimer = function(){
+	var time = $('.sherlock_timer')[0].innerHTML;
+	var time_value = time.split(':');
+	time_value[2]++;
+	if (time_value[2]===60) time_value[1]++;
+	if (time_value[1]===60) time_value[0]++;
+	$('.sherlock_timer')[0].innerHTML = correct_length(time_value[0])+":"+correct_length(time_value[1])+":"+correct_length(time_value[2]);
+	
+}
+correct_length = function(data) {
+	if (data<=9 && data!=='00') return '0'+data;
+	else return data
 }
 start_new_game = function(level) {
+	$('.sherlock_timer')[0].innerHTML = '00:00:00';
+	var myVar = setInterval(function() {
+        myTimer();
+    }, 1000);
 	var l = $('.window_info_level')[0].innerHTML.replace('Уровень: ','');
-	//console.log(l);
+	l=parseInt(l);
 	l+=level;
-	InitLevel(level);
+	//console.log(l);
+	$('.window_info_level')[0].innerHTML = 'Уровень: ' + l;
+	InitLevel(l);
 	document.querySelector('.window_buttons').classList.add('Sherlock_state_game');
 	draw_field();
 // 	for (var i=0; i<6; i++)
@@ -122,23 +141,32 @@ start_new_game = function(level) {
 // 			//$('body').on('contextmenu', 'td', function(e){return false; });
  			$('body').on('contextmenu', '.Sherlock_game_main', function(e){return false; });
 		//}
+		$('.down_tips>div>table').remove();$('.left_tips>div>table').remove();
 		for (var i=0; i<21; i++){
 			var w = FMainVClues[i].Card1*(-60);
 			var v = FMainVClues[i].Card2*(-60);
+			//$('.down_tips>div>table').remove()
 			var tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: '+w+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr><tr><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+v+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table'
-$('#down_tips_'+i).append(tips);
+			$('#down_tips_'+i).append(tips);
 		}
 		for (var i=0; i<24; i++) {
+			//$('.left_tips>div>table').remove()
 			//console.log("leofe", FMainHClues[i].Card1);
 			var w = FMainHClues[i].Card1*(-60);
 			var v = FMainHClues[i].Card2*(-60);
 			var e = FMainHClues[i].Card3*(-60);
-if (FMainHClues[i].ClueType!='hcTriple')
-			var tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: '+w+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+v+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+e+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table'
-else var tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: '+w+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2340px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+v+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+e+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table' 
-$('#left_tip_'+i).append(tips);
+			if (FMainHClues[i].ClueType==='hcTriple') {
+				var tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: '+w+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2340px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+v+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2400px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+e+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2460px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td></tr></table' 
+			} else
+				if (FMainHClues[i].ClueType==='hcNotTriple'){
+					var tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: '+w+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2340px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+v+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2280px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2400px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+e+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2460px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td></tr></table' 
+				}else 
+					if (FMainHClues[i].ClueType==='hcNotNextTo') {
+						var tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: '+w+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+v+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2280px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+e+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table' 
+					}
+					else var tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: '+w+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+v+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+e+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table'
+					$('#left_tip_'+i).append(tips);
 		}
-
 }
 td_right_click = function (data) {
 	

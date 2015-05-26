@@ -22,6 +22,7 @@ function choose_big(col,row,card) {
   if (FField[col][row].Variants.indexOf(card)!==-1) {
   FField[col][row].UserValue = card+6*row;
   FField[col][row].Initial = true;
+  if (CheckCorrectness()) alert("You are WIN!");
   // for (var i=0; i<6; i++) {
   //   delete_variants(i,row,card);
   // }
@@ -121,7 +122,7 @@ function remove_step() {
 
 function InitLevel(level) {
   console.log(level);
-  level=2;
+  //level=0;
   var Col,Row,Card,I,Cnt,P, Variants = [], CType;
      var Found = [];
   //count_big_card=0;
@@ -135,20 +136,20 @@ function InitLevel(level) {
       FField[Col][Row].UserValue=36,
       FField[Col][Row].Variants=[]
     }
-    var d = P;
-    for (var i=P; i<P+6; i++) {
-      var q = FBLevels[i];
-      var n = decto6(q);
-      console.log(n);
-    for (var j=0; j<6; j++) {
-    if (n.indexOf(j)<0) n.push(j);
-    //console.log(j,i)
-     FField[j][i-d].CorrectValue = n[j]+6*(i-d);
-  }
-    console.log(n);
+  //   var d = P;
+  //   for (var i=P; i<P+6; i++) {
+  //     var q = FBLevels[i];
+  //     var n = decto6(q);
+  //     console.log(n);
+  //   for (var j=0; j<6; j++) {
+  //   if (n.indexOf(j)<0) n.push(j);
+  //   //console.log(j,i)
+  //    FField[j][i-d].CorrectValue = n[j]+6*(i-d);
+  // }
+  //   console.log(n);
 
-    }
-    P+=6;
+  //   }
+    //P+=6;
     var count = P;
 
     //console.log("dsdwq", FBLevels[count], count);
@@ -190,15 +191,17 @@ function InitLevel(level) {
      if (I<Cnt) {
       //count=P;
        CType=div(FBLevels[P], 36);
-
+       console.log(CType);
        FMainHClues[I].Card1=FBLevels[P] % 36;
        switch (CType) { 
         case 0:
         case 2:
-             if (CType=0) 
-              FMainHClues[I].ClueType='hcNotNextTo';
-             else
+             if (CType==0) {
               FMainHClues[I].ClueType='hcNextTo';
+              console.log('122');
+            }
+             else
+              FMainHClues[I].ClueType='hcNotNextTo';
              P++;
              FMainHClues[I].Card2=FBLevels[P];
              FMainHClues[I].Card3=FMainHClues[I].Card1;
@@ -254,43 +257,44 @@ function InitLevel(level) {
     FMainVClues[I]={'ClueType':'vcNone','Card1':36,'Card2':36};
     FAlternateVClues[I]={'ClueType':'vcNone','Card1':36,'Card2':36};
     }
-    if (1)  {
+    // if (1)  {
     
-    // FillChar(Found,SizeOf(Found),0);
-    Found = [];
-     for (var Col=0 ; Col<6; Col++) 
-      for (var Row=0; Row<6; Row++) 
-       if (FField[Col][Row].Initial) 
-        Found[FField[Col][Row].CorrectValue]=true;
-    //  console.log(Found);
-     for (var I=0; I<24; I++)
-      if (FMainHClues[I].ClueType!='hcNone') 
-      {
-        Found[FMainHClues[I].Card1]=true;
-        if (FMainHClues[I].Card2<36) 
-         Found[FMainHClues[I].Card2]=true;
-        Found[FMainHClues[I].Card3]=true
-      }
-           for (var I=0;I<20; I++)
-      if (FMainVClues[I].ClueType!=='vcNone')
-       {
-        Found[FMainVClues[I].Card1]=true;
-        Found[FMainVClues[I].Card2]=true
-       }
-     for (var I=0; I<36; I++)
-      if (!Found[I])
-       {
-        if (Cnt>23)
-         {
-          //Application.MessageBox('Ñëèøêîì ìíîãî âåðòèêàëüíûõ êëþ÷åé. Îáðàòèòåñü ê ðàçðàáîò÷èêó','Îøèáêà',MB_OK or MB_IconStop);
-          break;
-         }
-        FMainVClues[Cnt].ClueType='vcNoClues';
-        FMainVClues[Cnt].Card1=36;
-        FMainVClues[Cnt].Card2=36;
-        Cnt++;
-       }
-    }
+    // // FillChar(Found,SizeOf(Found),0);
+    // Found = [];
+    //  for (var Col=0 ; Col<6; Col++) 
+    //   for (var Row=0; Row<6; Row++) 
+    //    if (FField[Col][Row].Initial) 
+    //     Found[FField[Col][Row].CorrectValue]=true;
+    // //  console.log(Found);
+    //  for (var I=0; I<24; I++)
+    //   if (FMainHClues[I].ClueType!='hcNone') 
+    //   {
+    //     Found[FMainHClues[I].Card1]=true;
+    //     if (FMainHClues[I].Card2<36) 
+    //      Found[FMainHClues[I].Card2]=true;
+    //     Found[FMainHClues[I].Card3]=true
+    //   }
+    //        for (var I=0;I<20; I++)
+    //   if (FMainVClues[I].ClueType!=='vcNone')
+    //    {
+    //     Found[FMainVClues[I].Card1]=true;
+    //     Found[FMainVClues[I].Card2]=true
+    //    }
+    //  for (var I=0; I<36; I++)
+    //   if (!Found[I])
+    //    {
+    //     if (Cnt>23)
+    //      {
+    //       //Application.MessageBox('Ñëèøêîì ìíîãî âåðòèêàëüíûõ êëþ÷åé. Îáðàòèòåñü ê ðàçðàáîò÷èêó','Îøèáêà',MB_OK or MB_IconStop);
+    //       break;
+    //      }
+    //      //console.log(Cnt);
+    //     FMainVClues[Cnt].ClueType='vcNoClues';
+    //     FMainVClues[Cnt].Card1=36;
+    //     FMainVClues[Cnt].Card2=36;
+    //     Cnt++;
+    //    }
+    // }
    FPMainHClues=FMainHClues;
    FPAlternateHClues=FAlternateHClues;
    FPMainVClues=FMainVClues;
@@ -329,29 +333,24 @@ function InitLevel(level) {
   
 
 function CheckPossibility(Col,Card){
+  var Row, Result='';
+  if ((Col<0)|| (Col>5)|| Card===36) Result='cpCannotBe';
+  else {    
+    Row=div(Card, 6);
 
- var Row, Result='';
-  
-   if ((Col<0)|| (Col>5))
-    Result='cpCannotBe';
-   else
-    {    
-     Row=div(Card, 6);
-    // console.log(Col, Row, Card);
-     if (FField[Col][Row].UserValue==36)
+    if (FField[Col][Row].UserValue==36)
       if (FField[Col][Row].Variants.indexOf(Card%6)>=0)
-     // if (Card % 6) in FField[Col,Row].Variants then
-       Result='cpCanBe';
+        Result='cpCanBe';
       else
        Result='cpCannotBe';
-     else
+    else
       if (Card==FField[Col][Row].UserValue)
-       Result='cpIsHere'
+        Result='cpIsHere'
       else
-       Result='cpCannotBe'
-    }
-    return Result
+        Result='cpCannotBe'
   }
+  return Result
+}
 
 function CheckCorrectness() {
  //var Col,Row;
@@ -359,7 +358,7 @@ function CheckCorrectness() {
    var Result=true;
    for (var Col=0; Col<6; Col++)
     for (var Row=0; Row<6; Row++)
-     if (CheckPossibility(Col,FField[Col][Row].CorrectValue)=='cpCannotBe'){
+     if (CheckPossibility(Col,FField[Col][Row].UserValue)=='cpCannotBe'){
         Result=false;
         break;
       }
@@ -413,13 +412,16 @@ function FirstInitField() {
 
 function CreateLevelMap() {
  var i=0,current=0,cnt=0,ctype=0;
-   for (i=0; i<65535; i++) {
+   for (i=0; i<65535; i++) 
+  {
      FLevelMap[i]=current;
-     current+=6
+     //current+=6
      current = current+1+FBLevels[current];
+     //console.log(current);
      cnt = FBLevels[current];
     current++;
      for (var j=0; j< cnt; j++) {
+      //console.log(current, j);
        ctype=div (FBLevels[current], 36);
        switch (ctype) {
        	case 0:
@@ -434,7 +436,7 @@ function CreateLevelMap() {
        }
       }
       current+=1+2*FBLevels[current];
-     
+     //console.log(current);
 	   }
 	}
   // function next_tips(){

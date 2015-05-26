@@ -18,7 +18,9 @@
 .window_buttons  #button_remove,
 .window_buttons  #button_wrong,
 .window_buttons  #button_hint,
-.window_buttons.Sherlock_state_game  #button_start{
+.window_buttons.Sherlock_state_game  #button_start,
+.window_buttons.Sherlock_state_game  #button_level,
+.window_buttons.Sherlock_state_game  #button_name{
   display: none;
 }
 .window_buttons.Sherlock_state_game  #button_new,
