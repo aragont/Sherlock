@@ -121,14 +121,14 @@ function remove_step() {
 }
 
 function InitLevel(level) {
-  console.log(level);
+ // console.log(level);
   //level=0;
   var Col,Row,Card,I,Cnt,P, Variants = [], CType;
      var Found = [];
   //count_big_card=0;
    FCompleted=false;
    P=FLevelMap[level];
-   console.log(P);
+   //console.log(P);
    for (Col=0; Col<6; Col++) 
     for (Row=0 ; Row<6;Row++){
       FField[Col][Row].Initial=false,
@@ -191,14 +191,14 @@ function InitLevel(level) {
      if (I<Cnt) {
       //count=P;
        CType=div(FBLevels[P], 36);
-       console.log(CType);
+       //console.log(CType);
        FMainHClues[I].Card1=FBLevels[P] % 36;
        switch (CType) { 
         case 0:
         case 2:
              if (CType==0) {
               FMainHClues[I].ClueType='hcNextTo';
-              console.log('122');
+           //   console.log('122');
             }
              else
               FMainHClues[I].ClueType='hcNotNextTo';
