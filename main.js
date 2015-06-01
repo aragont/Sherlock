@@ -219,6 +219,6 @@ next_hint = function() {
         Hint = CheckVClueError(I);
         I++;
     }
-    console.log(Hint);
+    //console.log(Hint);
     if (!Hint) Hint = FindHint();
 };
