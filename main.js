@@ -1,13 +1,11 @@
 /* jshint browser: true */
 /* global console */
 /**@module Main*/
-
 /**
  * номер таймера
  * @type {Number}
  */
 var myVar = 0;
-
 /**
  * отрисовывает игровое поле при запуске окна
  *  @func module:Main#onload
@@ -16,7 +14,7 @@ window.onload = function() {
     var temp = 0;
     for (var i = 0; i < 6; i++)
         for (var j = 0; j < 6; j++) {
-            $('#s' + j + i + ' > div').css('background', 'url(BasicBig.bmp) ' + temp + 'px 0px');
+            $('#s' + j + i + ' > div').css('background', 'url(BasicBig.bmp)' + temp + 'px 0px');
             temp -= 60;
         }
 };
@@ -96,7 +94,7 @@ draw_variants = function(i, j, Variants) {
         if (count === 3) table += '</tr><tr>';
         var w = -k * 30 - j * 180;
         if (Variants.indexOf(k) >= 0) {
-            table += '<td class = "small" id = ' + j + '' + i + '' + k + '><span style = "background-image:url(/Sherlock/BasicSmall.bmp);background-position:' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span> </td>';
+            table += '<td class = "small" id = ' + j + '' + i + '' + k + '><span style = "background-image:url(BasicSmall.bmp);background-position:' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span> </td>';
         } else table += '<td class = "small" id = ' + j + '' + i + '' + k + '><span  onclick = "td_click(this.parentNode.id);"></span> </td>';
         count++;
     }
@@ -119,7 +117,7 @@ draw_field = function() {
                     if (count === 3) table += '</tr><tr>';
                     var w = -k * 30 - j * 180;
                     if (FField[i][j].Variants.indexOf(k) >= 0) {
-                        table += '<td class = "small" id = ' + j + '' + i + '' + k + '><span style = "background-image:url(/Sherlock/BasicSmall.bmp);background-position:' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span> </td>';
+                        table += '<td class = "small" id = ' + j + '' + i + '' + k + '><span style = "background-image:url(BasicSmall.bmp);background-position:' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span> </td>';
                     } else table += '<td class = "small" id = ' + j + '' + i + '' + k + '><span  onclick = "td_click(this.parentNode.id);"></span> </td>';
                     count++;
                 }
@@ -194,7 +192,7 @@ start_new_game = function(level) {
     for (var i = 0; i < 21; i++) {
         w = FMainVClues[i].Card1 * (-60);
         v = FMainVClues[i].Card2 * (-60);
-        tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr><tr><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table';
+        tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr><tr><td class="down-tip"><span style = "background-image:url(BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table';
         $('#down_tips_' + i).append(tips);
     }
     for (i = 0; i < 24; i++) {
@@ -202,14 +200,14 @@ start_new_game = function(level) {
         v = FMainHClues[i].Card2 * (-60);
         e = FMainHClues[i].Card3 * (-60);
         if (FMainHClues[i].ClueType === 'hcTriple') {
-            tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2340px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2400px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2460px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td></tr></table';
+            tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(BasicBig.bmp);background-position: -2340px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(BasicBig.bmp);background-position: -2400px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(BasicBig.bmp);background-position: -2460px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td></tr></table';
         } else
         if (FMainHClues[i].ClueType === 'hcNotTriple') {
-            tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2340px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2280px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2400px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2460px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td></tr></table';
+            tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(BasicBig.bmp);background-position: -2340px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(BasicBig.bmp);background-position: -2280px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(BasicBig.bmp);background-position: -2400px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></span></td><td class="down-tip"><span style = "background-image:url(BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(BasicBig.bmp);background-position: -2460px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td></tr></table';
         } else
         if (FMainHClues[i].ClueType === 'hcNotNextTo') {
-            tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2280px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table';
-        } else tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table';
+            tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"><span style = "background-image:url(BasicBig.bmp);background-position: -2280px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></span></td><td class="down-tip"><span style = "background-image:url(BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table';
+        } else tips = '<table><tr><td class = "down-tip"><span style = "background-image:url(BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td><td class="down-tip"><span style = "background-image:url(BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);"></span></td></tr></table';
         $('#left_tip_' + i).append(tips);
     }
 };
@@ -249,7 +247,7 @@ td_right_click = function(data) {
             'act': 'add'
         });
         add_variants(col, row, data % 10);
-        $('#' + data + '> span').css('background-image', 'url(/Sherlock/BasicSmall.bmp)');
+        $('#' + data + '> span').css('background-image', 'url(BasicSmall.bmp)');
         $('#' + data + '> span').css('background-position', w + 'px 0px');
     }
 };
