@@ -220,5 +220,6 @@ next_hint = function() {
         I++;
     }
     //console.log(Hint);
-    if (!Hint) Hint = FindHint();
+    if (!Hint) Hint = FindHint(true);
+    draw_field();
 };

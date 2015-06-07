@@ -58,7 +58,7 @@ function add_step(data) {
     //            console.log(i);
             }
         }
-        console.log(CheckPossibility(data.col,data.card + data.row * 6 ),data.col,data.card + data.row * 6 )
+        console.log(CheckPossibility(data.col,data.card + data.row * 6 ),data.col,data.card + data.row * 6 );
         if (CheckPossibility(data.col,data.card + data.row * 6 ) !== 'cpCannotBe') {
         //if (data.card + data.row * 6 !== FField[data.col][data.row].CorrectValue) {
             error_flag = false;
@@ -213,15 +213,44 @@ function InitLevel(level) {
         //     'Card2': 36
         // };
     }
-     FField[1][3].Initial=true;
-     FField[1][3].CorrectValue=19;
-     FField[1][3].UserValue=19;
-      solve_game();  
+     // FField[1][3].Initial=true;
+     // FField[1][3].CorrectValue=19;
+     // FField[1][3].UserValue=19;
+     solve_game();  
+     for (var i=0; i<6; i++)
+        for (var j=0; j<6; j++){
+            FField[i][j].Initial=false;
+            FField[i][j].CorrectValue = FField[i][j].UserValue;
+            FField[i][j].UserValue=36;
+        }
+    P = FLevelMap[level];
+    
+    var count = P;
+    for (var i = 0; i < FBLevels[count]; i++) { 
+        P++;
+        Col = FBLevels[P] % 6;
+        Card = div(FBLevels[P], 6);
+        Row = div(Card, 6);
+        FField[Col][Row].Initial = true;
+        FField[Col][Row].CorrectValue = Card;
+        FField[Col][Row].UserValue = Card;
+    }
+    for (Row = 0; Row < 6; Row++) {
+        Variants = [0, 1, 2, 3, 4, 5];
+        for (Col = 0; Col < 6; Col++)
+            if (FField[Col][Row].Initial) {
+                Variants.splice(Variants.indexOf(FField[Col][Row].CorrectValue % 6), 1);
+            }
+        for (Col = 0; Col < 6; Col++)
+            if (!FField[Col][Row].Initial)
+                for (var ii in Variants){//console.log(FField[Col][Row])
+                    FField[Col][Row].Variants[ii] = Variants[ii];   
+            }}
     FPMainHClues = FMainHClues;
    // FPAlternateHClues = FAlternateHClues;
     FPMainVClues = FMainVClues;
     //FPAlternateVClues = FAlternateVClues;
-    return true
+    return true;
 }
 function CheckSolve(Col, Card){
     var Row, Result = '';
@@ -259,7 +288,6 @@ function CheckPossibility(Col, Card) {
         else
         if (Card === FField[Col][Row].UserValue) {
             Result = 'cpIsHere';
-            //console.log(FField[Col][Row].UserValue);
         }
         else
             Result = 'cpCannotBe';
@@ -303,16 +331,34 @@ function CreateFField() {
 
 function solve_game(){
     console.log('solve');
- var i=0;
- while (!correct || i<100) {
-    next_hint();
-    i++;
- }
- console.log(i);
- for (var i=0; i<6;i++)
-    for (var j=0; j<6; j++)
-        if (FField[i][j].UserValue!==36) console.log(i,j);
-};
+    var i=0;
+    while (i<300) {
+        var Hint = '';
+        var I;
+        I = 0;
+         //console.log(i);
+        Hint = FindHint(false);
+        //console.log(Hint);
+        if (!Hint) break;
+        for (var j=0; j<6; j++)
+            for (var k=0; k<6; k++)
+                if (FField[j][k].UserValue!==36) {
+                    FField[j][k].Initial=true;
+                    FField[j][k].Variants=[];
+                   //console.log(j,k);
+                    for (var l=0; l<6; l++)
+                        delete_variants(l,k,FField[j][k].UserValue%6)
+                }
+        i++;
+        //console.log(i);
+    }
+   // var count=0;
+    // for (i=0; i<6;i++)
+    //     for (var j=0; j<6; j++)
+    //         if (FField[i][j].UserValue!==36) count++;
+    //     console.log("initial",count);
+     draw_field();
+}
 
 
 function div(val, by) {
