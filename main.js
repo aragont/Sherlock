@@ -1,8 +1,17 @@
 /* jshint browser: true */
 /* global console */
+/**@module Main*/
 
+/**
+ * номер таймера
+ * @type {Number}
+ */
 var myVar = 0;
 
+/**
+ * отрисовывает игровое поле при запуске окна
+ *  @func module:Main#onload
+ */
 window.onload = function() {
     var temp = 0;
     for (var i = 0; i < 6; i++)
@@ -12,28 +21,47 @@ window.onload = function() {
         }
 };
 
+/**
+ * отрисовка уровня игры
+ * @func module:Main#send_level
+ */
 send_level = function() {
     $('.window_info_level')[0].innerHTML = 'Уровень: ' + $('.number_level >input')[0].value;
     $('.input ').css('display', 'none');
 };
 
+/**
+ * отрисовка блока для ввода номера уровня
+ * @func module:Main#change_level
+ */
 change_level = function() {
     $('.number_level').css('display', 'block');
 };
 
+/**
+ * отрисовка имени игрока
+ * @func module:Main#send_name
+ */
 send_name = function() {
     $('.sherlock_name')[0].innerHTML = $('.set_name >input')[0].value + '<p></p>';
     $('.input ').css('display', 'none');
 };
 
+/**
+ * показывает блок для ввода имени игрока
+ * @func module:Main#show_set_name
+ */
 show_set_name = function() {
     $('.set_name').css('display', 'block');
 };
 
-click_img = function(data) {
-    //console.log(data.parentNode);
-};
-
+/**
+ * Отрисовывает карту, которую выбрал игрок в качестве заполнения поля
+ * @param  {Int} col  колонка, в которой выбрана карта
+ * @param  {Int} row  строка, в которой выбрана карта
+ * @param  {Int} card номер карты.
+ * @func module:Main#draw_big
+ */
 draw_big = function(col, row, card) {
     if (choose_big(col, row, card)) {
         $('#s' + col + row).append(' <div class="sherlock_pict"> </div>');
@@ -50,10 +78,17 @@ draw_big = function(col, row, card) {
         $('#s' + col + row + '>div').css('background', 'url(BasicBig.bmp) -' + w + 'px 0px');
         for (var r = 0; r < 6; r++) {
             $('#' + row + r + card + '> span').css('background', 'none');
-		}
+        }
     }
 };
 
+/**
+ * Отрисовывает варианты для заполнения поля
+ * @param  {Int} i  колонка, в которой выбрана карта
+ * @param  {Int} j  строка, в которой выбрана карта
+ * @param  {Int} Variants массив вариантов
+ * @func module:Main#draw_variants
+ */
 draw_variants = function(i, j, Variants) {
     var count = 0;
     var table = '<table><tr>';
@@ -70,6 +105,10 @@ draw_variants = function(i, j, Variants) {
     $('#s' + i + j).append(table);
 };
 
+/**
+ * Отрисовывает все игровое поле
+ * @func module:Main#draw_field
+ */
 draw_field = function() {
     for (var i = 0; i < 6; i++)
         for (var j = 0; j < 6; j++) {
@@ -96,7 +135,11 @@ draw_field = function() {
         }
 };
 
-myTimer = function() {
+/**
+ * таймер игры
+ *@func module:Main#Sherlock_Timer
+ */
+Sherlock_Timer = function() {
     var time = $('.sherlock_timer')[0].innerHTML;
     var time_value = time.split(':');
     time_value[2]++;
@@ -113,16 +156,27 @@ myTimer = function() {
 
 };
 
+/**
+ * корректирует длину строки, до двух символов. Используется для таймера, чтобы секунды и минуты всегда отображались двумя цифрами
+ * @param  {Int} data цифра, которую нужно откорректировать
+ * @return {String}      полученная строка
+ * @func module:Main#correct_length
+ */
 correct_length = function(data) {
     if (data <= 9) return '0' + data;
     else return '' + data;
 };
 
+/**
+ * Начало новой игры
+ * @param  {Int} level уровень
+ * @func module:Main#start_new_game
+ */
 start_new_game = function(level) {
     $('.sherlock_timer')[0].innerHTML = '00:00:00';
     if (myVar) clearInterval(myVar); //(myVar);
     myVar = setInterval(function() {
-        myTimer();
+        Sherlock_Timer();
     }, 1000);
     var l = $('.window_info_level')[0].innerHTML.replace('Уровень: ', '');
     l = parseInt(l);
@@ -136,7 +190,7 @@ start_new_game = function(level) {
     });
     $('.down_tips>div>table').remove();
     $('.left_tips>div>table').remove();
-    var w,v,tips,e;
+    var w, v, tips, e;
     for (var i = 0; i < 21; i++) {
         w = FMainVClues[i].Card1 * (-60);
         v = FMainVClues[i].Card2 * (-60);
@@ -160,8 +214,13 @@ start_new_game = function(level) {
     }
 };
 
+/**
+ * правый щелчок мышки на варианте заполнения поля. Щелчок на уже убранном варианте восстанавливает его, на существующем - убирает
+ * @param  {Int} data трехзначное число: первая цифра - строка, вторая - колонка, третья - номер варианта
+ * @func module:Main#td_right_click
+ */
 td_right_click = function(data) {
-	var col,row;
+    var col, row;
     while (data.length < 3) data = '0' + data;
     if ($('#' + data + '> span').css('background-image') !== 'none') {
         $('#' + data + '> span').css('background', 'none');
@@ -195,6 +254,11 @@ td_right_click = function(data) {
     }
 };
 
+/**
+ * левый щелчок мыши. Выбирает данный вариант.
+ * @param  {Int} data трехзначное число: первая цифра - строка, вторая - колонка, третья - номер варианта
+ * @func module:Main#td_click
+ */
 td_click = function(data) {
     if (data) {
         var k = data % 10;
@@ -205,6 +269,10 @@ td_click = function(data) {
     }
 };
 
+/**
+ * показать следующую подсказку
+ * @func module:Main#next_hint
+ */
 next_hint = function() {
     var Hint = '';
     var I;
@@ -219,7 +287,6 @@ next_hint = function() {
         Hint = CheckVClueError(I);
         I++;
     }
-    //console.log(Hint);
     if (!Hint) Hint = FindHint(true);
     draw_field();
 };

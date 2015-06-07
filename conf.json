@@ -1,0 +1,19 @@
+{
+    "tags": {
+        "allowUnknownTags": false,
+        "dictionaries": ["jsdoc","closure"]
+    },
+    "source": {
+        "include":["sherlock.js","hint.js"]
+    },
+    "opts": {
+        "template": "templates/TT",  // same as -t templates/default
+        "encoding": "utf8",               // same as -e utf8
+        "destination": "./docs/",          // same as -d ./out/
+        "recurse": true                     // same as -r
+    },
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": false
+    }
+}

@@ -1,4 +1,32 @@
-/* jshint browser: true */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: sherlock.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: sherlock.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* jshint browser: true */
 /* global console */
 
 /** @module Sherlock */
@@ -84,7 +112,7 @@ function add_step(data) {
     };
     if (data.type == 'big') {
         obj.val = FField[data.col][data.row].Variants;
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i &lt; 6; i++) {
             console.log(FField[i][data.row].Variants, data.row, data.col);
             if (FField[i][data.row].Variants.indexOf(data.card) >= 0) {
                 obj.was.push(i);
@@ -110,7 +138,7 @@ function remove_many() {
     var c = 0;
     for (var i = steps_history.length - 1; i >= 0; i--)
         if (!steps_history[i].right) c++;
-    for (i = 0; i < c; i++)
+    for (i = 0; i &lt; c; i++)
         remove_step();
     alert("Все верно");
 }
@@ -127,7 +155,7 @@ function remove_step() {
     } else {
         FField[h.col][h.row].Initial = false;
         FField[h.col][h.row].UserValue = 36;
-        for (var i = 0; i < h.was.length; i++)
+        for (var i = 0; i &lt; h.was.length; i++)
             add_variants(h.was[i], h.row, h.card.number);
     }
     draw_field();
@@ -145,15 +173,15 @@ function InitLevel(level) {
     var Found = [];
     var tempField = [];
     P = FLevelMap[level];
-    for (Col = 0; Col < 6; Col++)
-        for (Row = 0; Row < 6; Row++) {
+    for (Col = 0; Col &lt; 6; Col++)
+        for (Row = 0; Row &lt; 6; Row++) {
             FField[Col][Row].Initial = false,
                 FField[Col][Row].CorrectValue = 36,
                 FField[Col][Row].UserValue = 36,
                 FField[Col][Row].Variants = []; //jshint ignore:line
         }
     var count = P;
-    for (var i = 0; i < FBLevels[count]; i++) {
+    for (var i = 0; i &lt; FBLevels[count]; i++) {
         P++;
         Col = FBLevels[P] % 6;
         Card = div(FBLevels[P], 6);
@@ -163,13 +191,13 @@ function InitLevel(level) {
         FField[Col][Row].UserValue = Card;
     }
     P++;
-    for (Row = 0; Row < 6; Row++) {
+    for (Row = 0; Row &lt; 6; Row++) {
         Variants = [0, 1, 2, 3, 4, 5];
-        for (Col = 0; Col < 6; Col++)
+        for (Col = 0; Col &lt; 6; Col++)
             if (FField[Col][Row].Initial) {
                 Variants.splice(Variants.indexOf(FField[Col][Row].CorrectValue % 6), 1);
             }
-        for (Col = 0; Col < 6; Col++)
+        for (Col = 0; Col &lt; 6; Col++)
             if (!FField[Col][Row].Initial)
                 for (var ii in Variants) {
                     FField[Col][Row].Variants[ii] = Variants[ii];
@@ -178,8 +206,8 @@ function InitLevel(level) {
     count = P;
     Cnt = FBLevels[count];
     P++;
-    for (I = 0; I < 24; I++) {
-        if (I < Cnt) {
+    for (I = 0; I &lt; 24; I++) {
+        if (I &lt; Cnt) {
             CType = div(FBLevels[P], 36);
             FMainHClues[I].Card1 = FBLevels[P] % 36;
             switch (CType) {
@@ -222,10 +250,10 @@ function InitLevel(level) {
     }
     Cnt = FBLevels[P];
     P++;
-    for (I = 0; I < 21; I++) {
-        if (I < Cnt) {
+    for (I = 0; I &lt; 21; I++) {
+        if (I &lt; Cnt) {
             FMainVClues[I] = {};
-            if ((FBLevels[P] && 128) >= 0) {
+            if ((FBLevels[P] &amp;&amp; 128) >= 0) {
                 FMainVClues[I].ClueType = 'vcTogether';
             } else {
                 FMainVClues[I].ClueType = 'vcNotTogether';
@@ -243,8 +271,8 @@ function InitLevel(level) {
 
     }
     solve_game();
-    for (i = 0; i < 6; i++)
-        for (var j = 0; j < 6; j++) {
+    for (i = 0; i &lt; 6; i++)
+        for (var j = 0; j &lt; 6; j++) {
             FField[i][j].Initial = false;
             FField[i][j].CorrectValue = FField[i][j].UserValue;
             FField[i][j].UserValue = 36;
@@ -252,7 +280,7 @@ function InitLevel(level) {
     P = FLevelMap[level];
 
     count = P;
-    for (i = 0; i < FBLevels[count]; i++) {
+    for (i = 0; i &lt; FBLevels[count]; i++) {
         P++;
         Col = FBLevels[P] % 6;
         Card = div(FBLevels[P], 6);
@@ -261,13 +289,13 @@ function InitLevel(level) {
         FField[Col][Row].CorrectValue = Card;
         FField[Col][Row].UserValue = Card;
     }
-    for (Row = 0; Row < 6; Row++) {
+    for (Row = 0; Row &lt; 6; Row++) {
         Variants = [0, 1, 2, 3, 4, 5];
-        for (Col = 0; Col < 6; Col++)
+        for (Col = 0; Col &lt; 6; Col++)
             if (FField[Col][Row].Initial) {
                 Variants.splice(Variants.indexOf(FField[Col][Row].CorrectValue % 6), 1);
             }
-        for (Col = 0; Col < 6; Col++)
+        for (Col = 0; Col &lt; 6; Col++)
             if (!FField[Col][Row].Initial)
                 for (var ii in Variants) { //console.log(FField[Col][Row])
                     FField[Col][Row].Variants[ii] = Variants[ii];
@@ -289,7 +317,7 @@ function InitLevel(level) {
  */
 function CheckPossibility(Col, Card) {
     var Row, Result = '';
-    if ((Col < 0) || (Col > 5) || Card === 36) Result = 'cpCannotBe';
+    if ((Col &lt; 0) || (Col > 5) || Card === 36) Result = 'cpCannotBe';
     else {
         Row = div(Card, 6);
         if (FField[Col][Row].UserValue === 36)
@@ -313,8 +341,8 @@ function CheckPossibility(Col, Card) {
  */
 function CheckCorrectness() {
     var Result = true;
-    for (var Col = 0; Col < 6; Col++)
-        for (var Row = 0; Row < 6; Row++)
+    for (var Col = 0; Col &lt; 6; Col++)
+        for (var Row = 0; Row &lt; 6; Row++)
             if (CheckPossibility(Col, FField[Col][Row].UserValue) === 'cpCannotBe') {
                 Result = false;
                 break;
@@ -352,9 +380,9 @@ function add_variants(col, row, variant) {
 
  */
 function CreateFField() {
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i &lt; 6; i++) {
         FField[i] = {};
-        for (var j = 0; j < 6; j++) {
+        for (var j = 0; j &lt; 6; j++) {
             FField[i][j] = {
                 'Initial': false,
                 'CorrectValue': 0,
@@ -370,18 +398,18 @@ function CreateFField() {
  */
 function solve_game() {
     var i = 0;
-    while (i < 300) {
+    while (i &lt; 300) {
         var Hint = '';
         var I;
         I = 0;
         Hint = FindHint(false);
         if (!Hint) break;
-        for (var j = 0; j < 6; j++)
-            for (var k = 0; k < 6; k++)
+        for (var j = 0; j &lt; 6; j++)
+            for (var k = 0; k &lt; 6; k++)
                 if (FField[j][k].UserValue !== 36) {
                     FField[j][k].Initial = true;
                     FField[j][k].Variants = [];
-                    for (var l = 0; l < 6; l++)
+                    for (var l = 0; l &lt; 6; l++)
                         delete_variants(l, k, FField[j][k].UserValue % 6);
                 }
         i++;
@@ -398,13 +426,13 @@ function FirstInitField() {
     var x = 0,
         y = 0,
         i = 0;
-    for (y = 0; y < 6; y++)
-        for (x = 0; x < 6; x++) {
+    for (y = 0; y &lt; 6; y++)
+        for (x = 0; x &lt; 6; x++) {
             FField[x][y].Initial = true;
             FField[x][y].CorrectValue = x + 6 * y;
             FField[x][y].UserValue = x + 6 * y;
         }
-    for (i = 0; i < 24; i++) {
+    for (i = 0; i &lt; 24; i++) {
         FMainHClues[i] = {
             'ClueType': 'hcNone',
             'Card1': 36,
@@ -412,7 +440,7 @@ function FirstInitField() {
             'Card3': 36
         };
     }
-    for (i = 0; i < 21; i++)
+    for (i = 0; i &lt; 21; i++)
         FMainHClues[i] = {
             'ClueType': 'vcNone',
             'Card1': 36,
@@ -429,12 +457,12 @@ function CreateLevelMap() {
         current = 0,
         cnt = 0,
         ctype = 0;
-    for (i = 0; i < 65535; i++) {
+    for (i = 0; i &lt; 65535; i++) {
         FLevelMap[i] = current;
         current = current + 1 + FBLevels[current];
         cnt = FBLevels[current];
         current++;
-        for (var j = 0; j < cnt; j++) {
+        for (var j = 0; j &lt; cnt; j++) {
             ctype = div(FBLevels[current], 36);
             switch (ctype) {
                 case 0:
@@ -471,4 +499,26 @@ function div(val, by) {
 
 CreateLevelMap();
 CreateFField();
-FirstInitField();
+FirstInitField();</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Sherlock</h3><ul><li onclick="show_functions(this)"><a href="module-Hints.html">Hints</a><ul style="display:none"><li style="margin-left:20px"><a href="module-Hints.html#CheckCorrect">CheckCorrect</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClue">CheckHClue</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueError">CheckHClueError</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueNotNextTo">CheckHClueNotNextTo</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueNotTriple">CheckHClueNotTriple</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueOrder">CheckHClueOrder</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueTriple">CheckHClueTriple</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckPresence">CheckPresence</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckSimpleValues">CheckSimpleValues</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckVClue">CheckVClue</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckVClue">CheckVClue</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckVClueError">CheckVClueError</a></li><li style="margin-left:20px"><a href="module-Hints.html#FindHint">FindHint</a></li><li style="margin-left:20px"><a href="module-Hints.html#GetRow">GetRow</a></li></ul></li><li onclick="show_functions(this)"><a href="module-Main.html">Main</a><ul style="display:none"><li style="margin-left:20px"><a href="module-Main.html#change_level">change_level</a></li><li style="margin-left:20px"><a href="module-Main.html#correct_length">correct_length</a></li><li style="margin-left:20px"><a href="module-Main.html#draw_big">draw_big</a></li><li style="margin-left:20px"><a href="module-Main.html#draw_field">draw_field</a></li><li style="margin-left:20px"><a href="module-Main.html#draw_variants">draw_variants</a></li><li style="margin-left:20px"><a href="module-Main.html#next_hint">next_hint</a></li><li style="margin-left:20px"><a href="module-Main.html#onload">onload</a></li><li style="margin-left:20px"><a href="module-Main.html#send_level">send_level</a></li><li style="margin-left:20px"><a href="module-Main.html#send_name">send_name</a></li><li style="margin-left:20px"><a href="module-Main.html#Sherlock_Timer">Sherlock_Timer</a></li><li style="margin-left:20px"><a href="module-Main.html#show_set_name">show_set_name</a></li><li style="margin-left:20px"><a href="module-Main.html#start_new_game">start_new_game</a></li><li style="margin-left:20px"><a href="module-Main.html#td_click">td_click</a></li><li style="margin-left:20px"><a href="module-Main.html#td_right_click">td_right_click</a></li></ul></li><li onclick="show_functions(this)"><a href="module-Sherlock.html">Sherlock</a><ul style="display:none"><li style="margin-left:20px"><a href="module-Sherlock.html#add_step">add_step</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#add_variants">add_variants</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CheckCorrectness">CheckCorrectness</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CheckPossibility">CheckPossibility</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#choose_big">choose_big</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CreateFField">CreateFField</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CreateLevelMap">CreateLevelMap</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#delete_variants">delete_variants</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#div">div</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#FirstInitField">FirstInitField</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#InitLevel">InitLevel</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#remove_many">remove_many</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#remove_step">remove_step</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#solve_game">solve_game</a></li></ul></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0</a> on Sun Jun 07 2015 20:35:58 GMT+0500 (YEKT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
