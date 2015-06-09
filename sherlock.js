@@ -85,20 +85,22 @@ function add_step(data) {
     if (data.type == 'big') {
         obj.val = FField[data.col][data.row].Variants;
         for (var i = 0; i < 6; i++) {
-            console.log(FField[i][data.row].Variants, data.row, data.col);
+            //console.log(FField[i][data.row].Variants, data.row, data.col);
             if (FField[i][data.row].Variants.indexOf(data.card) >= 0) {
                 obj.was.push(i);
                 FField[i][data.row].Variants.splice(FField[i][data.row].Variants.indexOf(data.card), 1);
             }
         }
-        if (CheckPossibility(data.col, data.card + data.row * 6) !== 'cpCannotBe') {
+        console.log(FField[data.col][data.row].CorrectValue!==data.card+data.row*6,FField[data.col][data.row].CorrectValue,data.card+data.row*6);
+        if (FField[data.col][data.row].CorrectValue!==data.card+data.row*6) {
             error_flag = false;
         }
     } else {
-        if (CheckPossibility(data.col, data.card + data.row * 6) !== 'cpCannotBe') {
+        if (FField[data.col][data.row].CorrectValue===data.card+data.row*6) {
             error_flag = false;
         }
     }
+    obj.right=error_flag;
     steps_history.push(obj);
 }
 
