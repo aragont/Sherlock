@@ -218,37 +218,39 @@ start_new_game = function(level) {
  * @func module:Main#td_right_click
  */
 td_right_click = function(data) {
-    var col, row;
-    while (data.length < 3) data = '0' + data;
-    if ($('#' + data + '> span').css('background-image') !== 'none') {
-        $('#' + data + '> span').css('background', 'none');
-        col = div(data, 10) % 10;
-        row = div(data, 100);
-        add_step({
-            'col': col,
-            'row': row,
-            'card': data % 10,
-            'type': 'small',
-            'act': 'del'
-        });
-        delete_variants(col, row, data % 10);
-        if (FField[col][row].Variants.length === 1) {
-            draw_big(col, row, FField[col][row].Variants[0]);
+    if (data!=='') {
+        var col, row;
+        while (data.length < 3) data = '0' + data;
+        if ($('#' + data + '> span').css('background-image') !== 'none') {
+            $('#' + data + '> span').css('background', 'none');
+            col = div(data, 10) % 10;
+            row = div(data, 100);
+            add_step({
+                'col': col,
+                'row': row,
+                'card': data % 10,
+                'type': 'small',
+                'act': 'del'
+            });
+            delete_variants(col, row, data % 10);
+            if (FField[col][row].Variants.length === 1) {
+                draw_big(col, row, FField[col][row].Variants[0]);
+            }
+        } else {
+            var w = (data % 10) * (-30) - div(data, 100) * 180;
+            col = div(data, 10) % 10;
+            row = div(data, 100);
+            add_step({
+                'col': col,
+                'row': row,
+                'card': data % 10,
+                'type': 'small',
+                'act': 'add'
+            });
+            add_variants(col, row, data % 10);
+            $('#' + data + '> span').css('background-image', 'url(BasicSmall.bmp)');
+            $('#' + data + '> span').css('background-position', w + 'px 0px');
         }
-    } else {
-        var w = (data % 10) * (-30) - div(data, 100) * 180;
-        col = div(data, 10) % 10;
-        row = div(data, 100);
-        add_step({
-            'col': col,
-            'row': row,
-            'card': data % 10,
-            'type': 'small',
-            'act': 'add'
-        });
-        add_variants(col, row, data % 10);
-        $('#' + data + '> span').css('background-image', 'url(BasicSmall.bmp)');
-        $('#' + data + '> span').css('background-position', w + 'px 0px');
     }
 };
 
