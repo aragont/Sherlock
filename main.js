@@ -108,6 +108,12 @@ draw_variants = function(i, j, Variants) {
  * @func module:Main#draw_field
  */
 draw_field = function() {
+    if ($('.Sherlock_hint').length) {
+        $('.Sherlock_hint').remove();
+        $('.left_tips_number').fadeTo("slow",1);
+        $('.down_tips_number').fadeTo("slow",1);
+        $('.sherlock_background').fadeTo("slow",1);
+}
     for (var i = 0; i < 6; i++)
         for (var j = 0; j < 6; j++) {
             if (!FField[i][j].Initial) {
@@ -288,5 +294,21 @@ next_hint = function() {
         I++;
     }
     if (!Hint) Hint = FindHint(true);
-    draw_field();
+    //show_hint(Hint);
+    //draw_field();
 };
+
+show_hint = function(tip,field,data){
+    console.log(tip);
+    var tips = '<div class="Sherlock_hint">'+data+'<button onclick="draw_field()">OK</button></div>';
+    for (var i=0; i<21; i++) 
+        if ('down_tips_'+i!==tip)
+           $('#down_tips_'+i).fadeTo("slow",0.1);
+      for (i=0; i<24; i++) 
+        if ('left_tip_'+i!==tip){
+           $('#left_tip_'+i).fadeTo("slow",0.1);}
+    for (var i=0; i<6;i++)
+        for (var j=0; j<6; j++)
+            if (field.indexOf('s'+i+''+j)===-1) $('#s'+i+''+j).fadeTo("slow",0.1);
+    $('body').append(tips);  
+}

@@ -5,10 +5,10 @@
 var solved = false;
 
 /**
- * Поиск  строки 
+ * Поиск  строки
  * @param {Int} card номер карты (0,,35)
  * @return {Int} номер строки
- * @func module:Hints#GetRow   
+ * @func module:Hints#GetRow
  */
 function GetRow(card) {
     if (card !== 36) {
@@ -23,7 +23,7 @@ function GetRow(card) {
  * проверка поля на соответствие горизонтальным ключам
  * @param {Int} Index номер ключа
  * @return {String} сообщение об ошибке
- * @func module:Hints#CheckHClueError  
+ * @func module:Hints#CheckHClueError
  */
 function CheckHClueError(Index) {
     var Left, Center, Right;
@@ -36,15 +36,18 @@ function CheckHClueError(Index) {
         'Card2': FMainHClues[Index].Card2,
         'Card3': FMainHClues[Index].Card3
     };
-    var Result = '';
+    var Result = ''; //console.log(Clue, FMainHClues[Index]);
     switch (Clue.ClueType) {
         case 'hcNextTo':
             {
                 Left = GetRow(Clue.Card1);
                 Center = GetRow(Clue.Card2);
                 if (Math.abs(Left - Center) !== 1 && Left >= 0 && Center >= 0) {
-                    if (solved) alert('Комбинация противоречит ключу: ' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' должны находиться в соседних столбцах');
-                    return 'Комбинация противоречит ключу: ' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' должны находиться в соседних столбцах';
+                    if (solved) {
+                        alert('Комбинация противоречит ключу: ' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' должны находиться в соседних столбцах');
+                        show_hint('left_tip_' + Index, [], 'Комбинация противоречит этому ключу: карты <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></span> и <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card2 * 30 + 'px 0px"></span> должны находиться в соседних столбцах');
+                    }
+                    return 1;
                 }
                 break;
 
@@ -54,11 +57,13 @@ function CheckHClueError(Index) {
                 Left = GetRow(Clue.Card1);
                 Center = GetRow(Clue.Card2);
                 if (Math.abs(Left - Center) === 1 && Left >= 0 && Center >= 0) {
-                    if (solved) alert('Комбинация противоречит ключу:' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' не должны находиться в соседних столбцах');
-                    return 'Комбинация противоречит ключу:' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' не должны находиться в соседних столбцах';
+                    if (solved) {
+                        alert('Комбинация противоречит ключу:' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' не должны находиться в соседних столбцах');
+                        show_hint('left_tip_' + Index, [], 'Комбинация противоречит этому ключу: карты <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></span> и <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card2 * 30 + 'px 0px"></span> не должны находиться в соседних столбцах');
+                    }
+                    return 1;
                 }
                 break;
-
             }
         case 'hcTriple':
             {
@@ -66,8 +71,11 @@ function CheckHClueError(Index) {
                 Center = GetRow(Clue.Card2);
                 Right = GetRow(Clue.Card3);
                 if ((Math.abs(Center - Left) !== 1 || Math.abs(Center - Right) !== 1) && Center !== -1 && Left !== -1 && Right !== -1) {
-                    if (solved) alert('Комбинация противоречит ключу ' + Index + ': карты ' + SCard1 + ' и ' + SCard3 + ' должны находиться рядом с картой ' + SCard2 + ' по разные стороны от неё');
-                    return 'Комбинация противоречит ключу ' + Index + ': карты ' + SCard1 + ' и ' + SCard3 + ' должны находиться рядом с картой ' + SCard2 + ' по разные стороны от неё';
+                    if (solved) {
+                        alert('Комбинация противоречит ключу ' + Index + ': карты ' + SCard1 + ' и ' + SCard3 + ' должны находиться рядом с картой ' + SCard2 + ' по разные стороны от неё');
+                        show_hint('left_tip_' + Index, [], 'Комбинация противоречит этому ключу: карты <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></span> и <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card3 * 30 + 'px 0px"></span> должны находиться рядом с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card2 * 30 + 'px 0px"></span> по разные стороны от неё');
+                    }
+                    return 1;
                 }
                 break;
             }
@@ -77,8 +85,11 @@ function CheckHClueError(Index) {
                 Center = GetRow(Clue.Card2);
                 Right = GetRow(Clue.Card3);
                 if ((Math.abs(Center - Left) === 1 || Math.abs(Center - Right) === 1) && Center !== -1 && Left !== -1 && Right !== -1) {
-                    if (solved) alert('Комбинация противоречит  ключу' + Index + ': между картами ' + SCard1 + ' и ' + SCard3 + ' должен быть один столбец, в котором нет карты ' + SCard2);
-                    return 'Комбинация противоречит  ключу' + Index + ': между картами ' + SCard1 + ' и ' + SCard3 + ' должен быть один столбец, в котором нет карты ' + SCard2;
+                    if (solved) {
+                        alert('Комбинация противоречит ключу' + Index + ': между картами ' + SCard1 + ' и ' + SCard3 + ' должен быть один столбец, в котором нет карты ' + SCard2);
+                        show_hint('left_tip_' + Index, [], 'Комбинация противоречит этому ключу: между картами <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></span> и <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card3 * 30 + 'px 0px"></span> должен быть один столбец, в котором нет карты <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card2 * 30 + 'px 0px"></span>');
+                    }
+                    return 1;
                 }
                 break;
             }
@@ -87,8 +98,11 @@ function CheckHClueError(Index) {
                 Left = GetRow(Clue.Card1);
                 Right = GetRow(Clue.Card3);
                 if (Left > Right && Right !== -1) {
-                    if (solved) alert('Комбинация противоречит  ключу ' + Index + ': карта ' + SCard1 + ' должна быть левее, чем карта ' + SCard3);
-                    return 'Комбинация противоречит  ключу ' + Index + ': карта ' + SCard1 + ' должна быть левее, чем карта ' + SCard3;
+                    if (solved) {
+                        alert('Комбинация противоречит  ключу ' + Index + ': карта ' + SCard1 + ' должна быть левее, чем карта ' + SCard3);
+                        show_hint('left_tip_' + Index, [], 'Комбинация противоречит этому ключу: карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></span> должна быть левее, чем карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></span>');
+                    }
+                    return 1;
                 }
             }
     }
@@ -113,12 +127,18 @@ function CheckVClueError(Index) {
         Top = GetRow(Clue.Card1);
         Bottom = GetRow(Clue.Card2);
         if (Clue.ClueType === 'vcTogether' && Top !== Bottom && Top !== -1 && Bottom !== -1) {
-            if (solved) alert('Комбинация противоречит  ключу ' + Index + ': карты #' + SCard1 + ' и #' + SCard2 + ' должны находиться в одном столбце');
-            return 'Комбинация противоречит  ключу ' + Index + ': карты #' + SCard1 + ' и #' + SCard2 + ' должны находиться в одном столбце';
+            if (solved) {
+                alert('Комбинация противоречит  ключу ' + Index + ': карты #' + SCard1 + ' и #' + SCard2 + ' должны находиться в одном столбце');
+                show_hint('down_tips_' + Index, [], 'Комбинация противоречит этому ключу: карты <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></span> и <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card2 * 30 + 'px 0px"></span> должны находиться в одном столбце');
+            }
+            return 1;
         }
         if (Clue.ClueType === 'vcNotTogether' && Top === Bottom && Top !== -1 && Bottom !== -1) {
-            if (solved) alert('Комбинация противоречит  ключу ' + Index + ': карты #' + SCard1 + ' и #' + SCard2 + ' не могут  находиться в одном столбце');
-            return 'Комбинация противоречит  ключу ' + Index + ': карты #' + SCard1 + ' и #' + SCard2 + ' не могут  находиться в одном столбце';
+            if (solved) {
+                alert('Комбинация противоречит  ключу ' + Index + ': карты #' + SCard1 + ' и #' + SCard2 + ' не могут  находиться в одном столбце');
+                show_hint('down_tips_' + Index, [], 'Комбинация противоречит этому ключу: карты <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></span> и <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></span> не могут  находиться в одном столбце');
+            }
+            return 1;
         }
     }
     return;
@@ -131,8 +151,11 @@ function CheckVClueError(Index) {
  */
 function CheckCorrect() {
     if (!error_flag) {
-        if (solved) alert('Решение ошибочно, но противоречие выявляется только в результате многоходовой комбинации');
-        return 'Решение ошибочно, но противоречие выявляется только в результате многоходовой комбинации';
+        if (solved) {
+            alert('Решение ошибочно, но противоречие выявляется только в результате многоходовой комбинации');
+            show_hint('', [], 'Решение ошибочно, но противоречие выявляется только в результате многоходовой комбинации');
+        }
+        return 1;
     }
 }
 
@@ -145,8 +168,11 @@ function CheckPresence() {
     for (var i = 0; i < 6; i++)
         for (var j = 0; j < 6; j++)
             if (!FField[i][j].Initial && FField[i][j].Variants.length === 0) {
-                if (solved) alert('Поле ' + j + ', ' + i + 'не содержит вариантов');
-                return 'Поле ' + j + ', ' + i + 'не содержит вариантов';
+                if (solved) {
+                    alert('Поле ' + j + ', ' + i + 'не содержит вариантов');
+                    show_hint('', ['s' + j + '' + i], 'Поле не содержит вариантов');
+                }
+                return 1;
             }
     return;
 }
@@ -169,10 +195,14 @@ function CheckSimpleValues() {
                 for (Col2 = 0; Col2 < 6; Col2++)
                     if ((Col2 !== Col) && (FField[Col2][Row].initial) && (FField[Col][Row].Variants.indexOf(FField[Col2][Row].UserValue % 6)) !== -1) {
                         //FField[Col2][Row].Variants.splice(FField[Col2][Row].Variants.indexOf(FField[Col2][Row].UserValue), 1);
-                        c = FField[Col2][Row].UserValue % 6;
-                        if (solved) alert('Карта #' + c + ' не может находиться в этой клетке' + Col + ', ' + Row + ', так как она уже размещена в другом столбце');
+                        c = FField[Col2][Row].UserValue;
                         FField[Col2][Row].Variants.splice(FField[Col2][Row].Variants.indexOf(FField[Col2][Row].UserValue), 1);
-                        return 'Карта #' + c + ' не может находиться в этой клетке' + Col + ', ' + Row + ', так как она уже размещена в другом столбце';
+                        if (solved) {
+                            alert('Карта #' + c + ' не может находиться в этой клетке' + Col + ', ' + Row + ', так как она уже размещена в другом столбце');
+                            //???????????????col2 or col
+                            show_hint('', ['s' + Col2 + '' + Row], 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + c * 30 + 'px 0px"></span> не может находиться в этой клетке, так как она уже размещена в другом столбце');
+                        }
+                        return 1;
                     }
             }
             Count = 0;
@@ -183,9 +213,12 @@ function CheckSimpleValues() {
                     VCount[I]++;
                 }
             if (Count === 1) {
-                if (solved) alert('В клетке' + Col + ', ' + Row + ' остался только один возможный вариант: карта #' + Card);
                 FField[Col][Row].UserValue = Card;
-                return 'В клетке' + Col + ', ' + Row + ' остался только один возможный вариант: карта #' + Card;
+                if (solved) {
+                    alert('В клетке' + Col + ', ' + Row + ' остался только один возможный вариант: карта #' + Card);
+                    show_hint('', ['s' + Col + '' + Row], 'В клетке остался только один возможный вариант: карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + Card * 30 + 'px 0px"></span>');
+                }
+                return 1;
             }
         }
         for (I = 0; I < 36; I++)
@@ -194,10 +227,12 @@ function CheckSimpleValues() {
                     if (!FField[Col][Row].Initial && (FField[Col][Row].Variants.indexOf(I) !== -1)) {
                         c = Row * 6 + I;
                         FField[Col][Row].UserValue = c;
-                        c = c % 6;
-                        if (solved) alert('Карта #' + c + ' должна находится в клетке, ' + Col + ', ' + Row + ' потому что в остальных столбцах этот вариант уже исключён');
-
-                        return 'Карта #' + c + ' должна находится в клетке, ' + Col + ', ' + Row + ' потому что в остальных столбцах этот вариант уже исключён';
+                        //c = c % 6;
+                        if (solved) {
+                            alert('Карта #' + c + ' должна находится в клетке, ' + Col + ', ' + Row + ' потому что в остальных столбцах этот вариант уже исключён');
+                            show_hint('', ['s' + Col + '' + Row], 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + c * 30 + 'px 0px"></span> должна находится в этой клетке, потому что в остальных столбцах этот вариант уже исключён');
+                        }
+                        return 1;
                     }
     }
     return;
@@ -213,35 +248,51 @@ function CheckSimpleValues() {
 function CheckVClue(Index, Direct) {
     var Col = 0,
         P1 = '',
-        P2 = '';
-    var SCard1 = FMainVClues[Index].Card1 % 6;
-    var SCard2 = FMainVClues[Index].Card2 % 6;
+        P2 = '',
+        arr = [];
+    var SCard1 = FMainVClues[Index].Card1;
+    var SCard2 = FMainVClues[Index].Card2;
     var row1 = div(FMainVClues[Index].Card1, 6);
     var row2 = div(FMainVClues[Index].Card2, 6);
     if (FMainVClues[Index].ClueType === 'vcTogether') {
         for (Col = 0; Col < 6; Col++) {
-
             P1 = CheckPossibility(Col, FMainVClues[Index].Card1);
             P2 = CheckPossibility(Col, FMainVClues[Index].Card2);
             if (Direct && (P1 === 'cpIsHere') && (P2 === 'cpCanBe')) {
-                if (solved) alert('Карта ' + SCard2 + ' должна быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
                 FField[Col][row2].UserValue = FMainVClues[Index].Card2;
-                return 'Карта ' + SCard2 + ' должна быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1;
+                if (solved) {
+                    arr = ['s' + Col + '' + row2, 's' + Col + '' + row1];
+                    alert('Карта ' + SCard2 + ' должна быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
+                    show_hint('down_tips_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span> должна быть в этой клетке, так как по правилу она находится в одном столбце с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span>');
+                }
+                return 1;
             }
             if (!Direct && (P1 === 'cpCannotBe') && (P2 === 'cpCanBe')) {
-                if (solved) alert('Карта ' + SCard2 + ' не может быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
                 FField[Col][row2].Variants.splice(FField[Col][row2].Variants.indexOf(SCard2), 1);
-                return 'Карта ' + SCard2 + ' не может быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1;
+                if (solved) {
+                    arr = ['s' + Col + '' + row2, 's' + Col + '' + row1];
+                    alert('Карта ' + SCard2 + ' не может быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
+                    show_hint('down_tips_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span> не может быть в  клетке, так как по правилу' + Index + ' она находится в одном столбце с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span>');
+                }
+                return 1;
             }
             if (Direct && (P2 === 'cpIsHere') && (P1 === 'cpCanBe')) {
-                if (solved) alert('Карта ' + SCard1 + ' должна быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
                 FField[Col][row1].UserValue = FMainVClues[Index].Card1;
-                return 'Карта ' + SCard1 + ' должна быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2;
+                if (solved) {
+                    arr = ['s' + Col + '' + row1, 's' + Col + '' + row2];
+                    alert('Карта ' + SCard1 + ' должна быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
+                    show_hint('down_tips_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span> должна быть в этой клетке, так как по этому правилу она находится в одном столбце с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span>');
+                }
+                return 1;
             }
             if (!Direct && (P2 === 'cpCannotBe') && (P1 === 'cpCanBe')) {
-                if (solved) alert('Карта ' + SCard1 + ' не может быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
                 FField[Col][row1].Variants.splice(FField[Col][row1].Variants.indexOf(SCard1), 1);
-                return 'Карта ' + SCard1 + ' не может быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2;
+                if (solved) {
+                    arr = ['s' + Col + '' + row1, 's' + Col + '' + row2];
+                    alert('Карта ' + SCard1 + ' не может быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
+                    show_hint('down_tips_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span> не может быть в  клетке, так как по правилу' + Index + ' она находится в одном столбце с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span>');
+                }
+                return 1;
             }
         }
     } else {
@@ -250,14 +301,22 @@ function CheckVClue(Index, Direct) {
                 P1 = CheckPossibility(Col, FMainVClues[Index].Card1);
                 P2 = CheckPossibility(Col, FMainVClues[Index].Card2);
                 if ((P1 === 'cpIsHere') && (P2 === 'cpCanBe')) {
-                    if (solved) alert('Карта ' + SCard2 + ' не может быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
                     FField[Col][row2].Variants.splice(FField[Col][row2].Variants.indexOf(SCard2), 1);
-                    return 'Карта ' + SCard2 + ' не может быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1;
+                    if (solved) {
+                        arr = ['s' + Col + '' + row2, 's' + Col + '' + row1];
+                        alert('Карта ' + SCard2 + ' не может быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
+                        show_hint('down_tips_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span> не может быть в  клетке, так как по правилу' + Index + ' она находится в одном столбце с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span>');
+                    }
+                    return 1;
                 } else {
                     if ((P2 === 'cpIsHere') && (P1 === 'cpCanBe')) {
-                        if (solved) alert('Карта ' + SCard1 + ' не может быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
                         FField[Col][row1].Variants.splice(FField[Col][row1].Variants.indexOf(SCard1), 1);
-                        return 'Карта ' + SCard1 + ' не может быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2;
+                        if (solved) {
+                            arr = ['s' + Col + '' + row1, 's' + Col + '' + row2];
+                            alert('Карта ' + SCard1 + ' не может быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
+                            show_hint('down_tips_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span> не может быть в  клетке, так как по правилу' + Index + ' она находится в одном столбце с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span>');
+                        }
+                        return 1;
                     }
                 }
             }
@@ -274,10 +333,10 @@ function CheckVClue(Index, Direct) {
  * @func module:Hints#CheckVClue
  */
 function CheckHClueNextTo(Index, Direct) {
-    var Col;
+    var Col, arr;
     var PC, PL, PR;
-    var SCard1 = FMainHClues[Index].Card1 % 6;
-    var SCard2 = FMainHClues[Index].Card2 % 6;
+    var SCard1 = FMainHClues[Index].Card1;
+    var SCard2 = FMainHClues[Index].Card2;
     var row1 = div(FMainHClues[Index].Card1, 6);
     var row2 = div(FMainHClues[Index].Card2, 6);
     var q;
@@ -288,27 +347,43 @@ function CheckHClueNextTo(Index, Direct) {
         if (Direct && PC === 'cpIsHere') {
             if (PL === 'cpCanBe' && PR === 'cpCannotBe') {
                 q = Col - 1;
-                if (solved) alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
                 FField[q][row2].UserValue = FMainHClues[Index].Card2;
-                return 'Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может';
+                if (solved) {
+                    arr = ['s' + q + '' + row2, 's' + Col + '' + row1];
+                    alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
+                    show_hint('left_tip_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span> должна быть в клетке , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span>, а справа от <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span> её быть не может');
+                }
+                return 1;
             } else
             if (PR === 'cpCanBe' && PL === 'cpCannotBe') {
                 q = Col + 1;
-                if (solved) alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
                 FField[q][row2].UserValue = FMainHClues[Index].Card2;
-                return 'Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может';
+                if (solved) {
+                    arr = ['s' + q + '' + row2, 's' + Col + '' + row1];
+                    alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
+                    show_hint('left_tip_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span> должна быть в клетке , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span>, а слева от <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span> её быть не может');
+                }
+                return 1;
             } else
             if (!Direct && PC === 'cpCanBe' && PL === 'cpCannotBe' && PR === 'cpCannotBe') {
-                if (solved) alert('Карта ' + SCard1 + ' не может быть в клетке ' + Col + ', ' + row2 + ' , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта ' + SCard2);
                 FField[Col][row2].Variants.splice(FField[Col][row2].Variants.indexOf(SCard1), 1);
-                return 'Карта ' + SCard1 + ' не может быть в клетке ' + Col + ', ' + row2 + ' , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта ' + SCard2;
+                if (solved) {
+                    arr = ['s' + Col + '' + row2, 's' + Col - 1 + '' + row1, 's' + Col + 1 + '' + row1];
+                    alert('Карта ' + SCard1 + ' не может быть в клетке ' + Col + ', ' + row2 + ' , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта ' + SCard2);
+                    show_hint('left_tip_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span> не может быть в этой клетке , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span>');
+                }
+                return 1;
             }
         } else {
             if (!Direct && PC === 'cpCanBe' && PL === 'cpCannotBe' && PR === 'cpCannotBe') {
                 q = Col;
                 FField[q][row1].Variants.splice(FField[q][row1].Variants.indexOf(SCard1), 1);
-                if (solved) alert('Карта ' + SCard1 + ' не может быть в клетке  ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard2);
-                return 'Карта ' + SCard1 + ' не может быть в клетке  ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard2;
+                if (solved) {
+                    arr = ['s' + q + '' + row1, 's' + Col - 1 + '' + row2, 's' + Col + 1 + '' + row2];
+                    alert('Карта ' + SCard1 + ' не может быть в клетке  ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard2);
+                    show_hint('left_tip_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span> не может быть в этой клетке , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span>');
+                }
+                return 1;
             }
         }
         PC = CheckPossibility(Col, FMainHClues[Index].Card2);
@@ -318,21 +393,33 @@ function CheckHClueNextTo(Index, Direct) {
             if (PL === 'cpCanBe' && PR === 'cpCannotBe') {
                 q = Col - 1;
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
-                if (solved) alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard2 + ', а справа от ' + SCard2 + ' её быть не может');
-                return 'Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard2 + ', а справа от ' + SCard2 + ' её быть не может';
+                if (solved) {
+                    arr = ['s' + q + '' + row1, 's' + Col + '' + row2];
+                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard2 + ', а справа от ' + SCard2 + ' её быть не может');
+                    show_hint('left_tip_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span> должна быть в клетке , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span>, а справа от <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span> её быть не может');
+                }
+                return 1;
             } else
             if (PR === 'cpCanBe' && PL === 'cpCannotBe') {
                 q = Col + 1;
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
-                if (solved) alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard2 + ', а слева от ' + SCard2 + ' её быть не может');
-                return 'Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard2 + ', а слева от ' + SCard2 + ' её быть не может';
+                if (solved) {
+                    arr = ['s' + q + '' + row1, 's' + Col + '' + row2];
+                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard2 + ', а слева от ' + SCard2 + ' её быть не может');
+                    show_hint('left_tip_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span> должна быть в клетке , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span>, а слева от <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span> её быть не может');
+                }
+                return 1;
             }
         } else
         if (!Direct && PC === 'cpCanBe' && PL === 'cpCannotBe' && PR === 'cpCannotBe') {
             q = Col;
             FField[q][row2].Variants.splice(FField[q][row2].Variants.indexOf(SCard2), 1);
-            if (solved) alert('Карта ' + SCard2 + ' не может быть в клетке  ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard1);
-            return 'Карта ' + SCard2 + ' не может быть в клетке  ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard1;
+            if (solved) {
+                arr = ['s' + q + '' + row2, 's' + Col - 1 + '' + row1, 's' + Col + 1 + '' + row1];
+                alert('Карта ' + SCard2 + ' не может быть в клетке  ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard1);
+                show_hint('left_tip_' + Index, arr, 'Карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></span> не может быть в этой клетке , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта <span style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></span>');
+            }
+            return 1;
         }
     }
     return;

@@ -91,7 +91,6 @@ function add_step(data) {
                 FField[i][data.row].Variants.splice(FField[i][data.row].Variants.indexOf(data.card), 1);
             }
         }
-        console.log(FField[data.col][data.row].CorrectValue!==data.card+data.row*6,FField[data.col][data.row].CorrectValue,data.card+data.row*6);
         if (FField[data.col][data.row].CorrectValue!==data.card+data.row*6) {
             error_flag = false;
         }
