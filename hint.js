@@ -44,7 +44,7 @@ function CheckHClueError(Index) {
                 Center = GetRow(Clue.Card2);
                 if (Math.abs(Left - Center) !== 1 && Left >= 0 && Center >= 0) {
                     if (solved) {
-                        alert('Комбинация противоречит ключу: ' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' должны находиться в соседних столбцах');
+                        //alert('Комбинация противоречит ключу: ' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' должны находиться в соседних столбцах');
                         show_hint('left_tip_' + Index, [], 'Комбинация противоречит этому ключу: карты <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></img> и <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card2 * 30 + 'px 0px"></img> должны находиться в соседних столбцах');
                     }
                     return 1;
@@ -58,7 +58,7 @@ function CheckHClueError(Index) {
                 Center = GetRow(Clue.Card2);
                 if (Math.abs(Left - Center) === 1 && Left >= 0 && Center >= 0) {
                     if (solved) {
-                        alert('Комбинация противоречит ключу:' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' не должны находиться в соседних столбцах');
+                        //alert('Комбинация противоречит ключу:' + Index + ' карты ' + SCard1 + ' и ' + SCard2 + ' не должны находиться в соседних столбцах');
                         show_hint('left_tip_' + Index, [], 'Комбинация противоречит этому ключу: карты <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></img> и <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card2 * 30 + 'px 0px"></img> не должны находиться в соседних столбцах');
                     }
                     return 1;
@@ -72,7 +72,7 @@ function CheckHClueError(Index) {
                 Right = GetRow(Clue.Card3);
                 if ((Math.abs(Center - Left) !== 1 || Math.abs(Center - Right) !== 1) && Center !== -1 && Left !== -1 && Right !== -1) {
                     if (solved) {
-                        alert('Комбинация противоречит ключу ' + Index + ': карты ' + SCard1 + ' и ' + SCard3 + ' должны находиться рядом с картой ' + SCard2 + ' по разные стороны от неё');
+                        //alert('Комбинация противоречит ключу ' + Index + ': карты ' + SCard1 + ' и ' + SCard3 + ' должны находиться рядом с картой ' + SCard2 + ' по разные стороны от неё');
                         show_hint('left_tip_' + Index, [], 'Комбинация противоречит этому ключу: карты <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></img> и <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card3 * 30 + 'px 0px"></img> должны находиться рядом с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card2 * 30 + 'px 0px"></img> по разные стороны от неё');
                     }
                     return 1;
@@ -86,7 +86,7 @@ function CheckHClueError(Index) {
                 Right = GetRow(Clue.Card3);
                 if ((Math.abs(Center - Left) === 1 || Math.abs(Center - Right) === 1) && Center !== -1 && Left !== -1 && Right !== -1) {
                     if (solved) {
-                        alert('Комбинация противоречит ключу' + Index + ': между картами ' + SCard1 + ' и ' + SCard3 + ' должен быть один столбец, в котором нет карты ' + SCard2);
+                        //alert('Комбинация противоречит ключу' + Index + ': между картами ' + SCard1 + ' и ' + SCard3 + ' должен быть один столбец, в котором нет карты ' + SCard2);
                         show_hint('left_tip_' + Index, [], 'Комбинация противоречит этому ключу: между картами <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></img> и <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card3 * 30 + 'px 0px"></img> должен быть один столбец, в котором нет карты <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card2 * 30 + 'px 0px"></img>');
                     }
                     return 1;
@@ -99,7 +99,7 @@ function CheckHClueError(Index) {
                 Right = GetRow(Clue.Card3);
                 if (Left > Right && Right !== -1) {
                     if (solved) {
-                        alert('Комбинация противоречит  ключу ' + Index + ': карта ' + SCard1 + ' должна быть левее, чем карта ' + SCard3);
+                        //alert('Комбинация противоречит  ключу ' + Index + ': карта ' + SCard1 + ' должна быть левее, чем карта ' + SCard3);
                         show_hint('left_tip_' + Index, [], 'Комбинация противоречит этому ключу: карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></img> должна быть левее, чем карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></img>');
                     }
                     return 1;
@@ -128,14 +128,14 @@ function CheckVClueError(Index) {
         Bottom = GetRow(Clue.Card2);
         if (Clue.ClueType === 'vcTogether' && Top !== Bottom && Top !== -1 && Bottom !== -1) {
             if (solved) {
-                alert('Комбинация противоречит  ключу ' + Index + ': карты #' + SCard1 + ' и #' + SCard2 + ' должны находиться в одном столбце');
+                //alert('Комбинация противоречит  ключу ' + Index + ': карты #' + SCard1 + ' и #' + SCard2 + ' должны находиться в одном столбце');
                 show_hint('down_tips_' + Index, [], 'Комбинация противоречит этому ключу: карты <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></img> и <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card2 * 30 + 'px 0px"></img> должны находиться в одном столбце');
             }
             return 1;
         }
         if (Clue.ClueType === 'vcNotTogether' && Top === Bottom && Top !== -1 && Bottom !== -1) {
             if (solved) {
-                alert('Комбинация противоречит  ключу ' + Index + ': карты #' + SCard1 + ' и #' + SCard2 + ' не могут  находиться в одном столбце');
+                //alert('Комбинация противоречит  ключу ' + Index + ': карты #' + SCard1 + ' и #' + SCard2 + ' не могут  находиться в одном столбце');
                 show_hint('down_tips_' + Index, [], 'Комбинация противоречит этому ключу: карты <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></img> и <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Clue.Card1 * 30 + 'px 0px"></img> не могут  находиться в одном столбце');
             }
             return 1;
@@ -152,7 +152,7 @@ function CheckVClueError(Index) {
 function CheckCorrect() {
     if (!error_flag) {
         if (solved) {
-            alert('Решение ошибочно, но противоречие выявляется только в результате многоходовой комбинации');
+            //alert('Решение ошибочно, но противоречие выявляется только в результате многоходовой комбинации');
             show_hint('', [], 'Решение ошибочно, но противоречие выявляется только в результате многоходовой комбинации');
         }
         return 1;
@@ -169,7 +169,7 @@ function CheckPresence() {
         for (var j = 0; j < 6; j++)
             if (!FField[i][j].Initial && FField[i][j].Variants.length === 0) {
                 if (solved) {
-                    alert('Поле ' + j + ', ' + i + 'не содержит вариантов');
+                    //alert('Поле ' + j + ', ' + i + 'не содержит вариантов');
                     show_hint('', ['s' + j + '' + i], 'Поле не содержит вариантов');
                 }
                 return 1;
@@ -198,7 +198,7 @@ function CheckSimpleValues() {
                         c = FField[Col2][Row].UserValue;
                         FField[Col2][Row].Variants.splice(FField[Col2][Row].Variants.indexOf(FField[Col2][Row].UserValue), 1);
                         if (solved) {
-                            alert('Карта #' + c + ' не может находиться в этой клетке' + Col + ', ' + Row + ', так как она уже размещена в другом столбце');
+                            //alert('Карта #' + c + ' не может находиться в этой клетке' + Col + ', ' + Row + ', так как она уже размещена в другом столбце');
                             //???????????????col2 or col
                             show_hint('', ['s' + Col2 + '' + Row], 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + c * 30 + 'px 0px"></img> не может находиться в этой клетке, так как она уже размещена в другом столбце');
                         }
@@ -215,7 +215,7 @@ function CheckSimpleValues() {
             if (Count === 1) {
                 FField[Col][Row].UserValue = Card;
                 if (solved) {
-                    alert('В клетке' + Col + ', ' + Row + ' остался только один возможный вариант: карта #' + Card);
+                    //alert('В клетке' + Col + ', ' + Row + ' остался только один возможный вариант: карта #' + Card);
                     show_hint('', ['s' + Col + '' + Row], 'В клетке остался только один возможный вариант: карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + Card * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -229,7 +229,7 @@ function CheckSimpleValues() {
                         FField[Col][Row].UserValue = c;
                         //c = c % 6;
                         if (solved) {
-                            alert('Карта #' + c + ' должна находится в клетке, ' + Col + ', ' + Row + ' потому что в остальных столбцах этот вариант уже исключён');
+                            //alert('Карта #' + c + ' должна находится в клетке, ' + Col + ', ' + Row + ' потому что в остальных столбцах этот вариант уже исключён');
                             show_hint('', ['s' + Col + '' + Row], 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + c * 30 + 'px 0px"></img> должна находится в этой клетке, потому что в остальных столбцах этот вариант уже исключён');
                         }
                         return 1;
@@ -265,7 +265,7 @@ function CheckVClue(Index, Direct) {
                 FField[Col][row2].UserValue = FMainVClues[Index].Card2;
                 if (solved) {
                     arr = ['s' + Col + '' + row2, 's' + Col + '' + row1];
-                    alert('Карта ' + SCard2 + ' должна быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
+                    //alert('Карта ' + SCard2 + ' должна быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
                     show_hint('down_tips_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img> должна быть в этой клетке, так как по правилу она находится в одном столбце с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -274,7 +274,7 @@ function CheckVClue(Index, Direct) {
                 FField[Col][row2].Variants.splice(FField[Col][row2].Variants.indexOf(Card2), 1);
                 if (solved) {
                     arr = ['s' + Col + '' + row2, 's' + Col + '' + row1];
-                    alert('Карта ' + SCard2 + ' не может быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
+                    //alert('Карта ' + SCard2 + ' не может быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
                     show_hint('down_tips_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img> не может быть в  клетке, так как по правилу' + Index + ' она находится в одном столбце с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -283,7 +283,7 @@ function CheckVClue(Index, Direct) {
                 FField[Col][row1].UserValue = FMainVClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + Col + '' + row1, 's' + Col + '' + row2];
-                    alert('Карта ' + SCard1 + ' должна быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' должна быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
                     show_hint('down_tips_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> должна быть в этой клетке, так как по этому правилу она находится в одном столбце с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -294,7 +294,7 @@ function CheckVClue(Index, Direct) {
                 FField[Col][row1].Variants.splice(FField[Col][row1].Variants.indexOf(Card1), 1);
                 if (solved) {
                     arr = ['s' + Col + '' + row1, 's' + Col + '' + row2];
-                    alert('Карта ' + SCard1 + ' не может быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' не может быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
                     show_hint('down_tips_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> не может быть в  клетке, так как по правилу' + Index + ' она находится в одном столбце с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -309,7 +309,7 @@ function CheckVClue(Index, Direct) {
                     FField[Col][row2].Variants.splice(FField[Col][row2].Variants.indexOf(Card2), 1);
                     if (solved) {
                         arr = ['s' + Col + '' + row2, 's' + Col + '' + row1];
-                        alert('Карта ' + SCard2 + ' не может быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
+                        //alert('Карта ' + SCard2 + ' не может быть в ' + Col + ', ' + row2 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard1);
                         show_hint('down_tips_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img> не может быть в  клетке, так как по правилу' + Index + ' она находится в одном столбце с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img>');
                     }
                     return 1;
@@ -318,7 +318,7 @@ function CheckVClue(Index, Direct) {
                         FField[Col][row1].Variants.splice(FField[Col][row1].Variants.indexOf(Card1), 1);
                         if (solved) {
                             arr = ['s' + Col + '' + row1, 's' + Col + '' + row2];
-                            alert('Карта ' + SCard1 + ' не может быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
+                            //alert('Карта ' + SCard1 + ' не может быть в ' + Col + ', ' + row1 + ' клетке, так как по правилу' + Index + ' она находится в одном столбце с картой ' + SCard2);
                             show_hint('down_tips_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> не может быть в  клетке, так как по правилу' + Index + ' она находится в одном столбце с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img>');
                         }
                         return 1;
@@ -359,7 +359,7 @@ function CheckHClueNextTo(Index, Direct) {
                 FField[q][row2].UserValue = FMainHClues[Index].Card2;
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + Col + '' + row1];
-                    alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
+                    //alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img> должна быть в клетке , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img>, а справа от <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> её быть не может');
                 }
                 return 1;
@@ -369,7 +369,7 @@ function CheckHClueNextTo(Index, Direct) {
                 FField[q][row2].UserValue = FMainHClues[Index].Card2;
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + Col + '' + row1];
-                    alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
+                    //alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img> должна быть в клетке , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img>, а слева от <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> её быть не может');
                 }
                 return 1;
@@ -378,7 +378,7 @@ function CheckHClueNextTo(Index, Direct) {
                 FField[Col][row2].Variants.splice(FField[Col][row2].Variants.indexOf(Card1), 1);
                 if (solved) {
                     arr = ['s' + Col + '' + row2, 's' + CL1 + '' + row1, 's' + CR1 + '' + row1];
-                    alert('Карта ' + SCard1 + ' не может быть в клетке ' + Col + ', ' + row2 + ' , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' не может быть в клетке ' + Col + ', ' + row2 + ' , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> не может быть в этой клетке , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -389,7 +389,7 @@ function CheckHClueNextTo(Index, Direct) {
                 FField[q][row1].Variants.splice(FField[q][row1].Variants.indexOf(Card1), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + CL1 + '' + row2, 's' + CR1 + '' + row2];
-                    alert('Карта ' + SCard1 + ' не может быть в клетке  ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' не может быть в клетке  ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> не может быть в этой клетке , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -404,7 +404,7 @@ function CheckHClueNextTo(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row2];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard2 + ', а справа от ' + SCard2 + ' её быть не может');
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard2 + ', а справа от ' + SCard2 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> должна быть в клетке , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img>, а справа от <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img> её быть не может');
                 }
                 return 1;
@@ -414,7 +414,7 @@ function CheckHClueNextTo(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row2];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard2 + ', а слева от ' + SCard2 + ' её быть не может');
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ' , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard2 + ', а слева от ' + SCard2 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> должна быть в клетке , так как по правилу ' + Index + ' она находится в столбце, соседнем с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img>, а слева от <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img> её быть не может');
                 }
                 return 1;
@@ -425,7 +425,7 @@ function CheckHClueNextTo(Index, Direct) {
             FField[q][row2].Variants.splice(FField[q][row2].Variants.indexOf(Card2), 1);
             if (solved) {
                 arr = ['s' + q + '' + row2, 's' + CL1 + '' + row1, 's' + CR1 + '' + row1];
-                alert('Карта ' + SCard2 + ' не может быть в клетке  ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard1);
+                //alert('Карта ' + SCard2 + ' не может быть в клетке  ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard1);
                 show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img> не может быть в этой клетке , так как по указанному правилу в одном из соседних с ней столбцов должна быть карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img>');
             }
             return 1;
@@ -464,7 +464,7 @@ function CheckHClueNotNextTo(Index, Direct) {
                 FField[q][row2].Variants.splice(FField[q][row2].Variants.indexOf(Card2), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + Col + '' + row1, 's' + CR1 + '' + row1];
-                    alert('Карта ' + SCard2 + ' не может быть в  клетке ' + q + ', ' + row2 + ', так по правилу ' + Index + ' она не должна находится в столбце, соседнем с картой ' + SCard1);
+                    //alert('Карта ' + SCard2 + ' не может быть в  клетке ' + q + ', ' + row2 + ', так по правилу ' + Index + ' она не должна находится в столбце, соседнем с картой ' + SCard1);
                     show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img> не может быть в этой клетке, так по указанному правилу она не должна находится в столбце, соседнем с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -474,7 +474,7 @@ function CheckHClueNotNextTo(Index, Direct) {
                 FField[q][row2].Variants.splice(FField[q][row2].Variants.indexOf(Card2), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + Col + '' + row1, 's' + CR1 + '' + row1];
-                    alert('Карта ' + SCard2 + ' не может быть в  клетке ' + q + ', ' + row2 + ', так по правилу ' + Index + ' она не должна находится в столбце, соседнем с картой ' + SCard1);
+                    //alert('Карта ' + SCard2 + ' не может быть в  клетке ' + q + ', ' + row2 + ', так по правилу ' + Index + ' она не должна находится в столбце, соседнем с картой ' + SCard1);
                     show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img> не может быть в этой клетке, так по указанному правилу она не должна находится в столбце, соседнем с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -487,7 +487,7 @@ function CheckHClueNotNextTo(Index, Direct) {
                 FField[q][row1].Variants.splice(FField[q][row1].Variants.indexOf(Card1), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row2, 's' + CR1 + '' + row2];
-                    alert('Карта ' + SCard1 + ' не может быть в  клетке ' + q + ', ' + row1 + ', так по правилу ' + Index + ' она не должна находится в столбце, соседнем с картой ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' не может быть в  клетке ' + q + ', ' + row1 + ', так по правилу ' + Index + ' она не должна находится в столбце, соседнем с картой ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> не может быть в  клетке, так по правилу  она не должна находится в столбце, соседнем с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -497,7 +497,7 @@ function CheckHClueNotNextTo(Index, Direct) {
                 FField[q][row1].Variants.splice(FField[q][row1].Variants.indexOf(-Card1), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row2, 's' + CR1 + '' + row2];
-                    alert('Карта ' + SCard1 + ' не может быть в  клетке ' + q + ', ' + row1 + ', так по правилу ' + Index + ' она не должна находится в столбце, соседнем с картой ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' не может быть в  клетке ' + q + ', ' + row1 + ', так по правилу ' + Index + ' она не должна находится в столбце, соседнем с картой ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard1 * 30 + 'px 0px"></img> не может быть в  клетке, так по правилу  она не должна находится в столбце, соседнем с картой <img style = "background-image:url(BasicSmall.bmp);background-position:-' + SCard2 * 30 + 'px 0px"></img>');
                 }
                 return 1;
@@ -541,7 +541,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row3].UserValue = FMainHClues[Index].Card3;
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + Col + '' + row2, 's' + CL1 + '' + row1];
-                    alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard1 + ' уже находится слева от ' + SCard2);
+                    //alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard1 + ' уже находится слева от ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' должна быть в клетке, так как по указанному правилу карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard1 + ' уже находится слева от ' + SCard2);
                 }
                 return 1;
@@ -551,7 +551,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row3].UserValue = FMainHClues[Index].Card3;
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + Col + '' + row2, 's' + CR1 + '' + row1];
-                    alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard1 + ' уже находится справа от ' + SCard2);
+                    //alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard1 + ' уже находится справа от ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' должна быть в клетке, так как по указанному правилу карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard1 + ' уже находится справа от ' + SCard2);
                 }
                 return 1;
@@ -561,7 +561,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row2, 's' + CL1 + '' + row3];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard3 + ' уже находится слева от ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard3 + ' уже находится слева от ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' должна быть в клетке, так как по указанному правилу  карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard3 + ' уже находится слева от ' + SCard2);
                 }
                 return 1;
@@ -571,7 +571,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row2, 's' + CR1 + '' + row3];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard3 + ' уже находится справа от ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard3 + ' уже находится справа от ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' должна быть в клетке, так как по указанному правилу карта ' + SCard2 + ' находится между ' + SCard1 + ' и ' + SCard3 + ', а ' + SCard3 + ' уже находится справа от ' + SCard2);
                 }
                 return 1;
@@ -581,7 +581,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row2, 's' + CR1 + '' + row1]; //??? row3 or row1?
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится рядом с картой ' + SCard2 + ', а справа от ' + SCard2 + ' она быть не может');
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится рядом с картой ' + SCard2 + ', а справа от ' + SCard2 + ' она быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' должна быть в клетке, так как по указанному правилу она находится рядом с картой ' + SCard2 + ', а справа от ' + SCard2 + ' она быть не может');
                 }
                 return 1;
@@ -591,7 +591,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row2, 's' + CL1 + '' + row1];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится рядом с картой ' + SCard2 + ', а слева от ' + SCard2 + ' она быть не может');
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится рядом с картой ' + SCard2 + ', а слева от ' + SCard2 + ' она быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' должна быть в клетке, так как по указанному правилу она находится рядом с картой ' + SCard2 + ', а слева от ' + SCard2 + ' она быть не может');
                 }
                 return 1;
@@ -601,7 +601,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row3].UserValue = FMainHClues[Index].Card3;
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + Col + '' + row2, 's' + CR1 + '' + row3];
-                    alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится рядом с картой ' + SCard2 + ', а справа от ' + SCard2 + ' она быть не может');
+                    //alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится рядом с картой ' + SCard2 + ', а справа от ' + SCard2 + ' она быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' должна быть в клетке, так как по указанному правилу  она находится рядом с картой ' + SCard2 + ', а справа от ' + SCard2 + ' она быть не может');
                 }
                 return 1;
@@ -611,7 +611,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row3].UserValue = FMainHClues[Index].Card3;
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + Col + '' + row2, 's' + CL1 + '' + row3];
-                    alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится рядом с картой ' + SCard2 + ', а слева от ' + SCard2 + ' она быть не может');
+                    //alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится рядом с картой ' + SCard2 + ', а слева от ' + SCard2 + ' она быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' должна быть в клетке, так как по указанному правилу она находится рядом с картой ' + SCard2 + ', а слева от ' + SCard2 + ' она быть не может');
                 }
                 return 1;
@@ -622,7 +622,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row2].Variants.splice(FField[q][row2].Variants.indexOf(Card2), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + CL1 + '' + row3, 's' + CL1 + '' + row1];
-                    alert('Карта ' + SCard2 + ' не может быть в клетке  ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3 + ', а слева не может быть ни ' + SCard1 + ', ни ' + SCard3);
+                    //alert('Карта ' + SCard2 + ' не может быть в клетке  ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3 + ', а слева не может быть ни ' + SCard1 + ', ни ' + SCard3);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' не может быть в клетке, так как по указанному правилу она находится между ' + SCard1 + ' и ' + SCard3 + ', а слева не может быть ни ' + SCard1 + ', ни ' + SCard3);
                 }
                 return 1;
@@ -632,7 +632,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row2].Variants.splice(FField[q][row2].Variants.indexOf(Card2), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + CR1 + '' + row3, 's' + CR1 + '' + row1];
-                    alert('Карта ' + SCard2 + ' не может быть в клетке  ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3 + ', а справа не может быть ни ' + SCard1 + ', ни ' + SCard3);
+                    //alert('Карта ' + SCard2 + ' не может быть в клетке  ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3 + ', а справа не может быть ни ' + SCard1 + ', ни ' + SCard3);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' не может быть в клетке, так как по указанному правилу  она находится между ' + SCard1 + ' и ' + SCard3 + ', а справа не может быть ни ' + SCard1 + ', ни ' + SCard3);
                 }
                 return 1;
@@ -642,7 +642,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row2].Variants.splice(FField[q][row2].Variants.indexOf(Card2), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + CR1 + '' + row1, 's' + CL1 + '' + row1];
-                    alert('Карта ' + SCard2 + ' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3 + ', а карты ' + SCard1 + ' нет ни справа, ни слева');
+                    //alert('Карта ' + SCard2 + ' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3 + ', а карты ' + SCard1 + ' нет ни справа, ни слева');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' не может быть в клетке, так как по указанному правилу она находится между ' + SCard1 + ' и ' + SCard3 + ', а карты ' + SCard1 + ' нет ни справа, ни слева');
                 }
                 return 1;
@@ -652,7 +652,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row2].Variants.splice(FField[q][row2].Variants.indexOf(Card2), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + CL1 + '' + row3, 's' + CR1 + '' + row3];
-                    alert('Карта ' + SCard2 + ' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3 + ', а карты ' + SCard3 + ' нет ни справа, ни слева');
+                    //alert('Карта ' + SCard2 + ' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3 + ', а карты ' + SCard3 + ' нет ни справа, ни слева');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' не может быть в клетке, так как по указанному правилу  она находится между ' + SCard1 + ' и ' + SCard3 + ', а карты ' + SCard3 + ' нет ни справа, ни слева');
                 }
                 return 1;
@@ -662,7 +662,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row2].UserValue = FMainHClues[Index].Card2;
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + CL1 + '' + row1, 's' + CR1 + '' + row3];
-                    alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3);
+                    //alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' должна быть в клетке, так как по указанному правилу она находится между ' + SCard1 + ' и ' + SCard3);
                 }
                 return 1;
@@ -672,7 +672,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row2].UserValue = FMainHClues[Index].Card2;
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + CL1 + '' + row3, 's' + CR1 + '' + row1];
-                    alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3);
+                    //alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится между ' + SCard1 + ' и ' + SCard3);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' должна быть в клетке, так как по указанному правилу  она находится между ' + SCard1 + ' и ' + SCard3);
                 }
                 return 1;
@@ -689,7 +689,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row2].UserValue = FMainHClues[Index].Card2;
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + Col + '' + row1, 's' + CR1 + '' + row2];
-                    alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
+                    //alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' должна быть в клетке, так как по указанному правилу  она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
                 }
                 return 1;
@@ -699,7 +699,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row2].UserValue = FMainHClues[Index].Card2;
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + Col + '' + row1, 's' + CL1 + '' + row2];
-                    alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
+                    //alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' должна быть в клетке, так как по указанному правилу она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
                 }
                 return 1;
@@ -709,7 +709,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row3].UserValue = FMainHClues[Index].Card3;
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + Col + '' + row1, 's' + CR2 + '' + row3];
-                    alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
+                    //alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' должна быть в клетке, так как по указанному правилу она находится в столбце, соседнем с картой ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
                 }
                 return 1;
@@ -719,7 +719,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row3].UserValue = FMainHClues[Index].Card3;
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + Col + '' + row1, 's' + CL2 + '' + row3];
-                    alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
+                    //alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' должна быть в клетке, так как по указанному правилу она находится в столбце, соседнем с картой ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
                 }
                 return 1;
@@ -730,7 +730,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row1].Variants.splice(FField[q][row1].Variants.indexOf(Card1), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + CL1 + '' + row2, 's' + CR1 + '' + row2];
-                    alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' не может быть в клетке, так как по указанному правилу в одном из соседних с ней столбцов должна быть карта ' + SCard2);
                 }
                 return 1;
@@ -740,7 +740,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row1].Variants.splice(FField[q][row1].Variants.indexOf(Card1), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + CL2 + '' + row3, 's' + CR2 + '' + row3];
-                    alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта ' + SCard3);
+                    //alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта ' + SCard3);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' не может быть в клетке, так как по указанному правилу через один столбец от неё должна быть карта ' + SCard3);
                 }
                 return 1;
@@ -755,7 +755,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row2].UserValue = FMainHClues[Index].Card2;
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + Col + '' + row3, 's' + CR1 + '' + row2];
-                    alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может');
+                    //alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' должна быть в клетке, так как по указанному правилу она находится в столбце, соседнем с картой ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может');
                 }
                 return 1;
@@ -765,7 +765,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row2].UserValue = FMainHClues[Index].Card2;
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + Col + '' + row3, 's' + CL1 + '' + row2];
-                    alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может');
+                    //alert('Карта ' + SCard2 + ' должна быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' она находится в столбце, соседнем с картой ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' должна быть в клетке, так как по указанному правилу она находится в столбце, соседнем с картой ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может');
                 }
                 return 1;
@@ -775,7 +775,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row3, 's' + CR2 + '' + row1];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может');
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' должна быть в клетке, так как по указанному правилу она находится через один столбец от карты ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может');
                 }
                 return 1;
@@ -785,7 +785,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row3, 's' + CL2 + '' + row1];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может');
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' должна быть в клетке, так как по указанному правилу она находится через один столбец от карты ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может');
                 }
                 return 1;
@@ -797,7 +797,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row3].Variants.splice(FField[q][row3].Variants.indexOf(Card3), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + CL1 + '' + row2, 's' + CR1 + '' + row2];
-                    alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard2);
+                    //alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' в одном из соседних с ней столбцов должна быть карта ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' не может быть в клетке, так как по указанному правилу в одном из соседних с ней столбцов должна быть карта ' + SCard2);
                 }
                 return 1;
@@ -807,7 +807,7 @@ function CheckHClueTriple(Index, Direct) {
                 FField[q][row3].Variants.splice(FField[q][row3].Variants.indexOf(Card3), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + CL2 + '' + row1, 's' + CR2 + '' + row1];
-                    alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта ' + SCard1);
+                    //alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта ' + SCard1);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' не может быть в клетке, так как по указанное правилу через один столбец от неё должна быть карта ' + SCard1);
                 }
                 return 1;
@@ -852,7 +852,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row1].Variants.splice(FField[q][row1].Variants.indexOf(Card1), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + CL2 + '' + row3, 's' + CR2 + '' + row3];
-                    alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта ' + SCard3);
+                    //alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта ' + SCard3);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта ' + SCard3);
                 }
                 return 1;
@@ -862,7 +862,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row1].Variants.splice(FField[q][row1].Variants.indexOf(Card1), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + CR1 + '' + row2, 's' + CL2 + '' + row3];
-                    alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как через столбец слева нет ' + SCard3 + ', а в соседнем столбце справа стоит ' + SCard2 + ', и правило' + Index + ' не может быть выполнено');
+                    //alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как через столбец слева нет ' + SCard3 + ', а в соседнем столбце справа стоит ' + SCard2 + ', и правило' + Index + ' не может быть выполнено');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как через столбец слева нет ' + SCard3 + ', а в соседнем столбце справа стоит ' + SCard2 + ', и правило' + Index + ' не может быть выполнено');
                 }
                 return 1;
@@ -872,7 +872,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row1].Variants.splice(FField[q][row1].Variants.indexOf(Card1), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + CL1 + '' + row2, 's' + CR2 + '' + row3];
-                    alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как через столбец справа нет ' + SCard3 + ', а в соседнем столбце слева стоит ' + SCard2 + ', и правило' + Index + ' не может быть выполнено');
+                    //alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как через столбец справа нет ' + SCard3 + ', а в соседнем столбце слева стоит ' + SCard2 + ', и правило' + Index + ' не может быть выполнено');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как через столбец справа нет ' + SCard3 + ', а в соседнем столбце слева стоит ' + SCard2 + ', и правило' + Index + ' не может быть выполнено');
                 }
                 return 1;
@@ -883,7 +883,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row3].UserValue = FMainHClues[Index].Card3;
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + Col + '' + row1, 's' + CR2 + '' + row3];
-                    alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
+                    //alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может');
                 }
                 return 1;
@@ -893,7 +893,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row3].UserValue = FMainHClues[Index].Card3;
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + Col + '' + row1, 's' + CL2 + '' + row3];
-                    alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
+                    //alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может');
                 }
                 return 1;
@@ -903,7 +903,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row3].UserValue = FMainHClues[Index].Card3;
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + Col + '' + row1, 's' + CL1 + '' + row2];
-                    alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может, иначе между ними окажется ' + SCard2);
+                    //alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может, иначе между ними окажется ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а слева от ' + SCard1 + ' её быть не может, иначе между ними окажется ' + SCard2);
                 }
                 return 1;
@@ -913,7 +913,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row3].UserValue = FMainHClues[Index].Card3;
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + Col + '' + row1, 's' + CR1 + '' + row2];
-                    alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может, иначе между ними окажется ' + SCard2);
+                    //alert('Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может, иначе между ними окажется ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' должна быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard1 + ', а справа от ' + SCard1 + ' её быть не может, иначе между ними окажется ' + SCard2);
                 }
                 return 1;
@@ -928,7 +928,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row3].Variants.splice(FField[q][row3].Variants.indexOf(Card3), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + CL2 + '' + row1, 's' + CR2 + '' + row1];
-                    alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта ' + SCard1);
+                    //alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта ' + SCard1);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' через один столбец от неё должна быть карта ' + SCard1);
                 }
                 return 1;
@@ -938,7 +938,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row3].Variants.splice(FField[q][row3].Variants.indexOf(Card3), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + CL2 + '' + row1, 's' + CR1 + '' + row2];
-                    alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как через столбец слева нет ' + SCard1 + ', а в соседнем столбце справа стоит ' + SCard2 + ', и правило ' + Index + ' не может быть выполнено');
+                    //alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как через столбец слева нет ' + SCard1 + ', а в соседнем столбце справа стоит ' + SCard2 + ', и правило ' + Index + ' не может быть выполнено');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как через столбец слева нет ' + SCard1 + ', а в соседнем столбце справа стоит ' + SCard2 + ', и правило ' + Index + ' не может быть выполнено');
                 }
                 return 1;
@@ -948,7 +948,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row3].Variants.splice(FField[q][row3].Variants.indexOf(Card3), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row3, 's' + CL1 + '' + row2, 's' + CR2 + '' + row1];
-                    alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как через столбец справа нет ' + SCard1 + ', а в соседнем столбце слева стоит ' + SCard2 + ', и указанное правило не может быть выполнено');
+                    //alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как через столбец справа нет ' + SCard1 + ', а в соседнем столбце слева стоит ' + SCard2 + ', и указанное правило не может быть выполнено');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как через столбец справа нет ' + SCard1 + ', а в соседнем столбце слева стоит ' + SCard2 + ', и указанное правило не может быть выполнено');
                 }
                 return 1;
@@ -960,7 +960,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row3, 's' + CR2 + '' + row1];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может');
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может');
                 }
                 return 1;
@@ -970,7 +970,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + CL2 + '' + row1, 's' + Col + '' + row3];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может');
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может');
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может');
                 }
                 return 1;
@@ -980,7 +980,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + CL1 + '' + row2, 's' + Col + '' + row3];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может, иначе между ними окажется ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может, иначе между ними окажется ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а слева от ' + SCard3 + ' её быть не может, иначе между ними окажется ' + SCard2);
                 }
                 return 1;
@@ -990,7 +990,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row1].UserValue = FMainHClues[Index].Card1;
                 if (solved) {
                     arr = ['s' + q + '' + row1, 's' + Col + '' + row3, 's' + CR1 + '' + row2];
-                    alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может, иначе между ними окажется ' + SCard2);
+                    //alert('Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может, иначе между ними окажется ' + SCard2);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' должна быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она находится через один столбец от карты ' + SCard3 + ', а справа от ' + SCard3 + ' её быть не может, иначе между ними окажется ' + SCard2);
                 }
                 return 1;
@@ -1007,7 +1007,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row2].Variants.splice(FField[q][row2].Variants.indexOf(Card2), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + CL1 + '' + row1, 's' + CR1 + '' + row3];
-                    alert('Карта ' + SCard2 + ' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' не может находиться между ' + SCard1 + ' и ' + SCard3);
+                    //alert('Карта ' + SCard2 + ' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' не может находиться между ' + SCard1 + ' и ' + SCard3);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' не может находиться между ' + SCard1 + ' и ' + SCard3);
                 }
                 return 1;
@@ -1017,7 +1017,7 @@ function CheckHClueNotTriple(Index, Direct) {
                 FField[q][row2].Variants.splice(FField[q][row2].Variants.indexOf(Card2), 1);
                 if (solved) {
                     arr = ['s' + q + '' + row2, 's' + CL1 + '' + row3, 's' + CR1 + '' + row1];
-                    alert('Карта ' + SCard2 + ' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' не может находиться между ' + SCard1 + ' и ' + SCard3);
+                    //alert('Карта ' + SCard2 + ' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' не может находиться между ' + SCard1 + ' и ' + SCard3);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard2 + ' не может быть в клетке ' + q + ', ' + row2 + ', так как по правилу ' + Index + ' не может находиться между ' + SCard1 + ' и ' + SCard3);
                 }
                 return 1;
@@ -1054,7 +1054,7 @@ function CheckHClueOrder(Index, Direct) {
                 if (solved) {
                     arr = ['s' + q + '' + row3];
                     for (Col2 = 0; Col2 <= LeftmostLeft; Col2++) arr.push('s' + Col2 + '' + row1);
-                    alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она должна находиться правее карты ' + SCard1);
+                    //alert('Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она должна находиться правее карты ' + SCard1);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard3 + ' не может быть в клетке ' + q + ', ' + row3 + ', так как по правилу ' + Index + ' она должна находиться правее карты ' + SCard1);
                 }
                 return 1;
@@ -1070,7 +1070,7 @@ function CheckHClueOrder(Index, Direct) {
                 if (solved) {
                     arr = ['s' + q + '' + row1];
                     for (Col2 = RightmostRight; Col2 < 6; Col2++) arr.push('s' + Col2 + '' + row3);
-                    alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она должна находиться левее карты ' + SCard3);
+                    //alert('Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она должна находиться левее карты ' + SCard3);
                     show_hint('left_tip_' + Index, arr, 'Карта ' + SCard1 + ' не может быть в клетке ' + q + ', ' + row1 + ', так как по правилу ' + Index + ' она должна находиться левее карты ' + SCard3);
                 }
                 return 1;
