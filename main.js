@@ -116,7 +116,7 @@ draw_field = function() {
 }
     for (var i = 0; i < 6; i++)
         for (var j = 0; j < 6; j++) {
-            if (!FField[i][j].Initial) {
+            if (!FField[i][j].Initial && FField[i][j].UserValue===36) {
                 var count = 0;
                 var table = '<table><tr>';
                 for (var k = 0; k < 6; k++) {
@@ -297,10 +297,16 @@ next_hint = function() {
     //show_hint(Hint);
     //draw_field();
 };
-
+/**
+ * отрисовка блока с подсказкой
+ * @param  {String} tip   тип ключа, по которому найдена подсказка и его номер 
+ * @param  {Array} field массив полей, которые учавствуют в подсказке
+ * @param  {String} data  текст подсказки
+  * @func module:Main#show_hint
+ */
 show_hint = function(tip,field,data){
-    console.log(tip);
-    var tips = '<div class="Sherlock_hint">'+data+'<button onclick="draw_field()">OK</button></div>';
+    //console.log(field);
+    var tips = '<div class="Sherlock_hint">'+data+'<br><button onclick="draw_field()">OK</button></div>';
     for (var i=0; i<21; i++) 
         if ('down_tips_'+i!==tip)
            $('#down_tips_'+i).fadeTo("slow",0.1);

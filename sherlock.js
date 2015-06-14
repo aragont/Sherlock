@@ -113,7 +113,7 @@ function remove_many() {
         if (!steps_history[i].right) c++;
     for (i = 0; i < c; i++)
         remove_step();
-    alert("Все верно");
+    show_hint('',[],"Все верно");
 }
 
 /**

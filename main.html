@@ -11,24 +11,6 @@
         <script type="text/javascript" src = 'hint.js'> </script> 
     </head>
     <body >
-       <!--  <table>
-    <tr>
-        <td style="width:80px; height:80px">
-            <span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: 0px 0px; width:60px; height:80px; display:block" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">
-                <span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2340px 0px; width:60px; height:80px;opacity:0.5; display:block" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">
-                </span>
-            </span>
-        </td>
-        <td class="down-tip">
-            <span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+v+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">
-            </span>
-        </td>
-        <td class="down-tip">
-            <span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:'+e+'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">
-            </span>
-        </td>
-    </tr>
-</table>  -->
         <div class = "Sherlock_game_main">
             <div class = "main_window"> 
                 <div class = "sherlock_field">
@@ -163,9 +145,16 @@
                 <input placeholder='Аноним'></input> 
                 <button onclick="send_name()">Set</button>   
             </div>
+
         </div>
-
-
+ <div class="Sherlock_hint">
+    <div>
+      Карта
+        <img style=" background-image:url(BasicSmall.bmp);background-position:-210px 0px"/> 
+        должна быть в этой клетке, так как по этому правилу она находится в одном столбце с картой 
+    <img style="background-image:url(BasicSmall.bmp);background-position:-390px 0px"/>
+        </div>
+    <button onclick="draw_field()">OK</button></div>
 
 
     </body> 
