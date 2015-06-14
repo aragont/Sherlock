@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: GetRow</title>
+    <title>JSDoc: Module: show_hint</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: GetRow</h1>
+    <h1 class="page-title">Module: show_hint</h1>
 
     
 
@@ -29,9 +29,9 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-Hints.html">Hints</a>#</span>
+            <span class="ancestors"><a href="module-Main.html">Main</a>#</span>
         
-        GetRow
+        show_hint
         </h2>
         
     
@@ -41,7 +41,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Поиск  строки</div>
+            <div class="description">отрисовка блока с подсказкой</div>
         
 
         
@@ -76,7 +76,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hint.js.html">hint.js</a>, <a href="hint.js.html#line7">line 7</a>
+        <a href="main.js.html">main.js</a>, <a href="main.js.html#line300">line 300</a>
     </li></ul></dd>
     
 

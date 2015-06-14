@@ -29,13 +29,11 @@
             <pre class="prettyprint source linenums"><code>/* jshint browser: true */
 /* global console */
 /**@module Main*/
-
 /**
  * номер таймера
  * @type {Number}
  */
 var myVar = 0;
-
 /**
  * отрисовывает игровое поле при запуске окна
  *  @func module:Main#onload
@@ -44,7 +42,7 @@ window.onload = function() {
     var temp = 0;
     for (var i = 0; i &lt; 6; i++)
         for (var j = 0; j &lt; 6; j++) {
-            $('#s' + j + i + ' > div').css('background', 'url(BasicBig.bmp) ' + temp + 'px 0px');
+            $('#s' + j + i + ' > div').css('background', 'url(BasicBig.bmp)' + temp + 'px 0px');
             temp -= 60;
         }
 };
@@ -124,7 +122,7 @@ draw_variants = function(i, j, Variants) {
         if (count === 3) table += '&lt;/tr>&lt;tr>';
         var w = -k * 30 - j * 180;
         if (Variants.indexOf(k) >= 0) {
-            table += '&lt;td class = "small" id = ' + j + '' + i + '' + k + '>&lt;span style = "background-image:url(/Sherlock/BasicSmall.bmp);background-position:' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span> &lt;/td>';
+            table += '&lt;td class = "small" id = ' + j + '' + i + '' + k + '>&lt;span style = "background-image:url(BasicSmall.bmp);background-position:' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span> &lt;/td>';
         } else table += '&lt;td class = "small" id = ' + j + '' + i + '' + k + '>&lt;span  onclick = "td_click(this.parentNode.id);">&lt;/span> &lt;/td>';
         count++;
     }
@@ -138,16 +136,22 @@ draw_variants = function(i, j, Variants) {
  * @func module:Main#draw_field
  */
 draw_field = function() {
+    if ($('.Sherlock_hint').length) {
+        $('.Sherlock_hint').remove();
+        $('.left_tips_number').fadeTo("slow",1);
+        $('.down_tips_number').fadeTo("slow",1);
+        $('.sherlock_background').fadeTo("slow",1);
+}
     for (var i = 0; i &lt; 6; i++)
         for (var j = 0; j &lt; 6; j++) {
-            if (!FField[i][j].Initial) {
+            if (!FField[i][j].Initial &amp;&amp; FField[i][j].UserValue===36) {
                 var count = 0;
                 var table = '&lt;table>&lt;tr>';
                 for (var k = 0; k &lt; 6; k++) {
                     if (count === 3) table += '&lt;/tr>&lt;tr>';
                     var w = -k * 30 - j * 180;
                     if (FField[i][j].Variants.indexOf(k) >= 0) {
-                        table += '&lt;td class = "small" id = ' + j + '' + i + '' + k + '>&lt;span style = "background-image:url(/Sherlock/BasicSmall.bmp);background-position:' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span> &lt;/td>';
+                        table += '&lt;td class = "small" id = ' + j + '' + i + '' + k + '>&lt;span style = "background-image:url(BasicSmall.bmp);background-position:' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span> &lt;/td>';
                     } else table += '&lt;td class = "small" id = ' + j + '' + i + '' + k + '>&lt;span  onclick = "td_click(this.parentNode.id);">&lt;/span> &lt;/td>';
                     count++;
                 }
@@ -222,7 +226,7 @@ start_new_game = function(level) {
     for (var i = 0; i &lt; 21; i++) {
         w = FMainVClues[i].Card1 * (-60);
         v = FMainVClues[i].Card2 * (-60);
-        tips = '&lt;table>&lt;tr>&lt;td class = "down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;/tr>&lt;tr>&lt;td class="down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;/tr>&lt;/table';
+        tips = '&lt;table>&lt;tr>&lt;td class = "down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;/tr>&lt;tr>&lt;td class="down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;/tr>&lt;/table';
         $('#down_tips_' + i).append(tips);
     }
     for (i = 0; i &lt; 24; i++) {
@@ -230,14 +234,14 @@ start_new_game = function(level) {
         v = FMainHClues[i].Card2 * (-60);
         e = FMainHClues[i].Card3 * (-60);
         if (FMainHClues[i].ClueType === 'hcTriple') {
-            tips = '&lt;table>&lt;tr>&lt;td class = "down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2340px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2400px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2460px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;/tr>&lt;/table';
+            tips = '&lt;table>&lt;tr>&lt;td class = "down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(BasicBig.bmp);background-position: -2340px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(BasicBig.bmp);background-position: -2400px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(BasicBig.bmp);background-position: -2460px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;/tr>&lt;/table';
         } else
         if (FMainHClues[i].ClueType === 'hcNotTriple') {
-            tips = '&lt;table>&lt;tr>&lt;td class = "down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2340px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2280px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2400px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2460px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;/tr>&lt;/table';
+            tips = '&lt;table>&lt;tr>&lt;td class = "down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(BasicBig.bmp);background-position: -2340px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(BasicBig.bmp);background-position: -2280px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(BasicBig.bmp);background-position: -2400px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(BasicBig.bmp);background-position: -2460px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;/tr>&lt;/table';
         } else
         if (FMainHClues[i].ClueType === 'hcNotNextTo') {
-            tips = '&lt;table>&lt;tr>&lt;td class = "down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: -2280px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;/tr>&lt;/table';
-        } else tips = '&lt;table>&lt;tr>&lt;td class = "down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(/Sherlock/BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;/tr>&lt;/table';
+            tips = '&lt;table>&lt;tr>&lt;td class = "down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;span style = "background-image:url(BasicBig.bmp);background-position: -2280px 0px;opacity:0.5" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;/tr>&lt;/table';
+        } else tips = '&lt;table>&lt;tr>&lt;td class = "down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position: ' + w + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position:' + v + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;td class="down-tip">&lt;span style = "background-image:url(BasicBig.bmp);background-position:' + e + 'px 0px" onclick = "td_click(this.parentNode.id);" oncontextmenu = "td_right_click(this.parentNode.id);">&lt;/span>&lt;/td>&lt;/tr>&lt;/table';
         $('#left_tip_' + i).append(tips);
     }
 };
@@ -248,37 +252,39 @@ start_new_game = function(level) {
  * @func module:Main#td_right_click
  */
 td_right_click = function(data) {
-    var col, row;
-    while (data.length &lt; 3) data = '0' + data;
-    if ($('#' + data + '> span').css('background-image') !== 'none') {
-        $('#' + data + '> span').css('background', 'none');
-        col = div(data, 10) % 10;
-        row = div(data, 100);
-        add_step({
-            'col': col,
-            'row': row,
-            'card': data % 10,
-            'type': 'small',
-            'act': 'del'
-        });
-        delete_variants(col, row, data % 10);
-        if (FField[col][row].Variants.length === 1) {
-            draw_big(col, row, FField[col][row].Variants[0]);
+    if (data!=='') {
+        var col, row;
+        while (data.length &lt; 3) data = '0' + data;
+        if ($('#' + data + '> span').css('background-image') !== 'none') {
+            $('#' + data + '> span').css('background', 'none');
+            col = div(data, 10) % 10;
+            row = div(data, 100);
+            add_step({
+                'col': col,
+                'row': row,
+                'card': data % 10,
+                'type': 'small',
+                'act': 'del'
+            });
+            delete_variants(col, row, data % 10);
+            if (FField[col][row].Variants.length === 1) {
+                draw_big(col, row, FField[col][row].Variants[0]);
+            }
+        } else {
+            var w = (data % 10) * (-30) - div(data, 100) * 180;
+            col = div(data, 10) % 10;
+            row = div(data, 100);
+            add_step({
+                'col': col,
+                'row': row,
+                'card': data % 10,
+                'type': 'small',
+                'act': 'add'
+            });
+            add_variants(col, row, data % 10);
+            $('#' + data + '> span').css('background-image', 'url(BasicSmall.bmp)');
+            $('#' + data + '> span').css('background-position', w + 'px 0px');
         }
-    } else {
-        var w = (data % 10) * (-30) - div(data, 100) * 180;
-        col = div(data, 10) % 10;
-        row = div(data, 100);
-        add_step({
-            'col': col,
-            'row': row,
-            'card': data % 10,
-            'type': 'small',
-            'act': 'add'
-        });
-        add_variants(col, row, data % 10);
-        $('#' + data + '> span').css('background-image', 'url(/Sherlock/BasicSmall.bmp)');
-        $('#' + data + '> span').css('background-position', w + 'px 0px');
     }
 };
 
@@ -316,8 +322,30 @@ next_hint = function() {
         I++;
     }
     if (!Hint) Hint = FindHint(true);
-    draw_field();
-};</code></pre>
+    //show_hint(Hint);
+    //draw_field();
+};
+/**
+ * отрисовка блока с подсказкой
+ * @param  {String} tip   тип ключа, по которому найдена подсказка и его номер 
+ * @param  {Array} field массив полей, которые учавствуют в подсказке
+ * @param  {String} data  текст подсказки
+  * @func module:Main#show_hint
+ */
+show_hint = function(tip,field,data){
+    //console.log(field);
+    var tips = '&lt;div class="Sherlock_hint">'+data+'&lt;br>&lt;button onclick="draw_field()">OK&lt;/button>&lt;/div>';
+    for (var i=0; i&lt;21; i++) 
+        if ('down_tips_'+i!==tip)
+           $('#down_tips_'+i).fadeTo("slow",0.1);
+      for (i=0; i&lt;24; i++) 
+        if ('left_tip_'+i!==tip){
+           $('#left_tip_'+i).fadeTo("slow",0.1);}
+    for (var i=0; i&lt;6;i++)
+        for (var j=0; j&lt;6; j++)
+            if (field.indexOf('s'+i+''+j)===-1) $('#s'+i+''+j).fadeTo("slow",0.1);
+    $('body').append(tips);  
+}</code></pre>
         </article>
     </section>
 
@@ -327,13 +355,13 @@ next_hint = function() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Sherlock</h3><ul><li onclick="show_functions(this)"><a href="module-Hints.html">Hints</a><ul style="display:none"><li style="margin-left:20px"><a href="module-Hints.html#CheckCorrect">CheckCorrect</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClue">CheckHClue</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueError">CheckHClueError</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueNotNextTo">CheckHClueNotNextTo</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueNotTriple">CheckHClueNotTriple</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueOrder">CheckHClueOrder</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueTriple">CheckHClueTriple</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckPresence">CheckPresence</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckSimpleValues">CheckSimpleValues</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckVClue">CheckVClue</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckVClue">CheckVClue</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckVClueError">CheckVClueError</a></li><li style="margin-left:20px"><a href="module-Hints.html#FindHint">FindHint</a></li><li style="margin-left:20px"><a href="module-Hints.html#GetRow">GetRow</a></li></ul></li><li onclick="show_functions(this)"><a href="module-Main.html">Main</a><ul style="display:none"><li style="margin-left:20px"><a href="module-Main.html#change_level">change_level</a></li><li style="margin-left:20px"><a href="module-Main.html#correct_length">correct_length</a></li><li style="margin-left:20px"><a href="module-Main.html#draw_big">draw_big</a></li><li style="margin-left:20px"><a href="module-Main.html#draw_field">draw_field</a></li><li style="margin-left:20px"><a href="module-Main.html#draw_variants">draw_variants</a></li><li style="margin-left:20px"><a href="module-Main.html#next_hint">next_hint</a></li><li style="margin-left:20px"><a href="module-Main.html#onload">onload</a></li><li style="margin-left:20px"><a href="module-Main.html#send_level">send_level</a></li><li style="margin-left:20px"><a href="module-Main.html#send_name">send_name</a></li><li style="margin-left:20px"><a href="module-Main.html#Sherlock_Timer">Sherlock_Timer</a></li><li style="margin-left:20px"><a href="module-Main.html#show_set_name">show_set_name</a></li><li style="margin-left:20px"><a href="module-Main.html#start_new_game">start_new_game</a></li><li style="margin-left:20px"><a href="module-Main.html#td_click">td_click</a></li><li style="margin-left:20px"><a href="module-Main.html#td_right_click">td_right_click</a></li></ul></li><li onclick="show_functions(this)"><a href="module-Sherlock.html">Sherlock</a><ul style="display:none"><li style="margin-left:20px"><a href="module-Sherlock.html#add_step">add_step</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#add_variants">add_variants</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CheckCorrectness">CheckCorrectness</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CheckPossibility">CheckPossibility</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#choose_big">choose_big</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CreateFField">CreateFField</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CreateLevelMap">CreateLevelMap</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#delete_variants">delete_variants</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#div">div</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#FirstInitField">FirstInitField</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#InitLevel">InitLevel</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#remove_many">remove_many</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#remove_step">remove_step</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#solve_game">solve_game</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Sherlock</h3><ul><li onclick="show_functions(this)"><a href="module-Hints.html">Hints</a><ul style="display:none"><li style="margin-left:20px"><a href="module-Hints.html#CheckCorrect">CheckCorrect</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClue">CheckHClue</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueError">CheckHClueError</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueNotNextTo">CheckHClueNotNextTo</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueNotTriple">CheckHClueNotTriple</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueOrder">CheckHClueOrder</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckHClueTriple">CheckHClueTriple</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckPresence">CheckPresence</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckSimpleValues">CheckSimpleValues</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckVClue">CheckVClue</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckVClue">CheckVClue</a></li><li style="margin-left:20px"><a href="module-Hints.html#CheckVClueError">CheckVClueError</a></li><li style="margin-left:20px"><a href="module-Hints.html#FindHint">FindHint</a></li><li style="margin-left:20px"><a href="module-Hints.html#GetRow">GetRow</a></li></ul></li><li onclick="show_functions(this)"><a href="module-Main.html">Main</a><ul style="display:none"><li style="margin-left:20px"><a href="module-Main.html#change_level">change_level</a></li><li style="margin-left:20px"><a href="module-Main.html#correct_length">correct_length</a></li><li style="margin-left:20px"><a href="module-Main.html#draw_big">draw_big</a></li><li style="margin-left:20px"><a href="module-Main.html#draw_field">draw_field</a></li><li style="margin-left:20px"><a href="module-Main.html#draw_variants">draw_variants</a></li><li style="margin-left:20px"><a href="module-Main.html#next_hint">next_hint</a></li><li style="margin-left:20px"><a href="module-Main.html#onload">onload</a></li><li style="margin-left:20px"><a href="module-Main.html#send_level">send_level</a></li><li style="margin-left:20px"><a href="module-Main.html#send_name">send_name</a></li><li style="margin-left:20px"><a href="module-Main.html#Sherlock_Timer">Sherlock_Timer</a></li><li style="margin-left:20px"><a href="module-Main.html#show_hint">show_hint</a></li><li style="margin-left:20px"><a href="module-Main.html#show_set_name">show_set_name</a></li><li style="margin-left:20px"><a href="module-Main.html#start_new_game">start_new_game</a></li><li style="margin-left:20px"><a href="module-Main.html#td_click">td_click</a></li><li style="margin-left:20px"><a href="module-Main.html#td_right_click">td_right_click</a></li></ul></li><li onclick="show_functions(this)"><a href="module-Sherlock.html">Sherlock</a><ul style="display:none"><li style="margin-left:20px"><a href="module-Sherlock.html#add_step">add_step</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#add_variants">add_variants</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CheckCorrectness">CheckCorrectness</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CheckPossibility">CheckPossibility</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#choose_big">choose_big</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CreateFField">CreateFField</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#CreateLevelMap">CreateLevelMap</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#delete_variants">delete_variants</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#div">div</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#FirstInitField">FirstInitField</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#InitLevel">InitLevel</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#remove_many">remove_many</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#remove_step">remove_step</a></li><li style="margin-left:20px"><a href="module-Sherlock.html#solve_game">solve_game</a></li></ul></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0</a> on Sun Jun 07 2015 20:35:58 GMT+0500 (YEKT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0</a> on Sun Jun 14 2015 20:51:50 GMT+0500 (YEKT)
 </footer>
 
 <script> prettyPrint(); </script>
