@@ -151,10 +151,11 @@ function CheckVClueError(Index) {
  */
 function CheckCorrect() {
     if (!error_flag) {
-        if (solved) {
+        console.log(error_flag);
+        //if (solved) {
             //alert('Решение ошибочно, но противоречие выявляется только в результате многоходовой комбинации');
             show_hint('', [], 'Решение ошибочно, но противоречие выявляется только в результате многоходовой комбинации');
-        }
+       // }
         return 1;
     }
 }
@@ -168,10 +169,10 @@ function CheckPresence() {
     for (var i = 0; i < 6; i++)
         for (var j = 0; j < 6; j++)
             if (!FField[i][j].Initial && FField[i][j].Variants.length === 0) {
-                if (solved) {
+               //if (solved) {
                     //alert('Поле ' + j + ', ' + i + 'не содержит вариантов');
                     show_hint('', ['s' + j + '' + i], 'Поле не содержит вариантов');
-                }
+               // }
                 return 1;
             }
     return;

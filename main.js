@@ -283,6 +283,7 @@ next_hint = function() {
     var Hint = '';
     var I;
     Hint = CheckPresence();
+    //if (!Hint) CheckCorrect();
     I = 0;
     while (!Hint && I < 24) {
         Hint = CheckHClueError(I);
@@ -293,9 +294,8 @@ next_hint = function() {
         Hint = CheckVClueError(I);
         I++;
     }
+    if (!Hint) Hint =CheckCorrect();
     if (!Hint) Hint = FindHint(true);
-    //show_hint(Hint);
-    //draw_field();
 };
 /**
  * отрисовка блока с подсказкой
