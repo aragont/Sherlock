@@ -1,457 +1,533 @@
-/* jshint browser: true */
 /* global console */
+/* jshint browser: true */
 
-/** @module Sherlock */
+"use strict";
 
-/**
- * Карта уровней
- * @type {Array}
- */
-var FLevelMap = [];
+/** @module SherlockGame */
+var SherlockGame=(function(my){
 
-/**
- * Основной массив игры. Каждый элемент - клетка игрового поля. Все шаги игрока изменяют этот массив. При изменении массива, игроку отрисовывается новое поле
- * @type {Array}
- */
-var FField = [];
 
 /**
- * Массив горизонтальных ключнй
+ * Константа для обозначения отсутствия карты
+ */
+my.NOT_A_CARD="NC";
+
+/**
+ * Константы для описания типов горизонтальных подсказок
+ */
+my.HC_NONE="HC-";
+my.HC_NEXT_TO="HCNT";
+my.HC_NOT_NEXT_TO="HC-NT";
+my.HC_TRIPLE="HCT";
+my.HC_NOT_TRIPLE="HC-T";
+my.HC_ORDER="HCO";
+
+/**
+ * Константы для описания типов верикальных подсказок
+ */
+my.VC_NONE="VC-";
+my.VC_TOGETHER="VCT";
+my.VC_NOT_TOGETHER="VC-T";
+
+/**
+ * Константы для описания возможности нахождения карты в позиции
+ */
+my.CP_CAN_BE="CAN";
+my.CP_CANNOT_BE="CANNOT";
+my.CP_IS_HERE="HERE";
+
+/**
+ * Массив индексов, указывающих на начало уровня в массиве уровней
  * @type {Array}
  */
-var FMainHClues = [];
+var levelMap=[];
+
+/**
+ * Возвращает количество доступных уровней
+ * @func   module:SherlockGame#getLevelsCount
+ * @return {Int}
+ */
+my.getLevelsCount=function()
+{
+    return levelMap.length;
+}
+
+/**
+ * Основной массив игры. Каждый элемент - клетка игрового поля.
+ * Все шаги игрока изменяют этот массив.
+ * При изменении массива, игроку отрисовывается новое поле
+ * @type {Array}
+ */
+my.gameField=[];
+
+
+/**
+ * Максимальное количество вертикальных подсказок
+ * подсчитывается при разборе списка уровней
+ */
+my.maxVerClues=0;
+
+/**
+ * Текущее количество горизонтальных подсказок
+ * подсчитывается при разборе списка уровней
+ */
+my.maxHorClues=0;
+
+/**
+ * Максимальное количество вертикальных подсказок
+ * подсчитывается при инициализации уровня
+ */
+my.curVerClues=0;
+
+/**
+ * Максимальное количество горизонтальных подсказок
+ * подсчитывается при инициализации уровня
+ */
+my.curHorClues=0;
+
+/**
+ * Массив горизонтальных ключей
+ * @type {Array}
+ */
+my.hClues=[];
 
 /**
  * Массив вертикальных ключей
  * @type {Array}
  */
-var FMainVClues = [];
+my.vClues=[];
 
 /**
  * массив истории ходов
  * @type {Array}
  */
-var steps_history = [];
+var stepHistory=[];
 
 /**
- * Правильно и заполнено поле при текущей раскладке карт
+ * Правильно ли заполнено поле при текущей раскладке карт
  * @type {Boolean}
  */
-var error_flag = true;
+var isCorrect=true;
 
 /**
- * Определили местоположение карты
- * @param  {Int} col  колонка, в которой расположена карта
- * @param  {Int} row  строка, в которой расположена карта
- * @param  {Int} card выбранная карта
- * @return {True|False}      Возможно ли расположение заданной карты в данной клетке
- * @func module:Sherlock#choose_big
+ * Поиск состояния в котором правильно заполнено поле
+ * @return {Int} число undo, чтобы достичь корректной позиции
+ * @func   module:SherlockGame#findCorrectPosition
  */
-function choose_big(col, row, card) {
-    if (FField[col][row].Variants.indexOf(card) !== -1) {
-        FField[col][row].UserValue = card + 6 * row;
-        FField[col][row].Initial = true;
-        if (CheckCorrectness()) alert("You are WIN!");
-        return true;
-    }
-    return false;
+my.findCorrectPosition=function(){
+    if(isCorrect) return 0;
+    for(var i=0; (i<stepHistory.length)&&stepHistory[i].isCorrect;i++);
+    return stepHistory.length-i+1; 
 }
 
 /**
- * добавление хода в историю ходов
- * @param {obj} data описание шага
- * @param {Int} data.col колонка, в которой было совершен ход
- * @param {Int} data.row строка, в которой было совершен ход
- * @param {Int} data.card карта
- * @param {String} data.type тип карты (big, small)
- * @param {Int} data.act действие (add, delete)
- * @func module:Sherlock#add_step
+ * Ищет колонку, в которой выбрана карта
+ * @param  {Object} карта: row - строка, idx - номер карты (0..5)
+ * @return {Int} Колонка в которой стоит карта или -1
+ * @func   module:SherlockGame#findCard
  */
-function add_step(data) {
-    var was = [];
-    var val = [];
-    var obj = {
-        'col': data.col,
-        'row': data.row,
-        'was': [],
-        'var': [],
-        'right': error_flag,
-        'card': {
-            'type': data.type,
-            'action': data.act,
-            'number': data.card,
+my.findCard=function(card){
+    if( card.idx === my.NOT_A_CARD ){
+         return -1;
+    }
+    for(var col=0; col<6; col+=1){
+        if(my.gameField[card.row][col].userValue===card.idx){
+             return col;
         }
+    }
+    return -1;
+}
+
+/**
+ * Удаляет вариант заполнения данной клетки
+ * @param  {Int} col     колонка
+ * @param  {Object} card    карта
+ * @func   module:SherlockGame#removeVariant
+ */
+var removeVariant=function(col, card) {
+    var step;
+    if (!my.gameField[card.row][col].variants[card.idx]){
+        return;
+    }
+    var cnt=0;
+    for(var idx=0;idx<6;idx++){
+        if(my.gameField[card.row][col].variants[idx]) cnt++;
+    }
+    if(cnt < 2){
+        return;
+    }
+    step={
+        type: "remove",
+        col : col,
+        card: card,
+        isCorrect:isCorrect
     };
-    if (data.type == 'big') {
-        obj.val = FField[data.col][data.row].Variants;
-        for (var i = 0; i < 6; i++) {
-            //console.log(FField[i][data.row].Variants, data.row, data.col);
-            if (FField[i][data.row].Variants.indexOf(data.card) >= 0) {
-                obj.was.push(i);
-                FField[i][data.row].Variants.splice(FField[i][data.row].Variants.indexOf(data.card), 1);
-            }
-        }
-        if (FField[data.col][data.row].CorrectValue!==data.card+data.row*6) {
-            error_flag = false;
-        }
-    } else {
-        if (FField[data.col][data.row].CorrectValue===data.card+data.row*6) {
-            error_flag = false;
-        }
+
+    //console.log("remove row:"+row+" col:"+col+" card:"+card);
+    stepHistory.push(step);
+
+    my.gameField[card.row][col].variants[card.idx]=false;
+
+    // Удалили правильный вариант
+    if (my.gameField[card.row][col].correctValue===card.idx) {
+        isCorrect=false;
     }
-    obj.right=error_flag;
-    steps_history.push(obj);
+
+    var count=0;
+    for(var i=0;i<6;i+=1){
+        if(my.gameField[card.row][col].variants[i]) count+=1;
+    }
+    // Удалили все варианты
+    if(!count){
+        my.gameField[card.row][col].variants=[];
+        isCorrect=false;
+    }
 }
 
 /**
- * Производит откат ходов до верного расположения карт на поле
- * @func  module:Sherlock#remove_many
+ * Выбор окончательного местоположения карты
+ * @param  {Int} col колонка, в которой расположена карта
+ * @param  {Object} card выбранная карта
+ * @return {Array}  Массив столбцов, в которые изменились ячейки, исключая выбранную
+ * @func module:SherlockGame#selectVariant
  */
-function remove_many() {
-    var c = 0;
-    for (var i = steps_history.length - 1; i >= 0; i--)
-        if (!steps_history[i].right) c++;
-    for (i = 0; i < c; i++)
-        remove_step();
-    show_hint('',[],"Все верно");
+var selectVariant=function(col, card) {
+    var step;
+    if (!my.gameField[card.row][col].variants[card.idx]) {
+        return [];
+    }
+    step={
+        type: "select",
+        col : col,
+        card: card,
+        isCorrect:isCorrect,
+        variants: my.gameField[card.row][col].variants,
+        removed: []
+    };
+    for(var cl=0;cl<6;cl+=1){
+       if(my.gameField[card.row][cl].variants[card.idx]){
+           my.gameField[card.row][cl].variants[card.idx]=false;
+           step.removed.push(cl);
+       }
+    }
+
+    stepHistory.push(step);
+    //console.log("select row:"+card.row+" col:"+col+" card:"+card.idx);
+    my.gameField[card.row][col].userValue=card.idx;
+    my.gameField[card.row][col].variants=[];
+    // Первое условие отсекает этап поиска правильных решений при заполнения поля
+    if(my.gameField[card.row][col].correctValue!==my.NOT_A_CARD
+    && my.gameField[card.row][col].correctValue!==card.idx) {
+        isCorrect=false;
+    }
+    return step.removed;
 }
 
 /**
  * Производит откат одного хода
- * @func  module:Sherlock#remove_step
+ * @func  module:SherlockGame#undoStep
  */
-function remove_step() {
-    var h = steps_history.pop();
-    if (h.card.type === 'small') {
-        td_right_click((h.row * 100 + h.col * 10 + h.card.number).toString());
-        steps_history.pop();
+var undoStep=function() {
+    if(stepHistory.length===0)return;
+
+    var step=stepHistory.pop();
+
+    if (step.type==="remove") {
+        my.gameField[step.card.row][step.col].variants[step.card.idx]=true;
     } else {
-        FField[h.col][h.row].Initial = false;
-        FField[h.col][h.row].UserValue = 36;
-        for (var i = 0; i < h.was.length; i++)
-            add_variants(h.was[i], h.row, h.card.number);
+        my.gameField[step.card.row][step.col].userValue=my.NOT_A_CARD;
+        my.gameField[step.card.row][step.col].variants=step.variants;
+        for(var i=0; i < step.removed.length; i+=1){
+            my.gameField[step.card.row][step.removed[i]].variants[step.card.idx]=true;
+        }
     }
-    draw_field();
-    error_flag = true;
+    isCorrect=step.isCorrect;
+}
+
+/**
+ * Производит откат ходов до верного расположения карт на поле
+ * @func  module:SherlockGame#undoToLastCorrect
+ */
+var undoToLastCorrect=function(){
+    for(var i=stepHistory.length; i >0 && !isCorrect; i--){
+        undoStep();
+    }
+}
+
+/**
+ * Выполняет действия c клетками
+ * @param {Object} action - действие, которое необходимо выполнить
+ * @func   module:SherlockGame#execStep
+ */
+my.execStep=function(action){
+    switch(action.type){
+        case "remove":
+            removeVariant(action.col,action.card);
+            break;
+        case "select":
+            selectVariant(action.col,action.card);
+            break;
+        case "undo":
+            undoStep();
+            break;
+        case "undo_to_last_correct":
+            undoToLastCorrect();
+            break;
+        default:
+            my.assert(false, "execStep: unknown action: "+action.type);
+    }
+}
+
+/**
+ * инициализация и заполнение массива с картой уровней
+ * @func   module:SherlockGame#createLevelMap
+ */
+var createLevelMap=function (){
+    var i=0,
+        current=0,
+        cnt=0,
+        horClues,verClues,
+        ctype=0;
+    for(i=0; i < 65535; i+=1) {
+        levelMap[i]=current;
+        cnt=my.levels[current++];
+        current=current + cnt;
+        cnt=my.levels[current++];
+        horClues=cnt;
+        my.maxHorClues=(my.maxHorClues>horClues?my.maxHorClues:horClues);
+        for(var j=0; j < cnt; j+=1) {
+            ctype=idiv(my.levels[current++], 36);
+            switch (ctype) {
+                case 0:
+                case 2:
+                case 4:
+                    current +=1;
+                    break;
+                case 1:
+                case 3:
+                    current +=2;
+                    break;
+            }
+        }
+        cnt=my.levels[current++];
+        verClues=cnt;
+        my.maxVerClues=(my.maxVerClues>verClues?my.maxVerClues:verClues);
+        current +=cnt * 2;
+        if(current>=my.levels.length || typeof my.levels[current]!=="number"){
+            break;
+        }
+        if(horClues>18 && verClues>11){
+           console.log("horClues:"+horClues+" verClues:"+verClues);
+        }
+    }
+    //console.log("maxHorClues:"+my.maxHorClues+" maxVerClues:"+my.maxVerClues);
+};
+
+/**
+ * Инициализация массивов уровня
+ * @func  module:SherlockGame#initEmptyLevel
+ */
+my.initEmptyLevel=function(){
+    for(var row=0; row < 6; row+=1){
+        my.gameField[row]=[];
+        for(var col=0; col < 6; col+=1) {
+            my.gameField[row][col]={
+              correctValue:my.NOT_A_CARD,
+              userValue:my.NOT_A_CARD,
+              variants:[true,true,true,true,true,true]
+            };
+        }
+    }
+    my.hClues=[];
+    my.vClues=[];
 }
 
 /**
  * Инициализация уровня. Заполнение всех необходимых для игры массивов
  * @param {Int} level уровень игры
- * @func  module:Sherlock#InitLevel
+ * @func  module:SherlockGame#initLevel
  */
-function InitLevel(level) {
-    var Col, Row, Card, I, Cnt, P, Variants = [],
-        CType;
-    var Found = [];
-    var tempField = [];
-    P = FLevelMap[level];
-    for (Col = 0; Col < 6; Col++)
-        for (Row = 0; Row < 6; Row++) {
-            FField[Col][Row].Initial = false,
-                FField[Col][Row].CorrectValue = 36,
-                FField[Col][Row].UserValue = 36,
-                FField[Col][Row].Variants = []; //jshint ignore:line
-        }
-    var count = P;
-    for (var i = 0; i < FBLevels[count]; i++) {
-        P++;
-        Col = FBLevels[P] % 6;
-        Card = div(FBLevels[P], 6);
-        Row = div(Card, 6);
-        FField[Col][Row].Initial = true;
-        FField[Col][Row].CorrectValue = Card;
-        FField[Col][Row].UserValue = Card;
-    }
-    P++;
-    for (Row = 0; Row < 6; Row++) {
-        Variants = [0, 1, 2, 3, 4, 5];
-        for (Col = 0; Col < 6; Col++)
-            if (FField[Col][Row].Initial) {
-                Variants.splice(Variants.indexOf(FField[Col][Row].CorrectValue % 6), 1);
-            }
-        for (Col = 0; Col < 6; Col++)
-            if (!FField[Col][Row].Initial)
-                for (var ii in Variants) {
-                    FField[Col][Row].Variants[ii] = Variants[ii];
-                }
-    }
-    count = P;
-    Cnt = FBLevels[count];
-    P++;
-    for (I = 0; I < 24; I++) {
-        if (I < Cnt) {
-            CType = div(FBLevels[P], 36);
-            FMainHClues[I].Card1 = FBLevels[P] % 36;
-            switch (CType) {
-                case 0:
-                case 2:
-                    if (CType === 0) {
-                        FMainHClues[I].ClueType = 'hcNextTo';
-                    } else
-                        FMainHClues[I].ClueType = 'hcNotNextTo';
-                    P++;
-                    FMainHClues[I].Card2 = FBLevels[P];
-                    FMainHClues[I].Card3 = FMainHClues[I].Card1;
-                    break;
-                case 1:
-                case 3:
-                    if (CType == 1)
-                        FMainHClues[I].ClueType = 'hcTriple';
-                    else
-                        FMainHClues[I].ClueType = 'hcNotTriple'; //console.log('not');
-                    P++;
-                    FMainHClues[I].Card2 = FBLevels[P];
-                    P++;
-                    FMainHClues[I].Card3 = FBLevels[P];
-                    break;
-                case 4:
-                    FMainHClues[I].ClueType = 'hcOrder';
-                    FMainHClues[I].Card2 = 37;
-                    P++;
-                    FMainHClues[I].Card3 = FBLevels[P];
-                    break;
-            }
-            P++;
-        } else
-            FMainHClues[I] = {
-                'ClueType': 'hcNone',
-                'Card1': 36,
-                'Card2': 36,
-                'Card3': 36
-            };
-    }
-    Cnt = FBLevels[P];
-    P++;
-    for (I = 0; I < 21; I++) {
-        if (I < Cnt) {
-            FMainVClues[I] = {};
-            if ((FBLevels[P] && 128) >= 0) {
-                FMainVClues[I].ClueType = 'vcTogether';
-            } else {
-                FMainVClues[I].ClueType = 'vcNotTogether';
-            }
-            FMainVClues[I].Card1 = FBLevels[P];
-            P++;
-            FMainVClues[I].Card2 = FBLevels[P];
-            P++;
-        } else
-            FMainVClues[I] = {
-                'ClueType': 'vcNone',
-                'Card1': 36,
-                'Card2': 36
-            };
+my.initLevel=function(level){
+    var idx, col, row, card, i, cnt, current, clueType;
 
-    }
-    solve_game();
-    for (i = 0; i < 6; i++)
-        for (var j = 0; j < 6; j++) {
-            FField[i][j].Initial = false;
-            FField[i][j].CorrectValue = FField[i][j].UserValue;
-            FField[i][j].UserValue = 36;
-        }
-    P = FLevelMap[level];
-
-    count = P;
-    for (i = 0; i < FBLevels[count]; i++) {
-        P++;
-        Col = FBLevels[P] % 6;
-        Card = div(FBLevels[P], 6);
-        Row = div(Card, 6);
-        FField[Col][Row].Initial = true;
-        FField[Col][Row].CorrectValue = Card;
-        FField[Col][Row].UserValue = Card;
-    }
-    for (Row = 0; Row < 6; Row++) {
-        Variants = [0, 1, 2, 3, 4, 5];
-        for (Col = 0; Col < 6; Col++)
-            if (FField[Col][Row].Initial) {
-                Variants.splice(Variants.indexOf(FField[Col][Row].CorrectValue % 6), 1);
+    my.initEmptyLevel();
+    current=levelMap[level];
+    cnt=my.levels[current++];
+    for(i=0; i < cnt; i+=1) {
+        card=my.levels[current++];
+        col=card % 6;
+        card=idiv(card, 6);
+        row=idiv(card, 6);
+        idx=card % 6;
+        my.gameField[row][col]={
+            correctValue:idx,
+            userValue:idx,
+            variants:[]
+        };
+        for(col=0; col<6; col+=1){
+            if(my.gameField[row][col].variants[idx]){
+                my.gameField[row][col].variants[idx]=false;
             }
-        for (Col = 0; Col < 6; Col++)
-            if (!FField[Col][Row].Initial)
-                for (var ii in Variants) { //console.log(FField[Col][Row])
-                    FField[Col][Row].Variants[ii] = Variants[ii];
-                }
+        }
     }
-    FPMainHClues = FMainHClues;
-    FPMainVClues = FMainVClues;
-    return true;
+
+    cnt=my.levels[current++];
+    my.curHorClues=cnt;
+    for(i=0; i < cnt; i+=1) {
+        my.hClues[i]={type:null,card:[{},{},{}]};
+        card=my.levels[current++];
+        clueType=idiv(card, 36);
+        card=card % 36;
+        my.hClues[i].card[0].row=idiv(card,6);
+        my.hClues[i].card[0].idx=card % 6;
+        switch (clueType) {
+            case 0:
+            case 2:
+                my.hClues[i].type=clueType===0?my.HC_NEXT_TO
+                                                  :my.HC_NOT_NEXT_TO;
+                card=my.levels[current++];
+                my.hClues[i].card[1].row=idiv(card,6);
+                my.hClues[i].card[1].idx=card % 6;
+                my.hClues[i].card[2].row=my.hClues[i].card[0].row;
+                my.hClues[i].card[2].idx=my.hClues[i].card[0].idx;
+                break;
+            case 1:
+            case 3:
+                my.hClues[i].type=(clueType===1?my.HC_TRIPLE
+                                                  :my.HC_NOT_TRIPLE);
+                card=my.levels[current++];
+                my.hClues[i].card[1].row=idiv(card,6);
+                my.hClues[i].card[1].idx=card % 6;
+                card=my.levels[current++];
+                my.hClues[i].card[2].row=idiv(card,6);
+                my.hClues[i].card[2].idx=card % 6;
+                break;
+            case 4:
+                my.hClues[i].type=my.HC_ORDER;
+                my.hClues[i].card[1].idx=my.NOT_A_CARD;
+                card=my.levels[current++];
+                my.hClues[i].card[2].row=idiv(card,6);
+                my.hClues[i].card[2].idx=card % 6;
+                break;
+           default:
+                my.assert(false,"initLevel:"+level+" Unknown horizontal clue type");
+        }
+    } //end for
+
+    cnt=my.levels[current++];
+    my.curVerClues=cnt;
+    for(i=0; i < cnt; i+=1) {
+        my.vClues[i]={type:null,card:[{},{},{}]};
+        card=my.levels[current++];
+        if ((card & 128) > 0) {
+            my.vClues[i].type=my.VC_NOT_TOGETHER;
+        } else {
+            my.vClues[i].type=my.VC_TOGETHER;
+        }
+        card &= 127;
+        my.vClues[i].card[0].row=idiv(card,6);
+        my.vClues[i].card[0].idx=card%6;
+        card=my.levels[current++];
+        my.vClues[i].card[1].row=idiv(card,6);
+        my.vClues[i].card[1].idx=card%6;
+    }
+
+    solveGame();
+    my.assert(checkCorrectness(),"initLevel:"+level+" Game not solved");
+
+    //Восстанавливаем начальное состояния поля, скопировав correctValue из найденного решения
+    stepHistory=[];
+    for(row=0; row < 6; row+=1){
+        for(col=0; col < 6; col+=1) {
+            var correctValue=my.gameField[row][col].userValue;
+            my.gameField[row][col]={
+                correctValue:correctValue,
+                userValue   :my.NOT_A_CARD,
+                variants     :[true,true,true,true,true,true]
+            };
+        }
+    }
+
+    current=levelMap[level];
+    cnt=my.levels[current++];
+    for(i=0; i < cnt; i+=1) {
+        card=my.levels[current++];
+        col=card % 6;
+        card=idiv(card, 6);
+        row=idiv(card, 6);
+        idx=card % 6;
+        for(var cl=0; cl<6; cl+=1){
+            my.gameField[row][cl].variants[idx]=false;
+        }
+        my.gameField[row][col]={
+            correctValue:idx,
+            userValue:idx,
+            variants:[]
+        };
+    }
 }
+
 
 /**
  * Проверка возможности нахождения карты в данной клетке
- * @param {Int} Col - колонка, которую необходимо проверить
- * @param {Int} Card - карта
- * @returns {String} cpCanBe может быть расположена 
- * @returns {String} cpCannotBe не может быть расположена
- * @returns {String} cpIsHere уже расположена
- * @func  module:Sherlock#CheckPossibility
+ * @param {Int} col - колонка, которую необходимо проверить
+ * @param {Object} card - карта
+ * @returns {String} результат проверки
+ *   my.CP_CAN_BE может быть расположена
+ *   my.CP_CANNOT_BE не может быть расположена
+ *   my.CP_IS_HERE уже расположена
+ * @func  module:SherlockGame#checkPossibility
  */
-function CheckPossibility(Col, Card) {
-    var Row, Result = '';
-    if ((Col < 0) || (Col > 5) || Card === 36) Result = 'cpCannotBe';
-    else {
-        Row = div(Card, 6);
-        if (FField[Col][Row].UserValue === 36)
-            if (FField[Col][Row].Variants.indexOf(Card % 6) >= 0)
-                Result = 'cpCanBe';
-            else
-                Result = 'cpCannotBe';
-        else
-        if (Card === FField[Col][Row].UserValue) {
-            Result = 'cpIsHere';
-        } else
-            Result = 'cpCannotBe';
+my.checkPossibility=function(col, card){
+    var result;
+    if(col<0||col>5||card.row<0||card.row>5){
+        result=my.CP_CANNOT_BE;
+    } else
+    if(card.idx===my.NOT_A_CARD){
+        result=my.CP_CANNOT_BE;
+    } else
+    if(card.idx===my.gameField[card.row][col].userValue){
+        result=my.CP_IS_HERE;
+    } else
+    if(my.gameField[card.row][col].variants[card.idx]){
+        result=my.CP_CAN_BE;
+    } else {
+        result=my.CP_CANNOT_BE;
     }
-    return Result;
+    return result;
 }
 
 /**
  * проверяет корректность заполнения поля
  * @return {True|False} правильность заполнения поля
- * @func  module:Sherlock#CheckCorrectness
+ * @func  module:SherlockGame#checkCorrectness
  */
-function CheckCorrectness() {
-    var Result = true;
-    for (var Col = 0; Col < 6; Col++)
-        for (var Row = 0; Row < 6; Row++)
-            if (CheckPossibility(Col, FField[Col][Row].UserValue) === 'cpCannotBe') {
-                Result = false;
-                break;
-            }
-    return Result;
-}
-
-/**
- * Удаляе вариант заполнения данной клетки
- * @param  {Int} col     колонка
- * @param  {Int} row     строка
- * @param  {Int} variant номер карты (0,,5)
- * @return {Int}         количество оставшихмя вариантов заполнения
- * @func   module:Sherlock#delete_variants
- */
-function delete_variants(col, row, variant) {
-    if (FField[col][row].Variants.indexOf(variant) >= 0) FField[col][row].Variants.splice(FField[col][row].Variants.indexOf(variant), 1);
-    return FField[col][row].Variants.length;
-}
-
-/**
- * Добавляет вариант заполнения клетки
- * @param {Int} col     колонка
- * @param {Int} row     строка
- * @param {Int} variant карта (0..5)
- * @func   module:Sherlock#add_variants
- */
-function add_variants(col, row, variant) {
-    FField[col][row].Variants[FField[col][row].Variants.length] = variant;
-}
-
-/**
- * Создание массива, описываюзего поле
- * @func   module:Sherlock#CreateFField
-
- */
-function CreateFField() {
-    for (var i = 0; i < 6; i++) {
-        FField[i] = {};
-        for (var j = 0; j < 6; j++) {
-            FField[i][j] = {
-                'Initial': false,
-                'CorrectValue': 0,
-                'UserValue': 0
-            };
-        }
-    }
-}
-
-/**
- * решение игры. Заполняет массив FField вместо игрока
- * @func   module:Sherlock#solve_game
- */
-function solve_game() {
-    var i = 0;
-    while (i < 300) {
-        var Hint = '';
-        var I;
-        I = 0;
-        Hint = FindHint(false);
-        if (!Hint) break;
-        for (var j = 0; j < 6; j++)
-            for (var k = 0; k < 6; k++)
-                if (FField[j][k].UserValue !== 36) {
-                    FField[j][k].Initial = true;
-                    FField[j][k].Variants = [];
-                    for (var l = 0; l < 6; l++)
-                        delete_variants(l, k, FField[j][k].UserValue % 6);
-                }
-        i++;
-    }
-    if (i === 300) alert('Error');
-}
-
-
-/**
- * первоначальная инициализация массивов
- * @func   module:Sherlock#FirstInitField
- */
-function FirstInitField() {
-    var x = 0,
-        y = 0,
-        i = 0;
-    for (y = 0; y < 6; y++)
-        for (x = 0; x < 6; x++) {
-            FField[x][y].Initial = true;
-            FField[x][y].CorrectValue = x + 6 * y;
-            FField[x][y].UserValue = x + 6 * y;
-        }
-    for (i = 0; i < 24; i++) {
-        FMainHClues[i] = {
-            'ClueType': 'hcNone',
-            'Card1': 36,
-            'Card2': 36,
-            'Card3': 36
-        };
-    }
-    for (i = 0; i < 21; i++)
-        FMainHClues[i] = {
-            'ClueType': 'vcNone',
-            'Card1': 36,
-            'Card2': 36
-        };
-}
-
-/**
- * инициализация и заполнение массива с картой уровней
- * @func   module:Sherlock#CreateLevelMap
- */
-function CreateLevelMap() {
-    var i = 0,
-        current = 0,
-        cnt = 0,
-        ctype = 0;
-    for (i = 0; i < 65535; i++) {
-        FLevelMap[i] = current;
-        current = current + 1 + FBLevels[current];
-        cnt = FBLevels[current];
-        current++;
-        for (var j = 0; j < cnt; j++) {
-            ctype = div(FBLevels[current], 36);
-            switch (ctype) {
-                case 0:
-                case 2:
-                case 4:
-                    current += 2;
-                    break;
-                case 1:
-                case 3:
-                    current += 3;
-                    break;
+var checkCorrectness=function(){
+    for(var row=0; row < 6; row+=1){
+        for(var col=0; col < 6; col+=1){
+            if (my.checkPossibility(col, {row:row, idx:my.gameField[row][col].userValue})===my.CP_CANNOT_BE) {
+                return false;
             }
         }
-        current += 1 + 2 * FBLevels[current];
     }
+    return true;
 }
+
+/**
+ * решение игры. Заполняет массив my.gameField вместо игрока
+ * если уровень не решается за 300 ходов, то это ошибка
+ * @func   module:SherlockGame#solveGame
+ */
+var solveGame=function() {
+    var hint;
+    for(var i=0; i < 300; i+=1) {
+        hint=my.findHint();
+        if (!hint.found) break;
+        my.execStep(hint.action);
+    }
+    my.assert(i<300,"solveGame: too many steps");
+}
+
 
 /**
  * Целочисленной деление
@@ -459,17 +535,19 @@ function CreateLevelMap() {
  * @param  {Int} by  Делимое
  * @example
  * //returns 5
- * div(11,2)
+ * idiv(11,2)
  * @example
  * //returns 4
- * div(111,23)
+ * idiv(111,23)
  * @return {Int}     Частное
- * @func   module:Sherlock#div
+ * @func   module:SherlockGame#idiv
  */
-function div(val, by) {
+var idiv=function(val, by) {
     return (val - val % by) / by;
 }
 
-CreateLevelMap();
-CreateFField();
-FirstInitField();
+createLevelMap();
+
+return my;
+
+}(SherlockGame||{}));
